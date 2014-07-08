@@ -1,0 +1,353 @@
+<?php
+
+/**
+ * @file
+ * A block module that displays votes between given times.
+ */
+
+
+/**
+ * Help stuff.
+ */ 
+function agenda_manager_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#agenda_manager":
+      return '<p>'.  t("A block module that displays votes between given times.") .'</p>';
+      break;
+  }
+} 
+
+/**
+ * Implements hook_block_info().
+ */
+function agenda_manager_block_info() {
+  $blocks['agenda_manager'] = array(
+    'info' => t('Coffee Agenda'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+  return $blocks;
+}
+
+/**
+ * Returns a list of recent votes on nodes
+ */
+function agenda_manager_contents(){
+  
+  $adjacent_meeting_times = agenda_manager_adjacent_meetings();
+  
+  //Only look for votes that happened between last meeting and next
+  $start_time = $adjacent_meeting_times["last"];
+  $end_time = $adjacent_meeting_times["next"];
+
+  //Use Database API to retrieve current votes.
+  $query = db_select('votingapi_cache', 'v')
+    ->fields('v', array('entity_id', 'value'))
+    ->condition('entity_type', 'node') 
+    ->condition('function', 'sum') //Get total values only
+    ->condition('timestamp', array($start_time, $end_time), 'BETWEEN')
+    ->orderBy('value', 'DESC') //Top rated first
+    ->orderBy('timestamp', 'ASC') // then sort by time of vote
+    ->execute(); 
+  return $query;  
+}
+
+/**
+ * Return a list of individual votes that have been placed
+ */
+function agenda_manager_votes($entity_id) {
+    $entity_id = $entity_id * 1;
+    $query = db_select('votingapi_vote', 'v')
+            ->fields('v', array('uid', 'value'))
+            ->condition('entity_id', $entity_id)
+            ->orderBy('timestamp', 'DESC')
+            ->execute();
+    return $query;
+}
+
+/**
+ * Extract date from URL if there - otherwise, use the current time
+ */
+function agenda_manager_date_of_interest() {
+    $date_of_interest = array();
+    preg_match('/arxiv\-(posts|tags)\/(\d{4}-\d{2}\-\d{2}).*/i', $_GET['q'], $date_of_interest);
+
+    if(isset($date_of_interest[2])) {
+        $date_of_interest = strtotime($date_of_interest[2]) ? strtotime($date_of_interest[2]) : time();
+    } else {
+        $date_of_interest = time();
+    }
+    
+    return $date_of_interest;
+}
+
+/**
+ * Sort on array by "timestamp" key
+ */
+function agenda_manager_time_sort($a, $b) {
+    if ($a["timestamp"] == $b["timestamp"]) {
+        return 0;
+    }
+    return ($a["timestamp"] < $b["timestamp"]) ? -1 : 1;
+}
+
+/**
+ * Return an array of next meetings (conditionally), previous meetings (conditionally)
+ */
+function agenda_manager_meeting_times($past = TRUE, $future = TRUE) {
+    $days = array(1 => 'Monday', 2 => "Tuesday", 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday', 7 => 'Sunday');
+    
+    $meeting_times = array();
+    $n = variable_get('agenda_manager_num_meetings', 0);
+
+    // get last week's meeting times
+    if($past) {
+        for($i = $n+1; $i <= 2*$n; $i++) {
+
+            $meeting_times[$i]["day"] = variable_get('agenda_manager_meetingtime_' . $i . '_day', $i);
+            $meeting_times[$i]["hour"] = variable_get('agenda_manager_meetingtime_' . $i . '_hour', 10);
+            $meeting_times[$i]["minute"] = variable_get('agenda_manager_meetingtime_' . $i . '_minute', 30);
+
+            if($meeting_times[$i]["day"] == date("N") && mktime(date("H"), date("i")) > mktime($meeting_times[$i]["hour"], $meeting_times[$i]["minute"])) {
+                $meeting_times[$i]["timestamp"] = strtotime("Today ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+            } else {
+                $meeting_times[$i]["timestamp"] = strtotime("Previous ".$days[$meeting_times[$i]["day"]]." ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+            }
+        }
+    }
+
+    // get future week's meeting times
+    if($future) {
+        for($i = 1; $i <= $n; $i++) {
+
+            $meeting_times[$i]["day"] = variable_get('agenda_manager_meetingtime_' . $i . '_day', $i);
+            $meeting_times[$i]["hour"] = variable_get('agenda_manager_meetingtime_' . $i . '_hour', 10);
+            $meeting_times[$i]["minute"] = variable_get('agenda_manager_meetingtime_' . $i . '_minute', 30);
+
+            if($meeting_times[$i]["day"] == date("N") && mktime(date("H"), date("i")) < mktime($meeting_times[$i]["hour"], $meeting_times[$i]["minute"])) {
+                $meeting_times[$i]["timestamp"] = strtotime("Today ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+            } else {
+                $meeting_times[$i]["timestamp"] = strtotime("Next ".$days[$meeting_times[$i]["day"]]." ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+            }
+        }
+    }
+
+    usort($meeting_times, "agenda_manager_time_sort");
+    
+    return $meeting_times;
+}
+
+
+// return the next upcoming meeting and most recent meeting date
+function agenda_manager_adjacent_meetings() {
+
+    $days = array(1 => 'Monday', 2 => "Tuesday", 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday', 7 => 'Sunday');
+
+    // if a custom filter is overriding the date, display coffee votes for that day.
+    $date_of_interest = agenda_manager_date_of_interest();
+    
+    $now = time(); //date("NHi", $date_of_interest)*1;
+    $today = date("N", $date_of_interest)*1;
+
+    // sort "now" into the list of meeting times
+    $meeting_sorter = agenda_manager_meeting_times(TRUE, TRUE);
+    $meeting_sorter[] = array("timestamp" => $now, "string" => "NOW");
+    usort($meeting_sorter, "agenda_manager_time_sort");
+    $nowid = array_search(array("timestamp" => $now, "string" => "NOW"), $meeting_sorter);
+    
+    
+    if(count($meeting_sorter) >= 3) {
+        // previous/next meetings are adjacent entries
+        return array(
+            "next" => $meeting_sorter[($nowid+1)]["timestamp"],
+            "last" => $meeting_sorter[($nowid-1)]["timestamp"]
+        );
+    } else {
+        return array();
+    }
+}
+
+
+/**
+ * Implements hook_block_view().
+ * 
+ * Prepares the contents of the block.
+ */
+function agenda_manager_block_view($delta = '') {
+  switch($delta){
+    case 'agenda_manager':
+      $block['subject'] = t('Coffee Agenda');
+      if(user_access('access content')){
+                
+        // get future meeting times
+        $meeting_times = agenda_manager_meeting_times(FALSE, TRUE);
+        foreach($meeting_times as $time) {
+            $block['subject'] .= t(" | " . date("l\s G:i", $time["timestamp"]-variable_get('agenda_manager_meetings_length', 60)*60) . date(" - G:i", $time["timestamp"]));
+        }
+    
+        // get only adjacent meetings
+        $adjacent_meeting_times = agenda_manager_adjacent_meetings();
+        
+        // Use our custom function to retrieve data.
+        $result = agenda_manager_contents();
+        
+        // Array to contain items for the block to render.
+        $items = array();
+        
+        // Iterate over the resultset and format as links.
+        foreach ($result as $posting){
+            $vote = agenda_manager_votes($posting->entity_id);
+            
+            if(count($vote) > 0 && $node = node_load($posting->entity_id)) {
+                
+                $text = "<span class='vote-result'>".($posting->value>0?"+":"").$posting->value."</span>";
+                
+                $pagetitle = node_page_title($node);
+                
+                $text .= "<span class='voted-title'>". agenda_manager_arxiv_title($pagetitle, 'node/' . $posting->entity_id)."</span>";
+                
+                $nvote = 1;
+                foreach($vote as $record) {
+                    $text .= "<span class='user-vote vote-value-".$record->value.($nvote==1?" first-vote":"")."'>".format_username(user_load($record->uid))."</span>";
+                    $text .= "<span class='user-vote-value'>".($record->value>0?"+":"").t($record->value)."</span>";
+                    $nvote++;
+                }
+                
+                $items[] = array( 'data' => $text );
+            }
+        }
+      
+        if (empty($items)) { // No content
+            $block['content'] = "<div class='no-votes agenda-manager no-votes'>".t('No votes are available.')."</div><div id='no-votes-image'>&nbsp;</div>";
+        } else {
+            //Pass data through theme function.
+            $block['content'] = theme('item_list', array('items' => $items) );
+        }
+        
+        $block['content'] .= "<div class='next-agenda-meeting-time'>Next meeting is ".date("l M jS, g:i a", $adjacent_meeting_times["next"]-variable_get('agenda_manager_meetings_length', 60)*60)."</div>";
+      }
+    return $block;
+  }
+ 
+}
+
+/**
+ * Implements hook_menu().
+ */
+function agenda_manager_menu() {
+  $items = array();
+
+  $items['admin/config/voting_agenda'] = array(
+        'title' => 'Coffee Meeting Times',
+        'description' => 'Configuration for when Coffee is scheduled to meet',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('agenda_manager_form'),
+        'access arguments' => array('administer content'),
+        'type' => MENU_NORMAL_ITEM,
+      );
+
+  return $items;
+}
+
+/**
+ * Page callback: Agenda Manager settings
+ *
+ * @see agenda_manager_menu()
+ */
+function agenda_manager_form($form, &$form_state) {
+    $form['agenda_manager_num_meetings'] = array(
+        '#type' => 'select',
+        '#title' => t('Number of Meetings per Week'),
+        '#default_value' => variable_get('agenda_manager_num_meetings', 2),
+        '#options' => array(
+            1 => "1",
+            2 => "2",
+            3 => "3",
+            4 => "4",
+            5 => "5"
+        ),
+        '#description' => t('The number of times per week Coffee meetings will be held.'),
+        '#required' => TRUE
+    );
+    
+    $form['agenda_manager_meetings_length'] = array(
+        '#type' => 'select',
+        '#title' => t('Meeting Length'),
+        '#default_value' => variable_get('agenda_manager_meetings_length', 60),
+        '#options' => array(
+            15 => "15 Minutes",
+            30 => "30 Minutes",
+            45 => "45 Minutes",
+            60 => "1 Hour",
+            90 => "1.5 Hours"
+        ),
+        '#description' => t('Specify a Meeting Duration.'),
+        '#required' => TRUE
+    );
+    
+    for ($i = 1; $i <= variable_get('agenda_manager_num_meetings', 0); $i++) {
+        
+        $days = array(1 => 'Monday', 2 => "Tuesday", 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday', 7 => 'Sunday');
+        $hours = array();
+        for($j = 0; $j < 24; $j++) { $hours[$j] = $j; }
+        $minutes = array();
+        for($j = 0; $j < 60; $j++) { $minutes[$j] = $j; }
+    
+        $form['agenda_manager_meetingtime_' . $i . '_day'] = array(
+            '#type' => 'select',
+            '#title' => t('Ending time for meeting number '.$i.":"),
+            '#default_value' => variable_get('agenda_manager_meetingtime_' . $i . '_day', $i),
+            '#options' => $days,
+            '#required' => TRUE
+        );
+        $form['agenda_manager_meetingtime_' . $i . '_hour'] = array(
+            '#type' => 'select',
+            '#default_value' => variable_get('agenda_manager_meetingtime_' . $i . '_hour', 10),
+            '#options' => $hours,
+            '#description' => t('Hour'),
+            '#required' => TRUE
+        );
+        $form['agenda_manager_meetingtime_' . $i . '_minute'] = array(
+            '#type' => 'select',
+            '#default_value' => variable_get('agenda_manager_meetingtime_' . $i . '_minute', 30),
+            '#options' => $minutes,
+            '#description' => t('Minute'),
+            '#required' => TRUE
+        );
+        /*
+        $form['agenda_manager_meetingtime_' . $i . '_ispapers'] = array(
+            '#type' => 'select',
+            '#default_value' => variable_get('agenda_manager_meetingtime_' . $i . '_ispapers', 1),
+            '#options' => array(0 => "Yo", 1 => "Yes"),
+            '#description' => t('Is this meeting to discuss papers?'),
+            '#required' => TRUE
+        );*/
+    }
+    
+    return system_settings_form($form);
+}
+
+function agenda_manager_arxiv_title($title, $link) {
+    $article_data = Array();
+    preg_match('/(.*)\s\((.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);
+
+    if(count($article_data) == 6) {
+        $title = $article_data[1];
+        $article = $article_data[2];
+        $section = $article_data[3];
+        $special = trim($article_data[4]);
+        $nodelink = $article_data[5];
+
+        $title_text = "";
+            if(trim($special)) {$title_text .= "<em>"; }
+        $title_text .= l($title, $link);
+        $title_text .= '- [<a href="http://arxiv.org/pdf/'.$article.'.pdf" class="pdf-link">PDF</a>] - [<a href="http://arxiv.org/abs/'.$article.'">Article</a>]';
+        $title_text .= ($special?" - [".$special."]":"");
+            if(trim($special)) {$title_text .= "</em>"; }
+            
+        return $title_text;
+    } else {
+        return l($title, $link);
+    }
+    
+}
+

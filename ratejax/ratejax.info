@@ -1,0 +1,10 @@
+name = Rate Ajax
+description = dynamically marks posts as voted on.
+core = 7.x
+
+package = Coffee Modules
+dependencies[] = rate
+project = "ratejax"
+
+configure = structure/rate/rate_ajax
+scripts[] = ratejax.js

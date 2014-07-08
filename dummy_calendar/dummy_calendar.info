@@ -1,0 +1,7 @@
+name = Dummy Calendar Block
+description = display a calendar block to select the date.
+core = 7.x
+
+package = Coffee Modules
+dependencies[] = "calendar"
+project = "dummy_calendar"

@@ -1,0 +1,9 @@
+name = Coffee Agenda Manager
+description = display votes between a provided date range.
+core = 7.x
+
+package = Coffee Modules
+dependencies[] = rate
+project = "agenda_manager"
+
+configure = admin/config/agenda_manager
