@@ -81,13 +81,23 @@ function agenda_manager_date_of_interest() {
 }
 
 /**
- * Sort on array by "timestamp" key
+ * Sort array
  */
+
+// normally
 function agenda_manager_time_sort($a, $b) {
-    if ($a["timestamp"] == $b["timestamp"]) {
+    if ($a == $b) {
         return 0;
     }
-    return ($a["timestamp"] < $b["timestamp"]) ? -1 : 1;
+    return ($a < $b) ? -1 : 1;
+}
+
+// by day
+function agenda_manager_day_sort($a, $b) {
+    if ($a == $b) {
+        return 0;
+    }
+    return (date("N",$a) < date("N",$b)) ? -1 : 1;
 }
 
 /**
@@ -99,36 +109,30 @@ function agenda_manager_meeting_times($past = TRUE, $future = TRUE) {
     $meeting_times = array();
     $n = variable_get('agenda_manager_num_meetings', 0);
 
-    // get last week's meeting times
-    if($past) {
-        for($i = $n+1; $i <= 2*$n; $i++) {
+    for($i = 1; $i <= $n; $i++) {
 
-            $meeting_times[$i]["day"] = variable_get('agenda_manager_meetingtime_' . $i . '_day', $i);
-            $meeting_times[$i]["hour"] = variable_get('agenda_manager_meetingtime_' . $i . '_hour', 10);
-            $meeting_times[$i]["minute"] = variable_get('agenda_manager_meetingtime_' . $i . '_minute', 30);
+        $day = variable_get('agenda_manager_meetingtime_' . $i . '_day', 1);
+        $hour = variable_get('agenda_manager_meetingtime_' . $i . '_hour', 10);
+        $minute = variable_get('agenda_manager_meetingtime_' . $i . '_minute', 30);
 
-            if($meeting_times[$i]["day"] == date("N") && mktime(date("H"), date("i")) > mktime($meeting_times[$i]["hour"], $meeting_times[$i]["minute"])) {
-                $meeting_times[$i]["timestamp"] = strtotime("Today ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+        // get last week's meeting times
+        if($past) {
+            if($day == date("N") && mktime(date("H"), date("i")) > mktime($hour, $minute)) {
+                $meeting_times[] = strtotime("Today ".$hour.":".$minute);
             } else {
-                $meeting_times[$i]["timestamp"] = strtotime("Previous ".$days[$meeting_times[$i]["day"]]." ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+                $meeting_times[] = strtotime("Previous ".$days[$day]." ".$hour.":".$minute);
             }
         }
-    }
 
-    // get future week's meeting times
-    if($future) {
-        for($i = 1; $i <= $n; $i++) {
-
-            $meeting_times[$i]["day"] = variable_get('agenda_manager_meetingtime_' . $i . '_day', $i);
-            $meeting_times[$i]["hour"] = variable_get('agenda_manager_meetingtime_' . $i . '_hour', 10);
-            $meeting_times[$i]["minute"] = variable_get('agenda_manager_meetingtime_' . $i . '_minute', 30);
-
-            if($meeting_times[$i]["day"] == date("N") && mktime(date("H"), date("i")) < mktime($meeting_times[$i]["hour"], $meeting_times[$i]["minute"])) {
-                $meeting_times[$i]["timestamp"] = strtotime("Today ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+        // get future week's meeting times
+        if($future) {
+            if($day == date("N") && mktime(date("H"), date("i")) < mktime($hour, $minute)) {
+                $meeting_times[] = strtotime("Today ".$hour.":".$minute);
             } else {
-                $meeting_times[$i]["timestamp"] = strtotime("Next ".$days[$meeting_times[$i]["day"]]." ".$meeting_times[$i]["hour"].":".$meeting_times[$i]["minute"]);
+                $meeting_times[] = strtotime("Next ".$days[$day]." ".$hour.":".$minute);
             }
         }
+
     }
 
     usort($meeting_times, "agenda_manager_time_sort");
@@ -150,16 +154,15 @@ function agenda_manager_adjacent_meetings() {
 
     // sort "now" into the list of meeting times
     $meeting_sorter = agenda_manager_meeting_times(TRUE, TRUE);
-    $meeting_sorter[] = array("timestamp" => $now, "string" => "NOW");
+    $meeting_sorter[] = $now;
     usort($meeting_sorter, "agenda_manager_time_sort");
-    $nowid = array_search(array("timestamp" => $now, "string" => "NOW"), $meeting_sorter);
-    
+    $nowid = array_search($now, $meeting_sorter);
     
     if(count($meeting_sorter) >= 3) {
         // previous/next meetings are adjacent entries
         return array(
-            "next" => $meeting_sorter[($nowid+1)]["timestamp"],
-            "last" => $meeting_sorter[($nowid-1)]["timestamp"]
+            "next" => $meeting_sorter[$nowid+1],
+            "last" => $meeting_sorter[$nowid-1]
         );
     } else {
         return array();
@@ -180,8 +183,9 @@ function agenda_manager_block_view($delta = '') {
                 
         // get future meeting times
         $meeting_times = agenda_manager_meeting_times(FALSE, TRUE);
+        usort($meeting_times, "agenda_manager_day_sort");
         foreach($meeting_times as $time) {
-            $block['subject'] .= t(" | " . date("l\s G:i", $time["timestamp"]-variable_get('agenda_manager_meetings_length', 60)*60) . date(" - G:i", $time["timestamp"]));
+            $block['subject'] .= t(" | " . date("l\s g:i", $time-variable_get('agenda_manager_meetings_length', 60)*60) . date(" - g:i A", $time));
         }
     
         // get only adjacent meetings
