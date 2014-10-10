@@ -187,10 +187,7 @@ function agenda_manager_block_view($delta = '') {
         foreach($meeting_times as $time) {
             $block['subject'] .= t(" | " . date("l\s g:i", $time-variable_get('agenda_manager_meetings_length', 60)*60) . date(" - g:i A", $time));
         }
-    
-        // get only adjacent meetings
-        $adjacent_meeting_times = agenda_manager_adjacent_meetings();
-        
+           
         // Use our custom function to retrieve data.
         $result = agenda_manager_contents();
         
@@ -227,6 +224,8 @@ function agenda_manager_block_view($delta = '') {
             $block['content'] = theme('item_list', array('items' => $items) );
         }
         
+        // get only adjacent meetings
+        $adjacent_meeting_times = agenda_manager_adjacent_meetings();
         $block['content'] .= "<div class='next-agenda-meeting-time'>Next meeting is ".date("l M jS, g:i a", $adjacent_meeting_times["next"]-variable_get('agenda_manager_meetings_length', 60)*60)."</div>";
       }
     return $block;
@@ -247,10 +246,29 @@ function agenda_manager_menu() {
         'page arguments' => array('agenda_manager_form'),
         'access arguments' => array('administer content'),
         'type' => MENU_NORMAL_ITEM,
-      );
+    );
+
+  $items['votes'] = array(
+        'title' => 'Votes',
+        'description' => 'View just the votes',
+        'page callback' => 'agenda_manager_view',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
 
   return $items;
 }
+
+/**
+ * Page callback: Agenda Manager votes page (same as block)
+ *
+ * @see agenda_manager_menu()
+ */
+function agenda_manager_view() {
+    $block = agenda_manager_block_view('agenda_manager');
+    return "<div id='agenda_manager_view'>" . $block['content'] . "</div>";
+}
+
 
 /**
  * Page callback: Agenda Manager settings
