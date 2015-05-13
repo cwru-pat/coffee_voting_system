@@ -4,6 +4,9 @@
  * Copy this file to .config.php and edit.
  */
 
+// path to base dir of website.
+$config['web']['path'] = "/coffee_stuff";
+
 // arxivs to pull from & display
 $config['arxivs'] = array(
     "astro-ph.CO",

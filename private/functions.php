@@ -1,6 +1,7 @@
 <?php
 
-function format_arxiv_title($title) {
+function format_arxiv_title($title)
+{
     $article_data = Array();
     preg_match('/(.*)\s\((.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);
 
@@ -23,3 +24,9 @@ function format_arxiv_title($title) {
     }
 }
 
+function path()
+{
+    global $config;
+    $web_config = $config->get('web');
+    return $web_config['path'];
+}

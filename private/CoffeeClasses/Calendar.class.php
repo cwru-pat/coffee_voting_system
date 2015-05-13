@@ -13,7 +13,7 @@ class Calendar {
      * Constructor
      */
     public function __construct($timestamp) {
-        $this->naviHref = htmlentities($_SERVER['PHP_SELF']);
+        $this->naviHref = path();
 
         $this->timestamp = $timestamp;
         $this->currentYear = date("Y", $this->timestamp);
