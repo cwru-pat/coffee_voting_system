@@ -12,7 +12,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/coffee">Home</a></li>
+        <li class="active"><a href="<?php print path(); ?>">Home</a></li>
         <li><a href="<?php print path(); ?>votes.php">Current Votes</a></li>
         <li><a href="<?php print path(); ?>me.php">My Votes</a></li>
       </ul>

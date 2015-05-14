@@ -16,7 +16,7 @@ foreach($arxivs as $arxiv) {
       $query = "SELECT * FROM papers WHERE subject = '$arxiv' AND date BETWEEN '{$date} 00:00:00' AND '{$date} 23:59:59'";
       $result = $coffee_conn->dbQuery($query);
       foreach($result as $paper) {
-        print "<li>";
+        print "<li class='article' id='article-" . $paper->id . "' paperid='" . $paper->id . "' >";
         print "<h4>" . format_arxiv_title($paper->title) . "</h4>";
         print "<h5>" . ($paper->authors) . "</h5>";
         print "<p>" . ($paper->abstract) . "</p>";

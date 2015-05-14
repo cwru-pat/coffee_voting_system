@@ -31,10 +31,7 @@ $config['phpCAS']['location'] = '/usr/share/php/CAS.php';
 // $config['database']['tables']['table_name'] = array(
 //    "column_name" => "column_type"
 // );
-$config['database']['tables']['users'] = array(
-    "caseid" => "CHAR(10)",
-    "name" => "VARCHAR(100)"
-  );
+
 $config['database']['tables']['papers'] = array(
     "title" => "BLOB",
     "authors" => "BLOB",
@@ -42,6 +39,7 @@ $config['database']['tables']['papers'] = array(
     "subject" => "VARCHAR(12)",
     "date" => "TIMESTAMP"
   );
+
 $config['database']['tables']['votes'] = array(
     "paperId" => "INT",
     "value" => "INT",
