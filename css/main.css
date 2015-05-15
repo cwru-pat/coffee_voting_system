@@ -19,17 +19,26 @@ body {
   background-color: #f5f5f5;
 }
 
-/* Article Messages
+/* Feeds page items
 -------------------------------------------------- */
 .article-messages {
   display: inline-block;
-  height: 20px;
-  line-height: 20px;
+  height: 22px;
+  line-height: 22px;
   font-size: 12px;
   padding: 1px 5px;
   border-radius: 1px;
 }
 
+ul.feed {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+li.article {
+  margin-bottom: 25px;
+}
 
 /* Calendar Top Navigation
 -------------------------------------------------- */
