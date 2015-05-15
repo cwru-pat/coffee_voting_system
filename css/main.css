@@ -177,3 +177,8 @@ div#calendar ul.dates li {
     color:#000;
     text-align:center; 
 }
+
+.panel-toggle {
+    cursor:pointer;
+}
+

@@ -23,7 +23,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="<?php print path(); ?>js/rate.js"></script>
-
+    <script type="text/javascript" src="<?php print path(); ?>js/toggle.js"></script>
     <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
