@@ -19,6 +19,34 @@ body {
   background-color: #f5f5f5;
 }
 
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.article-messages {
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: 1px;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
 /* Feeds page items
 -------------------------------------------------- */
 .article-messages {
