@@ -42,6 +42,7 @@ $config['database']['tables']['papers'] = array(
 
 $config['database']['tables']['votes'] = array(
     "paperId" => "INT",
+    "userId" => "VARCHAR(10)",
     "value" => "INT",
     "date" => "TIMESTAMP"
   );
