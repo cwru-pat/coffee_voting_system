@@ -9,7 +9,7 @@ if($params->get("logout")) {
 }
 
 if($user->isLoggedIn()) {
-    header("Location: /coffee/index.php");
+    header("Location: " . path());
 } else {
     require_once("private/templates/header.php");
     require_once("private/templates/navbar.php");
