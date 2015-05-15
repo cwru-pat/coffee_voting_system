@@ -4,6 +4,18 @@ $arxivs = $config->get("arxivs");
 $timestamp = $params->getDate();
 $date = date("Y-m-d", $timestamp);
 
+$votes = array();
+if($user->isLoggedIn()) {
+  $userId = $user->id();
+  $query = "SELECT * FROM votes WHERE userId = ?";
+  $result = $coffee_conn->boundQuery($query, array('s', &$userId));
+
+  $votes = array();
+  foreach($result as $row) {
+    $votes[$row["paperId"]] = $row["value"];
+  }
+}
+
 foreach($arxivs as $arxiv) {
 ?>
 <div class="panel panel-default">
@@ -26,7 +38,18 @@ foreach($arxivs as $arxiv) {
           <button type="button" class="btn btn-xs btn-danger btn-downvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Decrease Rating">
             <span class="glyphicon glyphicon-align-left glyphicon-thumbs-down" aria-hidden="true"></span>
           </button>
-          <span class='article-messages' id='article-<?php print $paper->id; ?>-messages'></span>
+          <?php if(isset($votes[$paper->id])) { ?>
+            <?php if($votes[$paper->id] > 0) { ?>
+              <span class='article-messages bg-success' id='article-<?php print $paper->id; ?>-messages'>
+              <?php print "Rated: +" . $votes[$paper->id]; ?>
+            <?php } else { ?>
+              <span class='article-messages bg-danger' id='article-<?php print $paper->id; ?>-messages'>
+              <?php print "Rated: " . $votes[$paper->id]; ?>
+            <?php } ?>
+            </span>
+          <?php } else { ?>
+            <span class='article-messages' id='article-<?php print $paper->id; ?>-messages'></span>
+          <?php } ?>
           <p><?php print $paper->abstract; ?></p>
         </li>
         <?php
