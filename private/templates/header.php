@@ -11,7 +11,10 @@
 
     <title>CWRU Coffee</title>
 
-    <!-- Latest compiled and minified CSS -->
+    <!-- Mug favicon -->
+    <link rel="shortcut icon" href="<?php print path(); ?>mug.png" type="image/png" />
+
+    <!-- bootstrap compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="<?php print path(); ?>css/main.css">
