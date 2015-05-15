@@ -57,6 +57,15 @@ class User
         return false;
     }
 
+    public function isUser($id)
+    {
+        if($id && $id == $this->id) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function id()
     {
         return $this->id;

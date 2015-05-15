@@ -4,10 +4,12 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -17,28 +19,20 @@ body {
   background-color: #f5f5f5;
 }
 
-
-/* Custom page CSS
+/* Article Messages
 -------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-body > .container {
-  padding: 60px 15px 0;
-}
-.container .text-muted {
-  margin: 20px 0;
-}
-
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+.article-messages {
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: 1px;
 }
 
-code {
-  font-size: 80%;
-}
 
-/*******************************Calendar Top Navigation*********************************/
+/* Calendar Top Navigation
+-------------------------------------------------- */
 div#calendar{
   margin:0px auto;
   padding:0px;
@@ -89,7 +83,8 @@ div#calendar div.header a.next{
     right:0px;
 }
 
-/*******************************Calendar Content Cells*********************************/
+/* Calendar Content Cells
+-------------------------------------------------- */
 div#calendar div.box-content{
     border:1px solid #787878 ;
     border-top:none;
