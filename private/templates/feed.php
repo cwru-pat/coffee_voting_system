@@ -19,7 +19,7 @@ if($user->isLoggedIn()) {
 foreach($arxivs as $arxiv) {
 ?>
 <div class="panel panel-default">
-  <div class="panel-heading panel-toggle">
+  <div class="panel-heading toggle">
     <h3 class="panel-title">Papers from <?php print $arxiv; ?></h3>
   </div>
   <div class="panel-body">

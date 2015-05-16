@@ -12,9 +12,9 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<?php print path(); ?>">Home</a></li>
-        <li><a href="<?php print path(); ?>votes.php">Current Votes</a></li>
-        <li><a href="<?php print path(); ?>me.php">My Votes</a></li>
+        <li><a href="<?php print path(); ?>" id="page_home">Home</a></li>
+        <li><a href="<?php print path(); ?>votes.php" id="page_votes">Current Votes</a></li>
+        <li><a href="<?php print path(); ?>me.php" id="page_me">My Votes</a></li>
       </ul>
       <?php if($user->isLoggedIn()) { ?>
         <ul class="nav navbar-nav navbar-right">
