@@ -2,12 +2,14 @@
 function display_rate_json(span, json) {
   console.log(json);
 
+  span.text("");
+
   if(json.hasOwnProperty("success")) {
-    span.text(json.success);
+    span.append(json.success);
   } else if(json.hasOwnProperty("error")) {
-    span.text(json.error);
+    span.append(json.error);
   } else {
-    span.text("Unexpected error.");
+    span.append("Unexpected error.");
   }
 
   if(json.hasOwnProperty("value")) {
