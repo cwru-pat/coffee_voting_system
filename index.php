@@ -18,7 +18,7 @@ require_once("private/templates/jumbotron.php");
       </div>
 
       <div class="sidebar-module sidebar-module-inset">
-        <p>Fieldset toggles should be here too.</p>
+        <?php require_once("private/templates/togglelist.php"); ?>
       </div>
 
     </div>
