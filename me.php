@@ -3,6 +3,9 @@
 require_once("private/site.php");
 
 require_once("private/templates/header.php");
+?>
+<body id="page_me">
+<?php
 require_once("private/templates/navbar.php");
 
 ?>

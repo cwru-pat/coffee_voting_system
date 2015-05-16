@@ -4,26 +4,38 @@ $(document).ready(function() {
 		$(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
 		if(toggle_getCookie($(value).text().trim())=="true") {
-			$('#toggle-content ul').append('<li id="toggle-list-item"><input type="checkbox" checked="checked" id="toggle-checkbox-'+key+'"><label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
+			$('#toggle-content ul').append('<li id="toggle-list-item"><input type="checkbox" checked="checked" class="toggle" id="toggle-checkbox-'+key+'"><label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
 		} else {
-			$('#toggle-content ul').append('<li id="toggle-list-item"><input type="checkbox" id="toggle-checkbox-'+key+'"><label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
+			$('#toggle-content ul').append('<li id="toggle-list-item"><input type="checkbox" class="toggle" id="toggle-checkbox-'+key+'"><label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
 			$('.panel-body-'+key).slideToggle(0,"swing");
 		}
 
 		$('#toggle-checkbox-'+key).on("click",function() {
 			$(".panel-body-"+key).slideToggle(0);
-			$checkbox=$('#toggle-checkbox-'+key)
+			$checkbox=$('#toggle-checkbox-'+key);
 			toggle_setCookie($(value).text().trim(),$checkbox.prop('checked'),100);
 		});
 
 		$(this).on("click",function() {
-			$checkbox=$('#toggle-checkbox-'+key)
+			$checkbox=$('#toggle-checkbox-'+key);
 			$checkbox.prop('checked',!$checkbox.prop("checked"));
 			$(".panel-body-" + key).slideToggle(0,"swing");
-			//toggle_setCookie("test"+key,$(value).text().trim(),100)
 			toggle_setCookie($(value).text().trim(),$checkbox.prop('checked'),100);
 		});
 	});
+
+	$(".nav a").on("click", function(){
+		if($(this).hasClass("dropdown-toggle")){
+		} else{
+			$(".nav").find(".active").removeClass("active");
+			$(this).parent().addClass("active");
+		}
+	});
+
+	$("#page_home a[id|='page_home'").parent().addClass("active");
+	$("#page_votes a[id|='page_votes'").parent().addClass("active");
+	$("#page_me a[id|='page_me'").parent().addClass("active");
+
 });
 
 
