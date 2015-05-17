@@ -182,3 +182,12 @@ div#calendar ul.dates li {
     cursor:pointer;
 }
 
+.check-list {
+  list-style-type: none;
+  padding:0;
+}
+
+.check-list label {
+  font-size: 12px;
+  font-weight: 500;
+}

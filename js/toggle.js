@@ -4,9 +4,11 @@ $(document).ready(function() {
 		$(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
 		if(toggle_getCookie($(value).text().trim())=="true") {
-			$('#toggle-content ul').append('<li id="toggle-list-item"><input type="checkbox" checked="checked" class="toggle" id="toggle-checkbox-'+key+'"><label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
+			$('#toggle-content ul').append('<li id="toggle-list-item"><label><input type="checkbox" checked="checked" class="toggle" id="toggle-checkbox-'+key+'"> '+ $(this).text().trim() + '</label></li>');
+				//<label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
 		} else {
-			$('#toggle-content ul').append('<li id="toggle-list-item"><input type="checkbox" class="toggle" id="toggle-checkbox-'+key+'"><label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
+			$('#toggle-content ul').append('<li id="toggle-list-item"><label><input type="checkbox" class="toggle" id="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
+				//<label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
 			$('.panel-body-'+key).slideToggle(0,"swing");
 		}
 
