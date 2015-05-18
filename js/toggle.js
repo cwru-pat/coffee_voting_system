@@ -26,18 +26,6 @@ $(document).ready(function() {
 		});
 	});
 
-	$(".nav a").on("click", function(){
-		if($(this).hasClass("dropdown-toggle")){
-		} else{
-			$(".nav").find(".active").removeClass("active");
-			$(this).parent().addClass("active");
-		}
-	});
-
-	$("#page_home a[id|='page_home'").parent().addClass("active");
-	$("#page_votes a[id|='page_votes'").parent().addClass("active");
-	$("#page_me a[id|='page_me'").parent().addClass("active");
-
 });
 
 

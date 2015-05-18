@@ -36,3 +36,5 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+
+  <body class="<?php print isset($page_id) ? $page_id : ''; ?>">

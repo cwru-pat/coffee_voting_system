@@ -1,3 +1,22 @@
+<?php
+
+// Define some page_home => (url, Title) pairs for later use.
+$nav_items = array(
+  "page_home" => array(
+    "url" => "",
+    "title" => "Home",
+    ),
+  "page_votes" => array(
+    "url" => "votes.php",
+    "title" => "Current Votes",
+    ),
+  "page_me" => array(
+    "url" => "me.php",
+    "title" => "My Votes",
+    ),
+);
+
+?>
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
@@ -12,9 +31,13 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="<?php print path(); ?>" id="page_home">Home</a></li>
-        <li><a href="<?php print path(); ?>votes.php" id="page_votes">Current Votes</a></li>
-        <li><a href="<?php print path(); ?>me.php" id="page_me">My Votes</a></li>
+        <?php foreach($nav_items as $id => $item) {
+          if(isset($page_id) && $id == $page_id) {
+            print "<li class='active'><a href='" . path() . $item["url"] . "'>" . $item["title"] . "</a></li>";
+          } else {
+            print "<li><a href='" . path() . $item["url"] . "'>" . $item["title"] . "</a></li>";
+          }
+        } ?>
       </ul>
       <?php if($user->isLoggedIn()) { ?>
         <ul class="nav navbar-nav navbar-right">

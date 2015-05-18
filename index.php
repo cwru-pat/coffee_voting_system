@@ -1,16 +1,14 @@
 <?php
 
+$page_id = "page_home";
+
 require_once("private/site.php");
 
 require_once("private/templates/header.php");
-?>
-<body id="page_home">
-<?php
 require_once("private/templates/navbar.php");
 require_once("private/templates/jumbotron.php");
 
 ?>
-<div id="page_main"></div>
 <div class="container">
   <div class="row">
 
