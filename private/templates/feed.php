@@ -12,7 +12,7 @@ foreach($arxivs as $arxiv) {
   <div class="panel-heading toggle arxiv">
     <h3 class="panel-title">Papers from <?php print $arxiv; ?></h3>
   </div>
-  <div class="panel-body arxiv">
+  <div class="panel-body arxiv" style="display: none;">
     <ul class="feed list-group">
     <?php
       $query = "SELECT * FROM papers WHERE subject = '$arxiv' AND date BETWEEN '{$date} 00:00:00' AND '{$date} 23:59:59'";

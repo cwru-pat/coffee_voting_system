@@ -26,32 +26,32 @@ foreach($result as $row){
 		<h2>CWRU PAT Coffee Agenda</h2>
 		<p>Tuesdays | 11am-12noon</p>
 
-		<ul class="feed">
+		<div class="feed list-group">
 			<?php
 			$query = "SELECT papers.id, papers.title, papers.authors, papers.abstract, SUM(votes.value) AS value FROM papers JOIN votes ON papers.id=votes.paperid AND votes.date > '2015-05-05 02:00:00' GROUP BY papers.id ORDER BY value DESC";
 			$result = $coffee_conn->dbQuery($query);
 			foreach($result as $paper) {
 				?>
-				<li class='article' id='article-<?php print $paper->id; ?>' paperId='<?php print $paper->id; ?>' >
 
-					<div class="panel panel-default">
+					<div class="panel panel-default voted-paper list-group-item">
 						<div class="panel-heading voted-paper">
-							<div class="vote-float-left col-sm-1">
-								<?php 
+							<h4>
+							<?php 
 								if($paper->value > 0) { ?>
-									<span class='article-messages-voted bg-success' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print "+" . $paper->value; ?> </span>
+									<span class='label label-as-badge label-success' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print "+" . $paper->value; ?> </span>
 								<?php 
 								} else { ?>
-									<span class='article-messages-voted bg-danger' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print $paper->value; ?> </span>
+									<span class='label label-as-badge label-danger' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print $paper->value; ?> </span>
 								<?php 
-								} ?>
-								</div>
-								<button type="button" class="btn btn-lg abstract-btn col-sm-1" id="article-<?php print $paper->id?>">Abs.</button>
-								<div class="title-and-name col-sm-10">
-							<h4>
-								<?php print format_arxiv_title($paper->title); ?> 
+								} 
+								$voted_title=format_arxiv_title_voted($paper->title);
+								if(is_array($voted_title)){?>
+									<span id="paper-title-voted"><?php print $voted_title[0]; ?></span> 
+								<?php } else { ?>
+									<span id="paper-title-voted"> I am here</span> 
+								<?php }?>
 							</h4>
-							<p><?php
+							<p id="user-voters"><?php
 								foreach($paper_votes[$paper->id] as $user_l=>$votes_l) {
 									print $user_l;?>
 									<sup><?php
@@ -63,7 +63,13 @@ foreach($result as $row){
 								 <?php 
 								}?>
 							</p>
+							<div class="btn-group", role="group">
+							<?php if(is_array($voted_title)){
+								print $voted_title[1] . $voted_title[2];
+							}?>
+							<button type="button" class="btn btn-default btn-xs voted-btn abstract" id="article-<?php print $paper->id?>">Abstract</button>
 							</div>
+							<!-- </div> -->
 						</div>
 						<div class="clearfix"></div>
 						<div class="panel-body voted-paper" style="display: none;" id="article-<?php print $paper->id?>">
@@ -93,9 +99,8 @@ foreach($result as $row){
 							<p> <?php print $paper->abstract ?></p>
 						</div>
 					</div>
-				</li>
 				<?php
 			} ?>
-		</ul>
+		</div>
 	</div>
 </div>

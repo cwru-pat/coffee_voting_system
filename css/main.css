@@ -218,21 +218,21 @@ div#calendar ul.dates li {
   border-style: solid;
 }
 
-.article-messages-voted.bg-danger {
+.badge.positive {
   border-color: #535353;
   /*#E9777E;*/
 }
 
-.article-messages-voted.bg-success {
-  border-color: #535353;
+.badge.negative {
+  background-color: #FFFFFF;
 }
 
 .abstract-btn {
 }
 
-div.vote-float-left {
-}
-div.title-and-name {
+.panel.voted-paper{
+	padding:0;
+	margin: 0;
 }
 
 .panel-heading.voted-paper {
@@ -254,4 +254,22 @@ div.title-and-name {
 
 .panel-heading h4{
 	margin: 0px;
+	margin-top:2px;
+}
+
+#toggle-content li:hover {
+background-color:#F5F5F5;
+}
+
+p#user-voters{
+	margin:2px;
+	font-size: 14px;
+}
+.label {
+	font-size: 11px;
+}
+
+#paper-title-voted {
+	padding-left: 5px;
+	padding-top: 5px;
 }
