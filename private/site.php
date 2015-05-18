@@ -21,11 +21,7 @@ foreach($installation_errors as $error) {
 // global system DB connection
 global $coffee_conn;
 $coffee_conn = new CoffeeClasses\DBConn($config->get("database"));
-$coffee_conn->setDebug(TRUE);
-// To create tables, uncomment:
-// $coffee_conn->createTables();
-// $result = $coffee_conn->dbQuery("SHOW TABLES");
-// var_dump($result);
+$coffee_conn->createTables();
 
 // global system user object
 global $user;

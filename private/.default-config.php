@@ -46,3 +46,8 @@ $config['database']['tables']['votes'] = array(
     "value" => "INT",
     "date" => "TIMESTAMP"
   );
+
+$config['database']['tables']['variables'] = array(
+    "name" => "VARCHAR(20)",
+    "value" => "BLOB"
+  );
