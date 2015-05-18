@@ -22,12 +22,13 @@ foreach($installation_errors as $error) {
 global $coffee_conn;
 $coffee_conn = new CoffeeClasses\DBConn($config->get("database"));
 $coffee_conn->createTables();
+$coffee_conn->setDebug(TRUE);
 
 // global system user object
 global $user;
 $phpCAS = $config->get("phpCAS");
 require_once($phpCAS['location']);
-$user = new CoffeeClasses\User();
+$user = new CoffeeClasses\User($coffee_conn);
 
 // global object for handling some URL parameters
 global $params;

@@ -18,12 +18,15 @@ class User
 {
     // For now, data is just an array containing configuration settings.
     protected $id = NULL;
+    protected $conn = NULL;
 
-    public function __construct()
+    public function __construct($conn)
     {
         if(isset($_SESSION['id']) && $_SESSION['id']) {
             $this->id = $_SESSION['id'];
         }
+
+        $this->conn = $conn;
     }
 
     public function authenticate()
@@ -60,6 +63,29 @@ class User
     public function isUser($id)
     {
         if($id && $id == $this->id) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isAdmin()
+    {
+        $admins = $this->conn->dbQuery("SELECT * FROM variables WHERE name='admins'");
+
+        // Let anyone admin if there are none set
+        if(!$admins) {
+            return true;
+        }
+
+        // anyone is an admin if there is malformed db data
+        $admins = unserialize($admins[0]);
+        if(!$admins) {
+            return true;
+        }
+
+        // otherwise, restrict admins
+        if(isset($admins[$this->id])) {
             return true;
         }
 
