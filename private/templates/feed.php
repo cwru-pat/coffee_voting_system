@@ -8,7 +8,7 @@ $date = date("Y-m-d", $timestamp);
 
 foreach($arxivs as $arxiv) {
 ?>
-<div class="panel panel-default">
+<div class="panel panel-default panel-primary">
   <div class="panel-heading toggle arxiv">
     <h3 class="panel-title">Papers from <?php print $arxiv; ?></h3>
   </div>
@@ -39,7 +39,7 @@ foreach($arxivs as $arxiv) {
             <?php } ?>
             </span>
           <?php } else { ?>
-            <span class='article-messages' id='article-<?php print $paper->id; ?>-messages'></span>
+            <span class='article-messages ' id='article-<?php print $paper->id; ?>-messages'></span>
           <?php } ?>
           </div>
           <p><?php print $paper->abstract; ?></p>

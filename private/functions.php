@@ -62,8 +62,8 @@ function format_arxiv_title_voted($title)
         $title_text .= ($special ? " - [".$special."]" : "");
             if(trim($special)) {$title_text .= "</em>"; }
 
-        $pdf_link = '<a href="http://arxiv.org/pdf/'.$article.'.pdf" class="pdf-link btn btn-default btn-xs voted-btn pdf" type="button" target="_blank">PDF</a>';
-        $arx_link = '<a href="http://arxiv.org/abs/'.$article.'" class="btn btn-default btn-xs voted-btn arxiv" type="button" target="_blank">arXiv</a>';
+        $pdf_link = '<a href="http://arxiv.org/pdf/'.$article.'.pdf" class="pdf-link btn btn-default btn-xs voted-btn pdf" type="button">PDF</a>';
+        $arx_link = '<a href="http://arxiv.org/abs/'.$article.'" class="btn btn-default btn-xs voted-btn arxiv" type="button">arXiv</a>';
         
         return array($title_text,$pdf_link,$arx_link);
     } else {
