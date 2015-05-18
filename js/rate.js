@@ -28,7 +28,7 @@ function display_rate_json(span, json) {
 
 $(document).ready(function() {
 
-  $("li.article").each(function(index) {
+  $("div.article-button-holder").each(function(index) {
     var paperId = this.getAttribute('paperId');
 
     $(this).children(".btn-upvote").on("click", function() {
@@ -40,6 +40,7 @@ $(document).ready(function() {
         data: { paperId: paperId, value: 1 }
       }).done(function( json ) {
         display_rate_json($("#article-" + paperId + "-messages"), json);
+        display_rate_json($("#article-voted-" + paperId + "-messages"), json);
       });
     });
 
@@ -52,6 +53,7 @@ $(document).ready(function() {
         data: { paperId: paperId, value: -1 }
       }).done(function( json ) {
         display_rate_json($("#article-" + paperId + "-messages"), json);
+        display_rate_json($("#article-voted-" + paperId + "-messages"), json);
       });
     });
   });
