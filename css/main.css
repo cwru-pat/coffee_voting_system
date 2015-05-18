@@ -58,34 +58,6 @@ code {
   border-radius: 1px;
 }
 
-.article-messages-voted.bg-danger {
-  display: inline-block;
-  height: 22px;
-  /*line-height: 22px;*/
-  font-size: 14px;
-  font-weight: bold;
-  padding: 1px 5px;
-  border-radius: 5px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #535353;
-  /*#E9777E;*/
-}
-
-
-.article-messages-voted.bg-success {
-  display: inline-block;
-  /*height: 22px;*/
-  /*line-height: 22px;*/
-  font-size: 14px;
-  font-weight: bold;
-  padding: 1px 5px;
-  border-radius: 5px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #535353;
-}
-
 ul.feed {
   padding: 0;
   margin: 0;
@@ -231,9 +203,36 @@ div#calendar ul.dates li {
   font-weight: 500;
 }
 
+/* Jumbotron things
+-------------------------------------------------- */
+
+.article-messages-voted {
+	display: inline-block;
+  height: 100%;
+  line-height: 22px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.article-messages-voted.bg-danger {
+  border-color: #535353;
+  /*#E9777E;*/
+}
+
+.article-messages-voted.bg-success {
+  border-color: #535353;
+}
+
 .abstract-btn {
-	font-weight: bold;
-	font-size: 14px;
+}
+
+div.vote-float-left {
+}
+div.title-and-name {
 }
 
 .panel-heading.voted-paper {
@@ -241,6 +240,7 @@ div#calendar ul.dates li {
 	padding-bottom: 5px;
 	background: #EAEAEA;
 	border-style: none;
+	overflow: hidden;
 }
 
 .panel-body.voted-paper {
