@@ -1,11 +1,10 @@
 <?php
 
+$page_id = "page_me";
+
 require_once("private/site.php");
 
 require_once("private/templates/header.php");
-?>
-<body id="page_me">
-<?php
 require_once("private/templates/navbar.php");
 
 ?>
@@ -20,6 +19,3 @@ require_once("private/templates/navbar.php");
 <?php
 
 require_once("private/templates/footer.php");
-
-?>
-  
