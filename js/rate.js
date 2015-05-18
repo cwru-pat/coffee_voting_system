@@ -16,7 +16,7 @@ function display_rate_json(span, json) {
     value = json.value;
     span.removeClass("bg-danger").removeClass("bg-success");
     if(value > 0) {
-      span.append(" Rating: " + json.value);
+      span.append(" Rating: +" + json.value);
       span.addClass("bg-success");
     }
     if(value < 0) {
