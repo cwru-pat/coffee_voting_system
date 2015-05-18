@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$(".panel-heading").each(function(key, value) {
+	$(".panel-heading.arxiv").each(function(key, value) {
 
 		$(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
@@ -25,7 +25,13 @@ $(document).ready(function() {
 			toggle_setCookie($(value).text().trim(),$checkbox.prop('checked'),100);
 		});
 	});
-
+	
+	$("button.abstract-btn").each(function() {
+		$(this).on("click",function() {
+			console.log('.panel-body#'+ $(this).attr("id"))
+			$('.panel-body#'+ $(this).attr("id")).slideToggle(150,"swing");
+		});
+	});
 });
 
 

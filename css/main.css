@@ -93,7 +93,16 @@ ul.feed {
 }
 
 li.article {
-  margin-bottom: 25px;
+  /*margin-bottom: 25px;*/
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding-top: 5px;
+  padding-bottom: 0;
+}
+
+.panel-body.arxiv {
+	padding: 0;
 }
 
 /* Calendar Top Navigation
@@ -220,4 +229,29 @@ div#calendar ul.dates li {
 .check-list label {
   font-size: 12px;
   font-weight: 500;
+}
+
+.abstract-btn {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.panel-heading.voted-paper {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background: #EAEAEA;
+	border-style: none;
+}
+
+.panel-body.voted-paper {
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+
+.voted-paper p {
+	font-size: 18px;
+}
+
+.panel-heading h4{
+	margin: 0px;
 }
