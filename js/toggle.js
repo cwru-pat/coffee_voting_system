@@ -28,7 +28,6 @@ $(document).ready(function() {
 	
 	$("button.abstract-btn").each(function() {
 		$(this).on("click",function() {
-			console.log('.panel-body#'+ $(this).attr("id"))
 			$('.panel-body#'+ $(this).attr("id")).slideToggle(150,"swing");
 		});
 	});

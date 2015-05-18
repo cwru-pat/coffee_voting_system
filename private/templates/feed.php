@@ -4,7 +4,7 @@ $arxivs = $config->get("arxivs");
 $timestamp = $params->getDate();
 $date = date("Y-m-d", $timestamp);
 
-//$votes is defined in jumbotron.php didn't want to repeat code
+//$votes is defined in uservotes.php didn't want to repeat code
 
 foreach($arxivs as $arxiv) {
 ?>

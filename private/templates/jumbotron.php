@@ -36,7 +36,7 @@ foreach($result as $row){
 
 					<div class="panel panel-default">
 						<div class="panel-heading voted-paper">
-							<h4>
+							<div class="vote-float-left col-sm-1">
 								<?php 
 								if($paper->value > 0) { ?>
 									<span class='article-messages-voted bg-success' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print "+" . $paper->value; ?> </span>
@@ -45,8 +45,11 @@ foreach($result as $row){
 									<span class='article-messages-voted bg-danger' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print $paper->value; ?> </span>
 								<?php 
 								} ?>
-
-								<?php print format_arxiv_title($paper->title); ?> <button type="button" class="btn btn-default btn-xs abstract-btn" id="article-<?php print $paper->id?>">Abstract <span class="caret"></span></button>
+								</div>
+								<button type="button" class="btn btn-lg abstract-btn col-sm-1" id="article-<?php print $paper->id?>">Abs.</button>
+								<div class="title-and-name col-sm-10">
+							<h4>
+								<?php print format_arxiv_title($paper->title); ?> 
 							</h4>
 							<p><?php
 								foreach($paper_votes[$paper->id] as $user_l=>$votes_l) {
@@ -60,7 +63,9 @@ foreach($result as $row){
 								 <?php 
 								}?>
 							</p>
+							</div>
 						</div>
+						<div class="clearfix"></div>
 						<div class="panel-body voted-paper" style="display: none;" id="article-<?php print $paper->id?>">
 							<h4><?php print $paper->authors; ?></h4>
 							<div class="article-button-holder voted" paperId='<?php print $paper->id; ?>'>
