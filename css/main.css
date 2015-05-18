@@ -58,6 +58,34 @@ code {
   border-radius: 1px;
 }
 
+.article-messages-voted.bg-danger {
+  display: inline-block;
+  height: 22px;
+  /*line-height: 22px;*/
+  font-size: 14px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #535353;
+  /*#E9777E;*/
+}
+
+
+.article-messages-voted.bg-success {
+  display: inline-block;
+  /*height: 22px;*/
+  /*line-height: 22px;*/
+  font-size: 14px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #535353;
+}
+
 ul.feed {
   padding: 0;
   margin: 0;
@@ -178,6 +206,8 @@ div#calendar ul.dates li {
     text-align:center; 
 }
 
+/* Toggles and Checklist Format
+-------------------------------------------------- */
 .toggle {
     cursor:pointer;
 }
