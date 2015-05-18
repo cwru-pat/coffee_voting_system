@@ -16,6 +16,7 @@ require_once("private/templates/jumbotron.php");
 
       <div class="sidebar-module sidebar-module-inset">
         <?php require_once("private/templates/calendar.php"); ?>
+        <div class="clearfix"></div>
       </div>
 
       <div class="sidebar-module sidebar-module-inset">
