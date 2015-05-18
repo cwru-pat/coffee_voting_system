@@ -32,7 +32,7 @@ require_once("private/templates/navbar.php");
 		</table><?php
 
 	} else {
-		?><h4> Please <a href='#'>sign in</a> before you can view your votes! </h4><?php
+		?><h4> Please <a href="<?php print path() ?>login.php">sign in</a> before you can view your votes! </h4><?php
 	}
 	?>
 
