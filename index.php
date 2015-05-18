@@ -32,6 +32,5 @@ require_once("private/templates/jumbotron.php");
   </div>
 </div>
 
-
 <?php
 require_once("private/templates/footer.php");

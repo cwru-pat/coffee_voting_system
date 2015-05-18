@@ -65,7 +65,6 @@ ul.feed {
 }
 
 li.article {
-  /*margin-bottom: 25px;*/
   border-left: none;
   border-right: none;
   border-bottom: none;
@@ -74,7 +73,7 @@ li.article {
 }
 
 .panel-body.arxiv {
-	padding: 0;
+  padding: 0;
 }
 
 /* Calendar Top Navigation
@@ -206,70 +205,63 @@ div#calendar ul.dates li {
 /* Jumbotron things
 -------------------------------------------------- */
 
-.article-messages-voted {
-	display: inline-block;
-  height: 100%;
-  line-height: 22px;
+.voted-abstracts.list-group {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.voted-abstracts .list-group-item {
+  background: transparent;
+  border: none;
+}
+
+.voted-paper-abstract {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  width: 94%;
+  margin: 10px auto;
+  padding: 2%;
+  background-color: #FFF;
+  box-shadow: 0 1px 2px rgba(0,0,0,.075);
+}
+
+.voted-abstracts p {
   font-size: 14px;
-  font-weight: bold;
-  padding: 2px 5px;
-  border-radius: 5px;
-  border-width: 2px;
-  border-style: solid;
+}
+
+.voted-abstracts h4 {
+  margin: 0px;
+  margin-top:2px;
+}
+
+#toggle-content li:hover {
+  background-color:#F5F5F5;
+}
+
+p#user-voters{
+  margin:2px;
+  font-size: 14px;
+}
+
+#paper-title-voted {
+  margin-left: 7px;
+}
+
+.vote-label {
+  display: block;
+  float: left;
+  height: 19px;
+  font-size: 11px;
+  line-height: 14px;
+  min-width: 30px;
 }
 
 .badge.positive {
   border-color: #535353;
-  /*#E9777E;*/
 }
 
 .badge.negative {
   background-color: #FFFFFF;
-}
-
-.abstract-btn {
-}
-
-.panel.voted-paper{
-	padding:0;
-	margin: 0;
-}
-
-.panel-heading.voted-paper {
-	padding-top: 5px;
-	padding-bottom: 5px;
-	background: #EAEAEA;
-	border-style: none;
-	overflow: hidden;
-}
-
-.panel-body.voted-paper {
-	padding-bottom: 0px;
-	padding-top: 0px;
-}
-
-.voted-paper p {
-	font-size: 18px;
-}
-
-.panel-heading h4{
-	margin: 0px;
-	margin-top:2px;
-}
-
-#toggle-content li:hover {
-background-color:#F5F5F5;
-}
-
-p#user-voters{
-	margin:2px;
-	font-size: 14px;
-}
-.label {
-	font-size: 11px;
-}
-
-#paper-title-voted {
-	padding-left: 5px;
-	padding-top: 5px;
 }
