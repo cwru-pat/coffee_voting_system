@@ -7,7 +7,7 @@
 
 			<ul class="feed">
 				<?php
-				$query = "SELECT papers.id, papers.title, papers.authors, SUM(votes.value) AS value FROM papers JOIN votes ON papers.id=votes.paperid AND votes.date > '2015-05-05 02:00:00' GROUP BY papers.id ORDER BY votes.value DESC";
+				$query = "SELECT papers.id, papers.title, papers.authors, SUM(votes.value) AS value FROM papers JOIN votes ON papers.id=votes.paperid AND votes.date > '2015-05-05 02:00:00' GROUP BY papers.id ORDER BY value DESC";
 				$result = $coffee_conn->dbQuery($query);
 				foreach($result as $paper) {
 					?>
