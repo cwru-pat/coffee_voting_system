@@ -1,7 +1,12 @@
 
 # Coffee Voting System
 
-## Installing Dependencies
+## Libraries used
+
+ - [Bootstrap](http://getbootstrap.com/)
+ - [jQuery](https://jquery.com/)
+
+## Server Dependencies
 
  - Install LAMP
    - Install Apache (`sudo apt-get install apache2`)
