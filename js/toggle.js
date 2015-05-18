@@ -4,29 +4,30 @@ $(document).ready(function() {
 		$(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
 		if(toggle_getCookie($(value).text().trim())=="true") {
-			$('#toggle-content ul').append('<li id="toggle-list-item"><label><input type="checkbox" checked="checked" class="toggle" id="toggle-checkbox-'+key+'"> '+ $(this).text().trim() + '</label></li>');
+			$('#toggle-content ul').append('<li class="list-group-item active toggle" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</li>');
+			$('.panel-body-'+key).slideToggle(0,"swing");
 				//<label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
 		} else {
-			$('#toggle-content ul').append('<li id="toggle-list-item"><label><input type="checkbox" class="toggle" id="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
+			$('#toggle-content ul').append('<li class="list-group-item toggle" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</li>');
 				//<label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
-			$('.panel-body-'+key).slideToggle(0,"swing");
 		}
 
-		$('#toggle-checkbox-'+key).on("click",function() {
-			$(".panel-body-"+key).slideToggle(0);
-			$checkbox=$('#toggle-checkbox-'+key);
-			toggle_setCookie($(value).text().trim(),$checkbox.prop('checked'),100);
+		$('#toggle-list-item-'+key).on("click",function() {
+			$(".panel-body-"+key).slideToggle(0,"swing");
+			$(this).toggleClass('active');
+			//$checkbox=$('#toggle-checkbox-'+key);
+			toggle_setCookie($(value).text().trim(),$(this).hasClass('active'),100);
 		});
 
 		$(this).on("click",function() {
-			$checkbox=$('#toggle-checkbox-'+key);
-			$checkbox.prop('checked',!$checkbox.prop("checked"));
-			$(".panel-body-" + key).slideToggle(0,"swing");
-			toggle_setCookie($(value).text().trim(),$checkbox.prop('checked'),100);
+			$listitem=$('#toggle-list-item-'+key);
+			$listitem.toggleClass('active');
+			$(".panel-body-" + key).slideToggle(0,"linear");
+			toggle_setCookie($(value).text().trim(),$listitem.hasClass('active'),100);
 		});
 	});
 	
-	$("button.abstract-btn").each(function() {
+	$("button.abstract").each(function() {
 		$(this).on("click",function() {
 			$('.panel-body#'+ $(this).attr("id")).slideToggle(150,"swing");
 		});
