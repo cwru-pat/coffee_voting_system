@@ -24,7 +24,6 @@ function format_arxiv_title($title)
     }
 }
 
-
 function format_arxiv_title2($title)
 {
     $article_data = Array();
@@ -76,4 +75,48 @@ function path()
     global $config;
     $web_config = $config->get('web');
     return $web_config['path'];
+}
+
+function get_variable($name)
+{
+    global $coffee_conn;
+    $result = $coffee_conn->boundQuery(
+            "SELECT value FROM variables WHERE name=? LIMIT 1",
+            array('s', &$name)
+        );
+    if(!$result) {
+        return NULL;
+    }
+
+    $variable = unserialize($result[0]["value"]);
+    if($variable) {
+        return $variable;
+    }
+
+    return NULL;
+}
+
+function set_variable($name, $value)
+{
+    global $coffee_conn;
+    $result = $coffee_conn->boundQuery(
+            "SELECT value FROM variables WHERE name=? LIMIT 1",
+            array('s', &$name)
+        );
+
+    if($result) {
+        $query = "UPDATE variables SET value=? WHERE name=?";
+    } else {
+        $query = "INSERT INTO variables (value, name) VALUES (?, ?)";
+    }
+
+    $value = serialize($value);
+    $coffee_conn->boundCommand($query,
+            array('ss', &$value, &$name)
+        );
+}
+
+function o($value, $flags = ENT_QUOTES)
+{
+  return htmlentities($value, $flags, 'UTF-8', FALSE);
 }

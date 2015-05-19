@@ -71,18 +71,19 @@ class User
 
     public function isAdmin()
     {
-        $admins = $this->conn->dbQuery("SELECT * FROM variables WHERE name='admins'");
+        $admins = get_variable("admins");
 
         // Let anyone admin if there are none set
         if(!$admins) {
             return true;
         }
 
-        // anyone is an admin if there is malformed db data
-        $admins = unserialize($admins[0]);
-        if(!$admins) {
-            return true;
-        }
+        // separate CSV list
+        $admins = explode(",", $admins);
+        // trim any whitespace around ids
+        $admins = array_map("trim", $admins);
+        // set IDs as array keys
+        $admins = array_fill_keys($admins, TRUE);
 
         // otherwise, restrict admins
         if(isset($admins[$this->id])) {
