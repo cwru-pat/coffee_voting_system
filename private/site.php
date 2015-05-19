@@ -33,3 +33,6 @@ $user = new CoffeeClasses\User($coffee_conn);
 // global object for handling some URL parameters
 global $params;
 $params = new CoffeeClasses\Parameters();
+
+// re-usable CSRF prevention token
+$token = new CoffeeClasses\CSRFToken();

@@ -265,3 +265,8 @@ p#user-voters{
 .badge.negative {
   background-color: #FFFFFF;
 }
+
+.masthead {
+  text-align: center;
+  font-size: 14px;
+}

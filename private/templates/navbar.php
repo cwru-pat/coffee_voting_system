@@ -44,9 +44,18 @@ $nav_items = array(
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Logged in as <?php print($user->id()); ?> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="<?php print path(); ?>login.php?logout">Log Out</a></li>
+              <li><a href="<?php print path(); ?>login.php?logout=true">Log Out</a></li>
             </ul>
           </li>
+          <?php if($user->isAdmin()) { ?>
+            <li>
+              <form class="navbar-form navbar-right" action="<?php print path(); ?>admin.php" method="POST">
+                <button type="submit" class="btn btn-info">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </button>
+              </form>
+            </li>
+          <?php } ?>
         </ul>
       <?php } else { ?>
         <form class="navbar-form navbar-right" action="<?php print path(); ?>login.php" method="POST">

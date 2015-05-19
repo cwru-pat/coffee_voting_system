@@ -29,7 +29,7 @@ class Parameters
     public function get($value)
     {
         if(isset($_REQUEST[$value])) {
-            return $_REQUEST[$value] === "" ? TRUE : $_REQUEST[$value];
+            return $_REQUEST[$value] === "" ? "" : $_REQUEST[$value];
         } else {
             return NULL;
         }
