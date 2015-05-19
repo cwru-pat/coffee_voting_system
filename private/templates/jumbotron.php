@@ -32,46 +32,48 @@ foreach($result as $row){
 			$result = $coffee_conn->dbQuery($query);
 			foreach($result as $paper) {
 				?>
-					<div class="list-group-item">
+					<div class="list-group-item voted paper-listing">
 						
 						<h4>
 						<?php 
 							if($paper->value > 0) { ?>
-								<span class='label label-as-badge label-success vote-label' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print "+" . $paper->value; ?> </span>
+								<span class='label label-success vote-label' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print "+" . $paper->value; ?> </span>
 							<?php } else { ?>
-								<span class='label label-as-badge label-danger vote-label' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print $paper->value; ?> </span>
+								<span class='label label-danger vote-label' id='article-<?php print $paper->id; ?>-messages-voted'> <?php print $paper->value; ?> </span>
 							<?php } 
 							$voted_title=format_arxiv_title_voted($paper->title);
 							if(is_array($voted_title)){ ?>
-								<span id="paper-title-voted"><?php print $voted_title[0]; ?></span> 
+								<span class="paper-title-voted"><?php print $voted_title[0]; ?></span> 
 							<?php } else { ?>
-								<span id="paper-title-voted">I am here</span> 
+								<span class="paper-title-voted"><?php print $voted_title ?></span> 
 							<?php }?>
 						</h4>
 
-						<p id="user-voters"><?php
-							foreach($paper_votes[$paper->id] as $user_l => $votes_l) {
-								print $user_l;?>
-								<sup><?php
-								if($votes_l>0) {
-									?>+<?php print $votes_l;
-								} else {
-									print $votes_l;
-								}?></sup>
-							 <?php 
-							}?>
-						</p>
-
-						<div class="btn-group", role="group">
+						<div class="btn-group voted paper" role="group">
 							<?php if(is_array($voted_title)){
 								print $voted_title[1] . $voted_title[2];
 							}?>
-							<button type="button" class="btn btn-default btn-xs voted-btn abstract-showhide" id="article-<?php print $paper->id?>-button" paperId="<?php print $paper->id?>">Abstract</button>
+							<button type="button" class="btn btn-default btn-xs voted-btn abstract-showhide" data-paperid="<?php print $paper->id?>" id="article-<?php print $paper->id?>-button">Abstract</button>
 						</div>
+
+						<span class="user-voters"><?php
+							foreach($paper_votes[$paper->id] as $user_l => $votes_l) {?>
+								<span class="user-sup"> <?php print $user_l;?>
+									<sup><?php
+									if($votes_l>0) {
+										?>+<?php print $votes_l;
+									} else {
+										print $votes_l;
+									}?>
+									</sup>
+								</span>
+							 <?php 
+							}?>
+						</span>
 
 						<div class="voted-paper-abstract" style="display: none;" id="article-<?php print $paper->id?>-abstract">
 							<h5><?php print $paper->authors; ?></h5>
-							<div class="article-button-holder voted" paperId='<?php print $paper->id; ?>'>
+							<div class="article-button-holder voted">
 								<button type="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
 									<span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
 								</button>
@@ -89,11 +91,11 @@ foreach($result as $row){
 											<?php 
 									} 
 								} else { ?>
-									<span class='article-messages' id='article-<?php print $paper->id; ?>-messages'></span>
+									<span class='article-messages' id='article-voted-<?php print $paper->id; ?>-messages'>&nbsp;</span>
 									<?php
 								} ?>
 							</div>
-							<p><?php print $paper->abstract ?></p>
+							<?php print $paper->abstract ?>
 						</div>
 
 					</div><!-- end #list-group-item -->
