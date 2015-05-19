@@ -42,6 +42,14 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   <?php } ?>
 
   <h1>Coffee Discussion Settings</h1>
+  <h2>Administrative Tasks</h2>
+  <form method="POST" action="cron.php">
+    <button type="submit" class="btn btn-default">
+      <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+      Import Papers
+    </button>
+  </form>
+  <h2>Settings</h2>
   <form method="POST">
     <div class="form-group">
       <label for="discussion_dates">Discussion Dates</label>
@@ -52,7 +60,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
       <input type="text" class="form-control" id="admin_ids" name="admins" value="<?php print o($admins); ?>" placeholder="Enter a comma-separated list of admin IDs.">
     </div>
     <input type="hidden" name="CSRFToken" value="<?php print $token->getToken(); ?>">
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
 <?php
