@@ -29,15 +29,6 @@ body > .container {
   margin: 20px 0;
 }
 
-.article-messages {
-  display: inline-block;
-  height: 20px;
-  line-height: 20px;
-  font-size: 12px;
-  padding: 1px 5px;
-  border-radius: 1px;
-}
-
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -45,6 +36,12 @@ body > .container {
 
 code {
   font-size: 80%;
+}
+
+@media (max-width: 768px) {
+  .admin-button {
+    margin-left: 15px;
+  }
 }
 
 /* Feeds page items
@@ -76,168 +73,64 @@ li.article {
   padding: 0;
 }
 
-/* Calendar Top Navigation
--------------------------------------------------- */
-div#calendar{
-  margin:0px auto;
-  padding:0px;
-  width: 100%;
-  font-family:Helvetica, "Times New Roman", Times, serif;
-}
- 
-div#calendar div.box{
-    position:relative;
-    top:0px;
-    left:0px;
-    width:100%;
-    height:30px;
-    background-color: #787878 ;      
-}
- 
-div#calendar div.header{
-    line-height:30px;  
-    vertical-align:middle;
-    top:0px;
-    width:100%;
-    height:30px;   
-    text-align:center;
-}
- 
-div#calendar div.header a.prev,
-div#calendar div.header a.next {
-    position:absolute;
-    top:0px;   
-    height: 17px;
-    padding: 0px 10px;
-    display:block;
-    cursor:pointer;
-    text-decoration:none;
-    color:#FFF;
+.panel-heading.arxiv:hover {
+  background-color:#C4E3F3; 
 }
 
-div#calendar div.header span.title{
-    color:#FFF;
-    font-size:18px;
-}
- 
-div#calendar div.header a.prev{
-    left:0px;
-}
 
-div#calendar div.header a.next{
-    right:0px;
-}
-
-/* Calendar Content Cells
--------------------------------------------------- */
-div#calendar div.box-content{
-    border:1px solid #787878 ;
-    border-top:none;
-}
-
-div#calendar ul.label{
-    float:left;
-    display: block;
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-}
-
-div#calendar ul.label li {
-    margin:0px;
-    padding:0px;
-    margin-right:1%;
-    display: block;
-    float:left;
-    list-style-type:none;
-    width:13%;
-    height:20px;
-    line-height:20px;
-    vertical-align:middle;
-    text-align:center;
-    color:#000;
-    font-size: 10px;
-    background-color: transparent;
-}
-
-div#calendar ul.dates {
-    float:left;
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    margin-left: 1%;
-    margin-bottom: 1%;
-}
-
-/** overall width = width+padding-right**/
-div#calendar ul.dates li {
-    margin:0px;
-    padding:0px;
-    margin-right:1%;
-    margin-top: 1%;
-    line-height:20px;
-    vertical-align:middle;
-    float:left;
-    list-style-type:none;
-    width:13%;
-    font-size:15px;
-    background-color: #DDD;
-    color:#000;
-    text-align:center; 
-}
 
 /* Toggles and Checklist Format
 -------------------------------------------------- */
 .toggle {
-    cursor:pointer;
-}
-
-.check-list {
-  list-style-type: none;
-  padding:0;
-}
-
-.check-list label {
-  font-size: 12px;
-  font-weight: 500;
+  cursor:pointer;
 }
 
 /* Jumbotron things
 -------------------------------------------------- */
 
-.voted-abstracts.list-group {
-  -webkit-box-shadow: none;
-  box-shadow: none;
+sup { 
+  position: relative; left: -0.3em; 
 }
 
+.voted.paper.btn-group {
+  padding-right: 5px;
+}
 .voted-abstracts .list-group-item {
   background: transparent;
   border: none;
+  padding-top:7px;
+  padding-bottom:7px;
 }
 
+
 .voted-paper-abstract {
-  padding-top: 5px;
-  padding-bottom: 5px;
   border: 1px solid #CCC;
   border-radius: 2px;
   width: 94%;
   margin: 10px auto;
-  padding: 2%;
+  padding:20px 25px;
   background-color: #FFF;
-  box-shadow: 0 1px 2px rgba(0,0,0,.075);
 }
 
 .voted-abstracts p {
   font-size: 14px;
+  padding:0;
+  margin:0;
+}
+
+.voted-abstracts h5 {
+  margin: 0px;
+  padding-top:0;
 }
 
 .voted-abstracts h4 {
   margin: 0px;
-  margin-top:2px;
+  padding:0;
+  padding-bottom:5px;
 }
-
-#toggle-content li:hover {
-  background-color:#F5F5F5;
+.voted.article-button-holder {
+padding:10px;
+padding-left: 0px;
 }
 
 p#user-voters{
@@ -245,7 +138,7 @@ p#user-voters{
   font-size: 14px;
 }
 
-#paper-title-voted {
+.paper-title-voted {
   margin-left: 7px;
 }
 
@@ -258,10 +151,10 @@ p#user-voters{
   min-width: 30px;
 }
 
-.badge.positive {
-  border-color: #535353;
+span.user-sup {
+  white-space: nowrap;
 }
 
-.badge.negative {
-  background-color: #FFFFFF;
+td.rating {
+  text-align:right;
 }

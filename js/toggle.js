@@ -4,32 +4,37 @@ $(document).ready(function() {
     $(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
     if(toggle_getCookie($(value).text().trim())=="true") {
-      $('#toggle-content ul').append('<li class="list-group-item active toggle" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</li>');
+      toggle_state="T";
       $('.panel-body-'+key).slideToggle(0,"swing");
-        //<label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
     } else {
-      $('#toggle-content ul').append('<li class="list-group-item toggle" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</li>');
-        //<label class="option" for="toggle-checkbox-'+key+'"> ' + $(this).text().trim() + '</label></li>');
+      toggle_state="nT";
     }
+  /*  $('#arxiv-toggle-list').append('<a class="list-group-item '+toggle_state+'" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</a>');*/
 
-    $('#toggle-list-item-'+key).on("click",function() {
+
+    $('#arxiv-toggle-list').append('<div class="list-group-item"><input type="checkbox" name="checkbox-'+key+'" id="checkbox-'+key+'"  data-off-text="'+toggle_state+'" readonly=true></div>');
+
+    $('[name="checkbox-'+ key +'"]').bootstrapSwitch();
+
+    $('#checkbox-'+key).on("click",function() {
       $(".panel-body-"+key).slideToggle(0,"swing");
-      $(this).toggleClass('active');
-      //$checkbox=$('#toggle-checkbox-'+key);
-      toggle_setCookie($(value).text().trim(),$(this).hasClass('active'),100);
+      $(this).toggleClass('list-group-item-info');
+      toggle_setCookie($(value).text().trim(),$(this).hasClass('list-group-item-info'),100);
     });
 
     $(this).on("click",function() {
-      $listitem=$('#toggle-list-item-'+key);
-      $listitem.toggleClass('active');
+      $listitem=$('#checkbox-'+key);
+      $listitem.toggleClass('list-group-item-info');
       $(".panel-body-" + key).slideToggle(0,"linear");
-      toggle_setCookie($(value).text().trim(),$listitem.hasClass('active'),100);
+      toggle_setCookie($(value).text().trim(),$listitem.hasClass('list-group-item-info'),100);
     });
   });
   
+
+
   $("button.abstract-showhide").each(function() {
     $(this).on("click",function() {
-      $("#article-" + $(this).attr("paperId") + "-abstract").slideToggle(150,"swing");
+      $("#article-" + $(this).attr("data-paperId") + "-abstract").slideToggle(150,"swing");
     });
   });
 });
