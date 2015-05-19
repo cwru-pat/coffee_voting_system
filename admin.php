@@ -51,14 +51,19 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   </form>
   <h2>Settings</h2>
   <form method="POST">
-    <div class="form-group">
-      <label for="discussion_dates">Discussion Dates</label>
-      <input type="text" class="form-control" id="discussion_dates" name="dates" value="<?php print o($dates); ?>" placeholder="Something about dates.">
+    <div class="list-group" id="admin_date_selectors">
+      <div class="list-group-item list-group-item-info">
+        <span class="btn btn-success btn-xs pull-right" id="meeting_add">Add +</span>
+        <label>
+          Set meeting dates
+        </label>
+      </div>
     </div>
     <div class="form-group">
       <label for="admin_ids">Case IDs of Administrators</label>
       <input type="text" class="form-control" id="admin_ids" name="admins" value="<?php print o($admins); ?>" placeholder="Enter a comma-separated list of admin IDs.">
     </div>
+    <input type="hidden" id="admin_date_selectors_dates" name="dates" value="<?php print o($dates); ?>">
     <input type="hidden" name="CSRFToken" value="<?php print $token->getToken(); ?>">
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

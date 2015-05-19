@@ -4,8 +4,5 @@
         <p class="text-muted">Powered by <a href='https://github.com/cwru-pat/coffee_stuff'>Physics</a></p>
       </div>
     </footer>
-    <div class="container">
-      </footer>
-    </div>
   </body>
 </html>
