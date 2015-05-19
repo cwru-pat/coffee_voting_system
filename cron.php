@@ -2,6 +2,8 @@
 
 require_once("private/site.php");
 
+print "<pre>";
+
 $sub_arxivs = $config->get("arxivs");
 $url = "http://export.arxiv.org/rss/";
 
@@ -13,7 +15,9 @@ function xml2assoc(&$xml)
         "title" => "title",
         "description" => "description",
         "dc:creator" => "dc:creator",
-        "rdf:RDF" => "rdf:RDF"
+        "rdf:RDF" => "rdf:RDF",
+        "dc:date" => "dc:date",
+        "channel" => "channel",
     );
 
     // convert XML to associative array
@@ -48,12 +52,16 @@ $messages = array();
 
 foreach($sub_arxivs as $arxiv) {
     $full_url = $url . $arxiv;
-    print "Importing " . $full_url . " ...\n";
+    $messages[] = "Importing " . $full_url . " ...";
 
     $xml = new XMLReader();
     if($xml->open($full_url)) {
 
         $assoc = xml2assoc($xml);
+        $date = strtotime($assoc["rdf:RDF"]["channel"]["dc:date"]);
+        $system_date = strtotime("Tomorrow", $date);
+        $mysql_date = date("Y-m-d H:i:s", $system_date);
+        $messages[] = "Date of RSS feed: " . date("Y-m-d H:i", $date) . "; importing to " . date("Y-m-d H:i", $system_date);
         $items = $assoc["rdf:RDF"]["items"];
         foreach($items as $article) {
             if(isset($article["title"]) && isset($article["description"]) && isset($article["dc:creator"])) {
@@ -69,8 +77,8 @@ foreach($sub_arxivs as $arxiv) {
                     $duplicates[] = "Paper already exists: `" . $title . "`";
                 } else {
                     $coffee_conn->boundCommand(
-                        "INSERT INTO papers (title, authors, abstract, subject) VALUES (?, ?, ?, ?)",
-                        array('ssss', &$title, &$authors, &$abstract, &$arxiv)
+                        "INSERT INTO papers (title, authors, abstract, subject, date) VALUES (?, ?, ?, ?, ?)",
+                        array('sssss', &$title, &$authors, &$abstract, &$arxiv, &$mysql_date)
                     );
                     $success[] = "Imported paper: " . $title;
                 }
@@ -84,9 +92,12 @@ foreach($sub_arxivs as $arxiv) {
     $xml->close();
 }
 
+foreach($messages as $message) {
+  print $message . "\n";
+}
 print "\n";
 print "Imported " . count($success) . " artricles.\n";
 print "Did not import " . count($duplicates) . " duplicate articles.\n";
 print "Failed to import " . count($missing) . " artricles missing data.\n";
 
-// var_dump($messages);
+print "</pre>";
