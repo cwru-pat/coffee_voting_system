@@ -1,7 +1,5 @@
 
 function display_rate_json(span, json) {
-  console.log(json);
-
   span.text("");
 
   if(json.hasOwnProperty("success")) {
@@ -39,6 +37,7 @@ $(document).ready(function() {
         url: "js/rate.php",
         data: { paperId: paperId, value: 1 }
       }).done(function( json ) {
+        console.log("Recieved from server: ", json);
         display_rate_json($("#article-" + paperId + "-messages"), json);
         display_rate_json($("#article-voted-" + paperId + "-messages"), json);
       });
@@ -52,6 +51,7 @@ $(document).ready(function() {
         url: "js/rate.php",
         data: { paperId: paperId, value: -1 }
       }).done(function( json ) {
+        console.log("Recieved from server: ", json);
         display_rate_json($("#article-" + paperId + "-messages"), json);
         display_rate_json($("#article-voted-" + paperId + "-messages"), json);
       });
