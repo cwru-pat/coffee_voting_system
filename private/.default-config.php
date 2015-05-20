@@ -18,6 +18,9 @@ $config['arxivs'] = array(
     "hep-th"
 );
 
+// date after which papers "expire"
+$config['expire_date'] = date("Y-m-d", strtotime("-3 months"));
+
 // settings for connecting to the database.
 $config['database']['host'] = 'localhost';
 $config['database']['user'] = 'coffee';

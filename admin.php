@@ -43,10 +43,20 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
 
   <h1>Coffee Discussion Settings</h1>
   <h2>Administrative Tasks</h2>
+  <p>
+    <?php 
+      $num_papers = $coffee_conn->dbQuery("SELECT count(*) as num FROM papers");
+      $num_votes = $coffee_conn->dbQuery("SELECT count(*) as num FROM votes");
+      $num_users = $coffee_conn->dbQuery("SELECT count(DISTINCT userId) as num FROM votes");
+    ?>
+    Currently storing <strong><?php print $num_papers[0]->num; ?></strong> paper abstracts.
+    Tracking <strong><?php print $num_votes[0]->num; ?></strong> votes from
+    <strong><?php print $num_users[0]->num; ?></strong> users.
+  </p>
   <form method="POST" action="cron.php">
     <button type="submit" class="btn btn-default">
       <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
-      Import Papers
+      Import &amp; Expire Papers
     </button>
   </form>
   <h2>Settings</h2>
