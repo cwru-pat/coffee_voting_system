@@ -1,8 +1,8 @@
 <?php
 
 $arxivs = $config->get("arxivs");
-//$timestamp = $params->getDate();//need to do new calendar function
-$date = "2015-05-15";//date("Y-m-d", "2015-5-19");
+$timestamp = $params->getDate();
+$date = date("Y-m-d", $timestamp);
 
 //$votes is defined in jumbotron.php didn't want to repeat code
 
@@ -22,7 +22,7 @@ foreach($arxivs as $arxiv) {
         <li class='article list-group-item' id='article-<?php print $paper->id; ?>'>
           <h4><?php print format_arxiv_title($paper->title); ?></h4>
           <h5><?php print $paper->authors; ?></h5>
-          <div class="article-button-holder" data-paperId="<?php print $paper->id; ?>">
+          <div class="article-button-holder" data-paperid="<?php print $paper->id; ?>">
           <button type="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
             <span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
           </button>

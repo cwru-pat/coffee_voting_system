@@ -1,6 +1,3 @@
-<?php
-?>
-
 <div>
  <!-- id="block-toggle-contetnt" class="block block-toggle-content"> -->
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once("../private/site.php");
+$coffee_conn->setDebug(FALSE);
 
 // only want to return one short message.
 $message = array();
