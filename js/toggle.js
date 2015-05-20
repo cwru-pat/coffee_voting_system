@@ -3,11 +3,11 @@ $(document).ready(function() {
 
     $(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
-    if(toggle_getCookie($(value).text().trim())=="active") {
-      toggle_state="";
+    if(toggle_getCookie($(value).text().trim())=="true") {
+      toggle_state="active";
       $('.panel-body-'+key).slideToggle(0,"swing");
     } else {
-      toggle_state="active";
+      toggle_state="";
     }
  /*  $('#arxiv-toggle-list').append('<a class="list-group-item '+toggle_state+'" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</a>');*/
 
