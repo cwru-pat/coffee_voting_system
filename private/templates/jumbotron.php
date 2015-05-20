@@ -94,7 +94,7 @@ foreach($result as $row){
 
 						<div class="voted-paper-abstract" style="display: none;" id="article-<?php print $paper["id"]; ?>-abstract">
 							<h5><?php print $paper["authors"]; ?></h5>
-							<div class="article-button-holder voted">
+							<div class="article-button-holder voted" data-paperid="<?php print $paper["id"]; ?>">
 								<button type="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
 									<span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
 								</button>
