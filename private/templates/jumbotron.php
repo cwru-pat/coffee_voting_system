@@ -24,12 +24,33 @@ foreach($result as $row){
 <div class="jumbotron">
 	<div class="container">
 		<h2>CWRU PAT Coffee Agenda</h2>
-		<p>Tuesdays | 11am-12noon</p>
+		<p>
+			<?php
+				$meeting_time_ends = get_meeting_timestamps("end");
+				$meeting_time_starts = get_meeting_timestamps("start");
+				for($i=0; $i<count($meeting_time_ends); $i++) {
+					if($i>0) print " | ";
+					print date("l\s H:i", $meeting_time_starts[$i]["timestamp"]);
+					print date(" - H:i", $meeting_time_ends[$i]["timestamp"]);
+
+					if(!$meeting_time_starts[$i]["papers_only"]) {
+						print "<span title='No paper discussions'>*</span>";
+					}
+				}
+			?>
+		</p>
 
 		<div class="list-group voted-abstracts">
 			<?php
-			$query = "SELECT papers.id, papers.title, papers.authors, papers.abstract, SUM(votes.value) AS value FROM papers JOIN votes ON papers.id=votes.paperid AND votes.date > '2015-05-05 02:00:00' GROUP BY papers.id ORDER BY value DESC";
-			$result = $coffee_conn->dbQuery($query);
+			$paper_meeting_times = get_adjacent_meeting_times("end", TRUE /* Get *only* meeting times where papers will be discussed */);
+			$prev_time = date("Y-m-d H:i:s", $paper_meeting_times["prev"]);
+			$next_time = date("Y-m-d H:i:s", $paper_meeting_times["next"]);
+			$query = "SELECT papers.id, papers.title, papers.authors, papers.abstract, SUM(votes.value) AS value
+								FROM papers
+								JOIN votes ON papers.id=votes.paperid AND votes.date BETWEEN ? AND ?
+								GROUP BY papers.id ORDER BY value DESC";
+			$result = $coffee_conn->boundQuery($query, array('ss', &$prev_time, &$next_time));
+			$result = array();
 			foreach($result as $paper) {
 				?>
 					<div class="list-group-item voted paper-listing">
@@ -102,6 +123,17 @@ foreach($result as $row){
 				<?php // end foreach
 			} ?>
 		</div><!-- end #list-group -->
+
+		<p>
+			<?php if($params->get('d')) { ?>
+				Showing votes from ...
+			<?php } else { ?>
+				<em>Next meeting is <?php
+					$adjacent_meetings = get_adjacent_meeting_times("start", FALSE, time());
+					print date("l M jS, H:i a", $adjacent_meetings["next"]);
+				?>.</em>
+			<?php } ?>
+		</p>
 
 	</div>
 </div>
