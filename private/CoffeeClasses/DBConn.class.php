@@ -135,6 +135,11 @@ class DBConn
     // Use this to get results
     function boundQuery($statement, $params /* array of references */, $return_statement = FALSE)
     {
+
+        if($this->debug){
+            $this->printCommand($statement);
+        }
+
         // prepare, execute, then return either the statement or entire result set.
         $statement = $this->conn->prepare($statement);
         if(!$statement) {

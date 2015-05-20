@@ -120,3 +120,82 @@ function o($value, $flags = ENT_QUOTES)
 {
   return htmlentities($value, $flags, 'UTF-8', FALSE);
 }
+
+// return timestamps for current week's meetings.
+function get_meeting_timestamps($start_or_end = "end", $papers_only = FALSE, $date = FALSE)
+{
+  $meetings_json = get_variable("dates");
+  if(!$date) {
+    global $params;
+    $date = $params->getDate();
+  }
+
+  if(!($meetings = json_decode($meetings_json))) {
+    return NULL;
+  } else {
+    $meeting_times = array();
+    foreach ($meetings as $meeting) {
+      if($start_or_end == "end") {
+        $time_str = $meeting->end;
+      } else {
+        $time_str = $meeting->start;
+      }
+      if(!$papers_only || $meeting->papers) {
+        $meeting_times[] = array(
+            "timestamp" => strtotime($meeting->day . " this week " . $time_str, 0),
+            "papers_only" => $meeting->papers
+          );
+      }
+    }
+    return $meeting_times;
+  }
+}
+
+// Eventually, return an array containing a timestamp for the next and prev. meetings
+// or NULL if none.
+function get_adjacent_meeting_times($start_or_end = "end", $papers_only = FALSE, $date = FALSE)
+{
+  $meetings_json = get_variable("dates");
+  if(!$date) {
+    global $params;
+    $date = $params->getDate();
+  }
+
+  if(!($meetings = json_decode($meetings_json))) {
+    return NULL;
+  } else {
+    $meeting_times = array();
+    // one meeting time is "now"
+    $meeting_times[] = $reference_time = strtotime(date("D", $date) . " this week " . date("H:i", $date), 0);
+    // rather than writing special handlers, just assemble a list of all possible
+    // meeting times that could surround the $date.
+    foreach($meetings as $meeting) {
+      if(!$papers_only || $meeting->papers) {
+        if($start_or_end == "end") {
+          $time_str = $meeting->end;
+        } else {
+          $time_str = $meeting->start;
+        }
+        $meeting_times[] = strtotime($meeting->day . " this week " . $time_str, 0);
+        $meeting_times[] = strtotime($meeting->day . " last week " . $time_str, 0);
+        $meeting_times[] = strtotime($meeting->day . " next week " . $time_str, 0);
+      }
+    }
+    // make sure there are discussions at all...
+    if(count($meeting_times) < 2) {
+      return NULL;
+    }
+    // sort them
+    sort($meeting_times);
+
+    $meeting_time_key = array_search($reference_time, $meeting_times);
+    $prev_time_diff = $meeting_times[$meeting_time_key] - $meeting_times[$meeting_time_key - 1];
+    $next_time_diff = $meeting_times[$meeting_time_key] - $meeting_times[$meeting_time_key + 1];
+
+    return array(
+      "prev" => $date - $prev_time_diff,
+      "next" => $date - $next_time_diff,
+    );
+
+  }
+}

@@ -89,7 +89,6 @@ $(document).ready(function() {
       addDatePicker("#admin_date_selectors", properties, n);
     }
   } else {
-    console.log("No date set.");
     $('#admin_date_selectors_dates').val(JSON.stringify({}));
   }
 
