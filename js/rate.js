@@ -27,33 +27,39 @@ function display_rate_json(span, json) {
 $(document).ready(function() {
 
   $("div.article-button-holder").each(function(index) {
-    var paperId = this.getAttribute('data-paperId');
+    var paperId = this.getAttribute('data-paperid');
 
     $(this).children(".btn-upvote").on("click", function() {
-      console.log("Voting up: " + paperId);
-      $.ajax({
+      var ajaxData = {
         dataType: "json",
         method: "POST",
         url: "js/rate.php",
         data: { paperId: paperId, value: 1 }
-      }).done(function( json ) {
+      };
+      console.log("Voting up; ", ajaxData);
+      $.ajax(ajaxData).done(function( json ) {
         console.log("Recieved from server: ", json);
         display_rate_json($("#article-" + paperId + "-messages"), json);
         display_rate_json($("#article-voted-" + paperId + "-messages"), json);
+      }).fail(function( jqXHR, textStatus, errorThrown ) {
+        console.log( "Error submitting vote.", textStatus, errorThrown );
       });
     });
 
     $(this).children(".btn-downvote").on("click", function() {
-      console.log("Voting down: " + paperId);
-      $.ajax({
+      var ajaxData = {
         dataType: "json",
         method: "POST",
         url: "js/rate.php",
         data: { paperId: paperId, value: -1 }
-      }).done(function( json ) {
+      };
+      console.log("Voting down; ", ajaxData);
+      $.ajax(ajaxData).done(function( json ) {
         console.log("Recieved from server: ", json);
         display_rate_json($("#article-" + paperId + "-messages"), json);
         display_rate_json($("#article-voted-" + paperId + "-messages"), json);
+      }).fail(function( jqXHR, textStatus, errorThrown ) {
+        console.log( "Error submitting vote.", textStatus, errorThrown );
       });
     });
   });

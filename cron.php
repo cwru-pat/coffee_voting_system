@@ -1,5 +1,4 @@
 <?php
-
 require_once("private/site.php");
 
 print "<pre>";
