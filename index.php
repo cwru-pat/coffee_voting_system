@@ -14,7 +14,7 @@ require_once("private/templates/jumbotron.php");
     <div class="col-sm-3">
       <div class="sidebar-module sidebar-module-inset">
         <div id="toggle-content" class="content">
-          <div class="list-group" id="arxiv-toggle-list">
+          <div class="btn-group-vertical" id="arxiv-toggle-list" role="group">
             <a class="list-group-item active">
               <h5 class="list-group-item-heading"> Display arXiv results from:</h5>
             </a>
