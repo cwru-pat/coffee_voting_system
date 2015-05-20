@@ -1,9 +1,13 @@
 <?php
 require_once("private/site.php");
+$coffee_conn->setDebug(FALSE);
 
 $sub_arxivs = $config->get("arxivs");
 $url = "http://export.arxiv.org/rss/";
 
+print "<p>Running daily paper import/expire tasks. To automate this, set up a cron job, similar to</p>\n";
+print "<pre>\n0 0,21,22 * * * curl http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "\n</pre>\n";
+print "<p>which will run at midnight, 9 pm, and 10 pm daily.</p>\n\n";
 
 /* ***************** *
  * Import new papers *
@@ -94,7 +98,7 @@ foreach($sub_arxivs as $arxiv) {
     $xml->close();
 }
 
-print "<pre>";
+print "<pre>\n";
 foreach($messages as $message) {
   print $message . "\n";
 }
@@ -103,7 +107,7 @@ print "Imported " . count($success) . " artricles.\n";
 print "Did not import " . count($duplicates) . " duplicate articles.\n";
 print "Failed to import " . count($missing) . " artricles missing data.\n";
 
-print "</pre>";
+print "</pre>\n";
 
 
 /* ***************** *
@@ -120,8 +124,8 @@ $delete_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NO
 $papers = $coffee_conn->boundQuery($select_statement, array('s', &$expire_date));
 $coffee_conn->boundCommand($select_statement, array('s', &$expire_date));
 
-print "<pre>";
-print count($papers) . " papers from before " . $expire_date . " that have NOT been voted on have been removed.";
-print "</pre>";
+print "<pre>\n";
+print count($papers) . " papers from before " . $expire_date . " that have NOT been voted on have been removed.\n";
+print "</pre>\n";
 
-print "<a href='".path()."admin.php'>Visit the admin page</a>.";
+print "\n<a href='".path()."admin.php'>Visit the admin page</a>.\n\n";
