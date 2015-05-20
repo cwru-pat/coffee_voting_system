@@ -1,10 +1,13 @@
 <?php
 require_once("private/site.php");
 
-print "<pre>";
-
 $sub_arxivs = $config->get("arxivs");
 $url = "http://export.arxiv.org/rss/";
+
+
+/* ***************** *
+ * Import new papers *
+ * ***************** */
 
 function xml2assoc(&$xml)
 {
@@ -91,6 +94,7 @@ foreach($sub_arxivs as $arxiv) {
     $xml->close();
 }
 
+print "<pre>";
 foreach($messages as $message) {
   print $message . "\n";
 }
@@ -100,3 +104,24 @@ print "Did not import " . count($duplicates) . " duplicate articles.\n";
 print "Failed to import " . count($missing) . " artricles missing data.\n";
 
 print "</pre>";
+
+
+/* ***************** *
+ * Remove old papers *
+ * ***************** */
+
+$expire_date = $config->get("expire_date");
+if(!$expire_date) {
+  $expire_date = date("Y-m-d", strtotime("-3 months"));
+}
+
+$select_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes LEFT JOIN papers ON votes.paperId = papers.id)";
+$delete_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes LEFT JOIN papers ON votes.paperId = papers.id)";
+$papers = $coffee_conn->boundQuery($select_statement, array('s', &$expire_date));
+$coffee_conn->boundCommand($select_statement, array('s', &$expire_date));
+
+print "<pre>";
+print count($papers) . " papers from before " . $expire_date . " that have NOT been voted on have been removed.";
+print "</pre>";
+
+print "<a href='".path()."admin.php'>Visit the admin page</a>.";
