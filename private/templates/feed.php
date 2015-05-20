@@ -22,7 +22,7 @@ foreach($arxivs as $arxiv) {
         <li class='article list-group-item' id='article-<?php print $paper->id; ?>'>
           <h4><?php print format_arxiv_title($paper->title); ?></h4>
           <h5><?php print $paper->authors; ?></h5>
-          <div class="article-button-holder">
+          <div class="article-button-holder" data-paperId="<?php print $paper->id; ?>">
           <button type="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
             <span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
           </button>

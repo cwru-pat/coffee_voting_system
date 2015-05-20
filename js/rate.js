@@ -27,7 +27,7 @@ function display_rate_json(span, json) {
 $(document).ready(function() {
 
   $("div.article-button-holder").each(function(index) {
-    var paperId = this.getAttribute('paperId');
+    var paperId = this.getAttribute('data-paperId');
 
     $(this).children(".btn-upvote").on("click", function() {
       console.log("Voting up: " + paperId);

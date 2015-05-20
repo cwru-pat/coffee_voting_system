@@ -85,6 +85,14 @@ li.article {
   cursor:pointer;
 }
 
+.bootstrap-switch-container span { 
+  white-space: nowrap; 
+}
+
+.bootstrap-switch-container {
+  width: 100%;
+}
+
 /* Jumbotron things
 -------------------------------------------------- */
 

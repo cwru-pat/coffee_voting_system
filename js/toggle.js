@@ -3,30 +3,28 @@ $(document).ready(function() {
 
     $(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
-    if(toggle_getCookie($(value).text().trim())=="true") {
-      toggle_state="T";
+    if(toggle_getCookie($(value).text().trim())=="active") {
+      toggle_state="";
       $('.panel-body-'+key).slideToggle(0,"swing");
     } else {
-      toggle_state="nT";
+      toggle_state="active";
     }
-  /*  $('#arxiv-toggle-list').append('<a class="list-group-item '+toggle_state+'" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</a>');*/
+ /*  $('#arxiv-toggle-list').append('<a class="list-group-item '+toggle_state+'" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</a>');*/
+
+$('#arxiv-toggle-list').append('<a role="button" class="btn btn-default btn-info '+toggle_state+'" id="toggle-item-'+key+'">'+ $(this).text().trim() + '</a>');
 
 
-    $('#arxiv-toggle-list').append('<div class="list-group-item"><input type="checkbox" name="checkbox-'+key+'" id="checkbox-'+key+'"  data-off-text="'+toggle_state+'" readonly=true></div>');
-
-    $('[name="checkbox-'+ key +'"]').bootstrapSwitch();
-
-    $('#checkbox-'+key).on("click",function() {
+    $('#toggle-item-'+key).on("click",function() {
       $(".panel-body-"+key).slideToggle(0,"swing");
-      $(this).toggleClass('list-group-item-info');
-      toggle_setCookie($(value).text().trim(),$(this).hasClass('list-group-item-info'),100);
+      $(this).toggleClass('active');
+      toggle_setCookie($(value).text().trim(),$(this).hasClass('active'),100);
     });
 
     $(this).on("click",function() {
-      $listitem=$('#checkbox-'+key);
-      $listitem.toggleClass('list-group-item-info');
+      $listitem=$('#toggle-item-'+key);
+      $listitem.toggleClass('active');
       $(".panel-body-" + key).slideToggle(0,"linear");
-      toggle_setCookie($(value).text().trim(),$listitem.hasClass('list-group-item-info'),100);
+      toggle_setCookie($(value).text().trim(),$listitem.hasClass('active'),100);
     });
   });
   
