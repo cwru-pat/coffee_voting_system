@@ -130,7 +130,7 @@ foreach($result as $row){
 
 
 <!-- Modal -->
-              <div class="modal fade" id="bumpModal" tabindex="-1" role="dialog" aria-labelledby="Bump to Next Meeting" aria-hidden="true">
+              <div class="modal fade" id="bumpModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                   <div class="modal-content">
                     <div class="modal-header">

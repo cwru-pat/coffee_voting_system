@@ -6,6 +6,7 @@ function display_rate_json(span, json) {
     span.append(json.success);
   } else if(json.hasOwnProperty("error")) {
     span.append(json.error);
+    span.addClass("bg-info")
   } else {
     span.append("Unexpected error.");
   }
