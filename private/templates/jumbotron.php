@@ -55,13 +55,37 @@ foreach($result as $row){
 				?>
 					<div class="list-group-item voted paper-listing">
 						
-						<h4>
+						<h4 class="voted-title">
 						<?php 
 							if($paper["value"] > 0) { ?>
 								<span class='label label-success vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'> <?php print "+" . $paper["value"]; ?> </span>
 							<?php } else { ?>
-								<span class='label label-danger vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'> <?php print $paper["value"]; ?> </span>
-							<?php } 
+								<span class='label label-danger vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'> <?php print $paper["value"]; ?> </span> 
+							<?php } ?>
+							<a role="button" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#bumpModal"></span></a>
+
+							<!-- Modal -->
+              <div class="modal fade" id="bumpModal" tabindex="-1" role="dialog" aria-labelledby="Bump to Next Meeting" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Bump this article to the next meeting?</h4>
+                    </div>
+                    <div class="modal-body">
+                      <button type="button" class="btn btn-primary btn-block bump-btn bump-yes"  data-bump="1" data-paperid='<?php print $paper["value"]; ?>' data-dismiss="modal">No</button>
+                      <button type="button" class="btn btn-default btn-block bump-btn bump-no" data-bump="0" data-paperid='<?php print $paper["value"]; ?>' data-dismiss="modal">Yes</button>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+							  <?php
 							$voted_title=format_arxiv_title_voted($paper["title"]);
 							if(is_array($voted_title)){ ?>
 								<span class="paper-title-voted"><?php print $voted_title[0]; ?></span> 
@@ -74,7 +98,7 @@ foreach($result as $row){
 							<?php if(is_array($voted_title)){
 								print $voted_title[1] . $voted_title[2];
 							}?>
-							<button type="button" class="btn btn-default btn-xs voted-btn abstract-showhide" data-paperid="<?php print $paper["id"]; ?>" id="article-<?php print $paper["id"]; ?>-button">Abstract</button>
+							<a role="button" class="btn btn-default btn-xs voted-btn abstract-showhide" data-paperid="<?php print $paper["id"]; ?>" id="article-<?php print $paper["id"]; ?>-button" title="Toggle Abstract">Abstract</a>
 						</div>
 
 						<span class="user-voters"><?php
