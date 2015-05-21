@@ -63,8 +63,12 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   <form method="POST">
     <div class="list-group" id="admin_date_selectors">
       <div class="list-group-item list-group-item-info">
+        <a role='button' class='pull-right' id='meeting_add'>
+          <span class='glyphicon glyphicon-plus text-success'></span>
+        </a>
         <h4 style="margin: 0;">
-          Set meeting dates <span role="button" class="close meeting-btn" id="meeting_add"><span class='meeting-btn glyphicon glyphicon-plus text-success'></span></span>
+          Set meeting dates
+          <span role="button" class="close meeting-btn" id="meeting_add"></span>
         </h4>
       </div>
     </div>
