@@ -10,7 +10,7 @@ foreach($arxivs as $arxiv) {
 ?>
 <div class="panel panel-info arxiv">
   <div class="panel-heading toggle arxiv">
-    <h3 class="panel-title">Papers from <?php print $arxiv; ?></h3>
+    <h3 class="panel-title"><span class='hidden-sm hidden-xs'>Papers from</span> <?php print $arxiv; ?></h3>
   </div>
   <div class="panel-body arxiv">
     <ul class="feed list-group">

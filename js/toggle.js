@@ -9,9 +9,16 @@ $(document).ready(function() {
     } else {
       toggle_state="";
     }
- /*  $('#arxiv-toggle-list').append('<a class="list-group-item '+toggle_state+'" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</a>');*/
 
-$('#arxiv-toggle-list').append('<a role="button" class="btn btn-default btn-info '+toggle_state+' section-toggle-button" id="toggle-item-'+key+'">'+ $(this).text().trim() + '</a>');
+    $('#arxiv-toggle-list').append(
+      '<a role="button" class="btn btn-default btn-info '
+      + toggle_state
+      + ' section-toggle-button" id="toggle-item-'
+      + key 
+      + '">'
+      + $(this).html().trim()
+      + '</a>'
+    );
 
 
     $('#toggle-item-'+key).on("click",function() {
