@@ -11,7 +11,7 @@ $(document).ready(function() {
     }
  /*  $('#arxiv-toggle-list').append('<a class="list-group-item '+toggle_state+'" id="toggle-list-item-'+key+'">'+ $(this).text().trim() + '</a>');*/
 
-$('#arxiv-toggle-list').append('<a role="button" class="btn btn-default btn-info '+toggle_state+'" id="toggle-item-'+key+'">'+ $(this).text().trim() + '</a>');
+$('#arxiv-toggle-list').append('<a role="button" class="btn btn-default btn-info '+toggle_state+' section-toggle-button" id="toggle-item-'+key+'">'+ $(this).text().trim() + '</a>');
 
 
     $('#toggle-item-'+key).on("click",function() {
@@ -30,9 +30,10 @@ $('#arxiv-toggle-list').append('<a role="button" class="btn btn-default btn-info
   
 
 
-  $("button.abstract-showhide").each(function() {
+  $(".abstract-showhide").each(function() {
     $(this).on("click",function() {
-      $("#article-" + $(this).attr("data-paperId") + "-abstract").slideToggle(150,"swing");
+      $("#article-" + $(this).attr("data-paperId") + "-abstract").slideToggle(150,"swing")
+      $(this).toggleClass("active");
     });
   });
 });

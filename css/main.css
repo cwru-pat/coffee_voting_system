@@ -93,8 +93,24 @@ li.article {
   width: 100%;
 }
 
+.section-toggle-button {
+  white-space:normal;
+}
+
+a.btn-info.active:hover { 
+    background-color: #28a1c4;
+}
+
+td.rating {
+  text-align:right;
+}
+
 /* Jumbotron things
 -------------------------------------------------- */
+
+span.user-sup {
+  white-space: nowrap;
+}
 
 sup { 
   position: relative; left: -0.3em; 
@@ -147,7 +163,7 @@ p#user-voters{
 }
 
 .paper-title-voted {
-  margin-left: 7px;
+ 
 }
 
 .vote-label {
@@ -159,10 +175,9 @@ p#user-voters{
   min-width: 30px;
 }
 
-span.user-sup {
-  white-space: nowrap;
-}
-
-td.rating {
-  text-align:right;
+.vote-bump {
+  height:19px;
+  float:left;
+  margin-left: 3px;
+  margin-right: 7px;
 }
