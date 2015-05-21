@@ -23,12 +23,12 @@ foreach($arxivs as $arxiv) {
           <h4><?php print format_arxiv_title($paper->title); ?></h4>
           <h5><?php print $paper->authors; ?></h5>
           <div class="article-button-holder" data-paperid="<?php print $paper->id; ?>">
-          <button type="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
+          <a role="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
             <span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="btn btn-xs btn-danger btn-downvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Decrease Rating">
+          </a>
+          <a role="button" class="btn btn-xs btn-danger btn-downvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Decrease Rating">
             <span class="glyphicon glyphicon-align-left glyphicon-thumbs-down" aria-hidden="true"></span>
-          </button>
+          </a>
           <?php if(isset($votes[$paper->id])) { ?>
             <?php if($votes[$paper->id] > 0) { ?>
               <span class='article-messages bg-success' id='article-<?php print $paper->id; ?>-messages'>

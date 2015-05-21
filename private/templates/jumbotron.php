@@ -62,27 +62,7 @@ foreach($result as $row){
 							<?php } else { ?>
 								<span class='label label-danger vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'> <?php print $paper["value"]; ?> </span> 
 							<?php } ?>
-							<a role="button" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#bumpModal"></span></a>
-
-							<!-- Modal -->
-              <div class="modal fade" id="bumpModal" tabindex="-1" role="dialog" aria-labelledby="Bump to Next Meeting" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Bump this article to the next meeting?</h4>
-                    </div>
-                    <div class="modal-body">
-                      <button type="button" class="btn btn-primary btn-block bump-btn bump-yes"  data-bump="1" data-paperid='<?php print $paper["value"]; ?>' data-dismiss="modal">No</button>
-                      <button type="button" class="btn btn-default btn-block bump-btn bump-no" data-bump="0" data-paperid='<?php print $paper["value"]; ?>' data-dismiss="modal">Yes</button>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
+							<a role="button" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting" data-paperid="<?php print $paper["id"]; ?>"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#bumpModal" data-paperid="<?php print $paper["id"]; ?>"></span></a>
 
 
 							  <?php
@@ -119,12 +99,12 @@ foreach($result as $row){
 						<div class="voted-paper-abstract" style="display: none;" id="article-<?php print $paper["id"]; ?>-abstract">
 							<h5><?php print $paper["authors"]; ?></h5>
 							<div class="article-button-holder voted" data-paperid="<?php print $paper["id"]; ?>">
-								<button type="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
+								<a role="button" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
 									<span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-xs btn-danger btn-downvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Decrease Rating">
+								</a>
+								<a role="button" class="btn btn-xs btn-danger btn-downvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Decrease Rating">
 									<span class="glyphicon glyphicon-align-left glyphicon-thumbs-down" aria-hidden="true"></span>
-								</button>
+								</a>
 								<?php 
 								if(isset($votes[$paper["id"]])) { ?>
 									<?php 
@@ -147,6 +127,28 @@ foreach($result as $row){
 				<?php // end foreach
 			} ?>
 		</div><!-- end #list-group -->
+
+
+<!-- Modal -->
+              <div class="modal fade" id="bumpModal" tabindex="-1" role="dialog" aria-labelledby="Bump to Next Meeting" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <a role="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                      <h4 class="modal-title" id="myModalLabel">Bump this article to the next meeting?</h4>
+                    </div>
+                    <div class="modal-body">
+                      <a role="button" class="btn btn-primary btn-block bump-btn bump-no"  data-bump="0" data-dismiss="modal">No</a>
+                      <a role="button" class="btn btn-default btn-block bump-btn bump-yes" data-bump="1" data-dismiss="modal">Yes</a>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
 
 		<p>
 			<em>

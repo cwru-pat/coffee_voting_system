@@ -1,69 +1,60 @@
-
-function display_rate_json(span, json) {
-  span.text("");
-
-  if(json.hasOwnProperty("success")) {
-    span.append(json.success);
-  } else if(json.hasOwnProperty("error")) {
-    span.append(json.error);
-  } else {
-    span.append("Unexpected error.");
-  }
-
-  if(json.hasOwnProperty("value")) {
-    value = json.value;
-    span.removeClass("bg-danger").removeClass("bg-success");
-    if(value > 0) {
-      span.append(" Rating: +" + json.value);
-      span.addClass("bg-success");
-    }
-    if(value < 0) {
-      span.append(" Rating: " + json.value);
-      span.addClass("bg-danger");
-    }
-  }
-}
-
 $(document).ready(function() {
 
-  $("bump-btn-broke").each(function(index) {//so it doesn't work yet
-    var paperId = this.getAttribute('data-paperid');
-    var bump = this.getAttribute('data-bump');
-
+$('#bumpModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var paperId = button.data('paperid')
+  // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  $(this).find(".bump-btn").each( function(){
+    
+    console.log("Opened Modal",paperId)
+    
     $(this).on("click", function() {
+      
+      var bump = $(this).data('bump');
+      
+      console.log("clicked a button",bump);
+      //something is wrong with the ajax.... 
+
       var ajaxData = {
         dataType: "json",
         method: "POST",
         url: "js/bump.php",
         data: { paperId: paperId, bump: bump }
       };
-      console.log("Bumped ", ajaxData);
+      console.log("This is the ajaxData", ajaxData);
+//something is wrong with the ajax call
       $.ajax(ajaxData).done(function( json ) {
         console.log("Recieved from server: ", json);
-        if(bump){
-          $('#voted-title'+paperId).setClass()
-        }
       }).fail(function( jqXHR, textStatus, errorThrown ) {
-        console.log( "Error submitting vote.", textStatus, errorThrown );
+        console.log( "Error bumping.", textStatus, errorThrown, jqXHR);
       });
-    });
+    })
+  })
+})
+});
 
-    $(this).children(".btn-downvote").on("click", function() {
+
+
+/*  $("bump-yes").each(function(index) {
+
+  $(this).on("click", function() {
+    console.log("i am here");
+      var paperId = $(this).getAttribute('data-paperid');
+      var bump = $(this).getAttribute('data-bump');
       var ajaxData = {
         dataType: "json",
         method: "POST",
-        url: "js/rate.php",
-        data: { paperId: paperId, value: -1 }
+        url: "js/bump.php",
+        data: { paperId: paperId, bump: bump }
       };
-      console.log("Voting down; ", ajaxData);
+      console.log("Bumped", ajaxData);
       $.ajax(ajaxData).done(function( json ) {
         console.log("Recieved from server: ", json);
-        display_rate_json($("#article-" + paperId + "-messages"), json);
-        display_rate_json($("#article-voted-" + paperId + "-messages"), json);
       }).fail(function( jqXHR, textStatus, errorThrown ) {
         console.log( "Error submitting vote.", textStatus, errorThrown );
       });
     });
   });
-
-});
+*/
