@@ -77,7 +77,9 @@ li.article {
   background-color:#C4E3F3; 
 }
 
-
+.article-button-holder {
+padding-bottom:10px;
+}
 
 /* Toggles and Checklist Format
 -------------------------------------------------- */
@@ -103,6 +105,10 @@ a.btn-info.active:hover {
 
 td.rating {
   text-align:right;
+}
+
+#toggle-content {
+ padding-bottom:20px;
 }
 
 /* Jumbotron things

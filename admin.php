@@ -25,7 +25,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
     ?>
     <div class="alert alert-success alert-dismissible" role="alert">
         Changes successfully made.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <a role="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
     </div>
     <?php
   }
@@ -37,7 +37,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   <?php if(!get_variable("admins")) { ?>
     <div class="alert alert-danger alert-dismissible" role="alert">
         Warning: No administrators are defined yet, so everyone has access to this page.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <a role="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
     </div>
   <?php } ?>
 
