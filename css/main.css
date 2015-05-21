@@ -99,6 +99,10 @@ padding-bottom:10px;
   white-space:normal;
 }
 
+.meeting-btn {
+  opacity:1;
+}
+
 a.btn-info.active:hover { 
     background-color: #28a1c4;
 }

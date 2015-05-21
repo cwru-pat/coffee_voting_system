@@ -18,7 +18,7 @@ function addDatePicker(parentSelector, properties, id) {
       + "From <input type='time' class='meetingStartTime' style='line-height: 20px;' id='"+startTimeId+"' value='" + properties.start + "'>"
       + " to <input type='time' class='meetingEndTime' style='line-height: 20px;' id='"+endTimeId+"' value='" + properties.end + "'>"
       + " <label for='"+discussionId+"' style='font-weight:normal;'>Is for paper discussion: </label><input type='checkbox' class='meetingIsDiscussion' id='"+discussionId+"' "+(properties.papers ? "checked" : "")+"></div>"
-      + "<div class=col-xs-1> <a role=button class='close' style='font-size: 30px;'  id='remove-meeting-time-picker-id-"+id+"'><span class='glyphicon glyphicon-remove-circle'></span></a></div></div>"
+      + "<div class=col-xs-1> <a role=button class='close meeting-btn' style='font-size: 30px;'  id='remove-meeting-time-picker-id-"+id+"'><span class='text-danger meeting-btn glyphicon glyphicon-remove-circle'></span></a></div></div>"
     + "</div>"
     );
 
