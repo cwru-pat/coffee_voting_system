@@ -31,17 +31,17 @@ if($user->isLoggedIn()) {
       }
     } else {
       if($bump) {
-  // New bump.
+        // New bump.
         $statement = "INSERT INTO votes (paperId, userId, value) VALUES(?, 'bump', 0)";
         $coffee_conn->boundCommand($statement, array('i', &$paperId));
         $message["success"] = "Paper bumped to next meeting.";
       } else {
-        $message["success"] = "Nothing changed"
+        $message["success"] = "Nothing changed.";
       }
     }
   } 
-}
-else {
+} else {
   $message["error"] = "You must <a href='" . path() . "login.php'>sign in</a> before you can vote!";
 }
+
 print json_encode($message);
