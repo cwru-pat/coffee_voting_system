@@ -64,7 +64,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
     <div class="list-group" id="admin_date_selectors">
       <div class="list-group-item list-group-item-info">
         <h4 style="margin: 0;">
-          Set meeting dates <span role="button" class="close" id="meeting_add"><span class='glyphicon glyphicon-plus'></span></span>
+          Set meeting dates <span role="button" class="close meeting-btn" id="meeting_add"><span class='meeting-btn glyphicon glyphicon-plus text-success'></span></span>
         </h4>
       </div>
     </div>
