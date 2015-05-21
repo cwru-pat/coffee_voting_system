@@ -14,11 +14,11 @@ function addDatePicker(parentSelector, properties, id) {
 
   $(parentSelector).append(
     "<div class='list-group-item coffee-meeting-time-picker' id='coffee-meeting-time-picker-id-"+id+"'>"
-      + "<select id='"+dayId+"' class='meetingDay' placeholder='Select a day...'></select>"
-      + "From <input type='time' class='meetingStartTime' id='"+startTimeId+"' value='" + properties.start + "'>"
-      + " to <input type='time' class='meetingEndTime' id='"+endTimeId+"' value='" + properties.end + "'>"
-      + " <label for='"+discussionId+"'>Is for paper discussion: </label><input type='checkbox' class='meetingIsDiscussion' id='"+discussionId+"' "+(properties.papers ? "checked" : "")+">"
-      + "<span class='btn btn-danger btn-xs pull-right' id='remove-meeting-time-picker-id-"+id+"'>x</span>"
+      + "<div class=row><div class=col-xs-11><select id='"+dayId+"' style='max-width: 140px;' class='meetingDay' placeholder='Select a day...'></select>"
+      + "From <input type='time' class='meetingStartTime' style='line-height: 20px;' id='"+startTimeId+"' value='" + properties.start + "'>"
+      + " to <input type='time' class='meetingEndTime' style='line-height: 20px;' id='"+endTimeId+"' value='" + properties.end + "'>"
+      + " <label for='"+discussionId+"' style='font-weight:normal;'>Is for paper discussion: </label><input type='checkbox' class='meetingIsDiscussion' id='"+discussionId+"' "+(properties.papers ? "checked" : "")+"></div>"
+      + "<div class=col-xs-1> <a role=button class='close' style='font-size: 30px;'  id='remove-meeting-time-picker-id-"+id+"'><span class='glyphicon glyphicon-remove-circle'></span></a></div></div>"
     + "</div>"
     );
 

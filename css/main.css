@@ -111,6 +111,9 @@ td.rating {
  padding-bottom:20px;
 }
 
+.cal-input:hover {
+  background-color:#E4E4E4;
+}
 /* Jumbotron things
 -------------------------------------------------- */
 
