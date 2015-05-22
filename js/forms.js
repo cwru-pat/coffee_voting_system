@@ -14,8 +14,8 @@ function addDatePicker(parentSelector, properties, id) {
 
   $(parentSelector).append(
     "<div class='list-group-item coffee-meeting-time-picker form-inline' id='coffee-meeting-time-picker-id-"+id+"'>"
-      + "<a role=button class='pull-right' id='remove-meeting-time-picker-id-"+id+"'>"
-      +   "<span class='text-danger meeting-btn glyphicon glyphicon-remove'></span>"
+      + "<a role=button href='#' class='pull-right remove-meeting' id='remove-meeting-time-picker-id-"+id+"'>"
+      +   "<span class='text-danger glyphicon glyphicon-remove'></span>"
       + "</a>"
       + "<select id='"+dayId+"' class='meetingDay' placeholder='Select a day...'></select>"
       + "From <input type='time' class='meetingStartTime' id='"+startTimeId+"' value='" + properties.start + "'>"
@@ -40,6 +40,7 @@ function addDatePicker(parentSelector, properties, id) {
   selectize.setValue(properties.day, true);
 
   $("#remove-meeting-time-picker-id-"+id).on("click", function() {
+    event.preventDefault();
     $("#coffee-meeting-time-picker-id-"+id).remove();
     parseFormDates();
   });

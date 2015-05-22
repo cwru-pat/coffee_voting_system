@@ -9,18 +9,15 @@ require_once("private/templates/navbar.php");
 require_once("private/templates/jumbotron.php");
 
 ?>
+<script type="text/javascript" src="<?php print path(); ?>js/sidebar.js"></script>
 <div class="container">
   <div class="row">
-    <div class="col-sm-3">
-      <div class="sidebar-module sidebar-module-inset">
-        <div id="toggle-content" class="content">
-          <div class="btn-group-vertical" id="arxiv-toggle-list" role="group">
-            <a class="list-group-item active">
-              <h5 class="list-group-item-heading"> Display arXiv results from:</h5>
-            </a>
-            <?php require_once("private/templates/calendar.php"); ?>
-          </div>
-        </div>
+    <div class="col-sm-3" id="leftCol">
+      <div class="nav nav-stacked btn-group-vertical toggle-content" id="arxiv-toggle-list" role="group" data-clampedwidth="#leftCol">
+        <a class="list-group-item active">
+          <h5 class="list-group-item-heading"> Display arXiv results from:</h5>
+        </a>
+        <?php require_once("private/templates/calendar.php"); ?>
       </div>
     </div>
     <div class="col-sm-9">

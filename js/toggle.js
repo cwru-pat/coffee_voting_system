@@ -4,18 +4,19 @@ $(document).ready(function() {
     $(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
     if(toggle_getCookie($(value).text().trim())=="true") {
-      toggle_state="active";
+      toggle_state="";
       $('.panel-body-'+key).slideToggle(0,"swing");
     } else {
-      toggle_state="";
+      toggle_state="active";
     }
 
     $('#arxiv-toggle-list').append(
-      '<a role="button" class="btn btn-default btn-info '
+      '<a role="button" href="#" class="btn btn-default btn-info btn-lg '
+      + ' section-toggle-button '
       + toggle_state
-      + ' section-toggle-button" id="toggle-item-'
+      +'" id="toggle-item-'
       + key 
-      + '">'
+      + '" data-toggle="button">'
       + $(this).html().trim()
       + '</a>'
     );
@@ -23,7 +24,6 @@ $(document).ready(function() {
 
     $('#toggle-item-'+key).on("click",function() {
       $(".panel-body-"+key).slideToggle(0,"swing");
-      $(this).toggleClass('active');
       toggle_setCookie($(value).text().trim(),$(this).hasClass('active'),100);
     });
 
@@ -31,7 +31,7 @@ $(document).ready(function() {
       $listitem=$('#toggle-item-'+key);
       $listitem.toggleClass('active');
       $(".panel-body-" + key).slideToggle(0,"linear");
-      toggle_setCookie($(value).text().trim(),$listitem.hasClass('active'),100);
+      toggle_setCookie($(value).text().trim(),!$listitem.hasClass('active'),100);
     });
   });
   
@@ -40,9 +40,9 @@ $(document).ready(function() {
   $(".abstract-showhide").each(function() {
     $(this).on("click",function() {
       $("#article-" + $(this).attr("data-paperId") + "-abstract").slideToggle(150,"swing")
-      $(this).toggleClass("active");
     });
   });
+
 });
 
 
