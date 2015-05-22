@@ -71,8 +71,8 @@ foreach($sub_arxivs as $arxiv) {
         $items = $assoc["rdf:RDF"]["items"];
         foreach($items as $article) {
             if(isset($article["title"]) && isset($article["description"]) && isset($article["dc:creator"])) {
-                $title = trim($article["title"]);
-                $abstract = trim($article["description"]);
+                $title = strip_tags(trim($article["title"]));
+                $abstract = strip_tags(trim($article["description"]));
                 $authors = trim($article["dc:creator"]);
 
                 $duplicate_papers = $coffee_conn->boundQuery(

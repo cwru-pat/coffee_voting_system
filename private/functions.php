@@ -6,7 +6,7 @@ function format_arxiv_title($title)
     preg_match('/(.*)\s\((.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);
 
     if(count($article_data) == 6) {
-        $title = $article_data[1];
+        $title = o($article_data[1]);
         $article = $article_data[2];
         $section = $article_data[3];
         $special = trim($article_data[4]);
@@ -24,33 +24,13 @@ function format_arxiv_title($title)
     }
 }
 
-function format_arxiv_title2($title)
-{
-    $article_data = Array();
-    preg_match('/(.*)\s\((.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);
-
-    if(count($article_data) == 6) {
-        $title = $article_data[1];
-        $article = $article_data[2];
-        $section = $article_data[3];
-        $special = trim($article_data[4]);
-
-        $title_text = '<a href="http://arxiv.org/abs/'.$article.'">'.$title.'</a>';
-        
-        return $title_text;
-    } else {
-        return $title;
-    }
-}
-
-
 function format_arxiv_title_voted($title)
 {
     $article_data = Array();
     preg_match('/(.*)\s\((.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);
 
     if(count($article_data) == 6) {
-        $title = $article_data[1];
+        $title = o($article_data[1]);
         $article = $article_data[2];
         $section = $article_data[3];
         $special = trim($article_data[4]);
@@ -68,6 +48,25 @@ function format_arxiv_title_voted($title)
     } else {
         return $title;
     }
+}
+
+function format_arxiv_authors($authors)
+{
+  $authors = explode(',', $authors);
+
+  // call o() on link text, and change search links to search all arxivs.
+  foreach ($authors as $id => $author) {
+    $author_data = Array();
+    $link_format = '/<a href=\"http\:\/\/arxiv\.org\/find\/(.*)\/1\/au\:(.*)">(.*)<\/a>/i';
+    preg_match($link_format, trim($author), $author_data);
+    if(count($author_data) == 4) {
+      $new_author = "<a href='http://arxiv.org/find/all/1/au:" . $author_data[2] . "'>" . o($author_data[3]) . "</a>";
+      $authors[$id] = $new_author;
+    }
+  }
+
+  $authors = implode(', ', $authors);
+  return $authors;
 }
 
 function path()
