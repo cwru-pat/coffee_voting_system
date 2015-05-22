@@ -21,7 +21,7 @@ foreach($arxivs as $arxiv) {
         ?>
         <li class='article list-group-item' id='article-<?php print $paper->id; ?>'>
           <h4><?php print format_arxiv_title($paper->title); ?></h4>
-          <h5><?php print $paper->authors; ?></h5>
+          <h5><?php print format_arxiv_authors($paper->authors); ?></h5>
           <div class="article-button-holder" data-paperid="<?php print $paper->id; ?>">
           <a role="button" href="#" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
             <span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
@@ -39,10 +39,12 @@ foreach($arxivs as $arxiv) {
             <?php } ?>
             </span>
           <?php } else { ?>
-            <span class='article-messages ' id='article-<?php print $paper->id; ?>-messages'> &nbsp;</span>
+            <span class='article-messages ' id='article-<?php print $paper->id; ?>-messages'>&nbsp;</span>
           <?php } ?>
           </div>
-          <?php print $paper->abstract; ?>
+          <p>
+            <?php print o($paper->abstract); ?>
+          </p>
         </li>
         <?php
       }

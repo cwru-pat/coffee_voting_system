@@ -56,18 +56,22 @@ foreach($result as $row){
 					<div class="list-group-item voted paper-listing">
 						
 						<h4 class="voted-title">
-						<?php 
-							if($paper["value"] > 0) { ?>
-								<span class='label label-success vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'> <?php print "+" . $paper["value"]; ?> </span>
+							<?php if($paper["value"] > 0) { ?>
+								<span class='label label-success vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'>
+									<?php print "+" . $paper["value"]; ?>
+								</span>
 							<?php } else { ?>
-								<span class='label label-danger vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'> <?php print $paper["value"]; ?> </span> 
+								<span class='label label-danger vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'>
+									<?php print $paper["value"]; ?>
+								</span> 
 							<?php } ?>
-							<button type="submit" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting" data-paperid="<?php print $paper["id"]; ?>"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#bumpModal" data-paperid="<?php print $paper["id"]; ?>"></span></button>
-
-
-							  <?php
-							$voted_title=format_arxiv_title_voted($paper["title"]);
-							if(is_array($voted_title)){ ?>
+							<button type="submit" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting" data-paperid="<?php print $paper["id"]; ?>">
+								<span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#bumpModal" data-paperid="<?php print $paper["id"]; ?>"></span>
+							</button>
+							<?php
+									$voted_title=format_arxiv_title_voted($paper["title"]);
+									if(is_array($voted_title)){
+							?>
 								<span class="paper-title-voted"><?php print $voted_title[0]; ?></span> 
 							<?php } else { ?>
 								<span class="paper-title-voted"><?php print $voted_title ?></span> 
@@ -97,7 +101,7 @@ foreach($result as $row){
 						</span>
 
 						<div class="voted-paper-abstract" style="display: none;" id="article-<?php print $paper["id"]; ?>-abstract">
-							<h5><?php print $paper["authors"]; ?></h5>
+							<h5><?php print format_arxiv_authors($paper["authors"]); ?></h5>
 							<div class="article-button-holder voted" data-paperid="<?php print $paper["id"]; ?>">
 								<a role="button" href="#" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
 									<span class="glyphicon glyphicon-align-left glyphicon-thumbs-up" aria-hidden="true"></span>
@@ -105,22 +109,21 @@ foreach($result as $row){
 								<a role="button" href="#" class="btn btn-xs btn-danger btn-downvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Decrease Rating">
 									<span class="glyphicon glyphicon-align-left glyphicon-thumbs-down" aria-hidden="true"></span>
 								</a>
-								<?php 
-								if(isset($votes[$paper["id"]])) { ?>
-									<?php 
-									if($votes[$paper["id"]] > 0) { ?>
-										<span class='article-messages bg-success' id='article-voted-<?php print $paper["id"]; ?>-messages'> <?php print "Rated: +" . $votes[$paper["id"]]; ?> </span>
-											<?php 
-									} else { ?>
-										<span class='article-messages bg-danger' id='article-voted-<?php print $paper["id"]; ?>-messages'> <?php print "Rated: " . $votes[$paper["id"]]; ?> </span>
-											<?php 
-									} 
-								} else { ?>
+								<?php if(isset($votes[$paper["id"]])) { ?>
+									<?php if($votes[$paper["id"]] > 0) { ?>
+										<span class='article-messages bg-success' id='article-voted-<?php print $paper["id"]; ?>-messages'>
+											<?php print "Rated: +" . $votes[$paper["id"]]; ?>
+										</span>
+									<?php } else { ?>
+										<span class='article-messages bg-danger' id='article-voted-<?php print $paper["id"]; ?>-messages'>
+											<?php print "Rated: " . $votes[$paper["id"]]; ?>
+										</span>
+									<?php } ?>
+								<?php } else { ?>
 									<span class='article-messages' id='article-voted-<?php print $paper["id"]; ?>-messages'>&nbsp;</span>
-									<?php
-								} ?>
+								<?php } ?>
 							</div>
-							<?php print $paper["abstract"] ?>
+							<?php print o($paper["abstract"]); ?>
 						</div>
 
 					</div><!-- end #list-group-item -->
