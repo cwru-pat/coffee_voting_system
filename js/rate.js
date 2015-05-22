@@ -5,8 +5,11 @@ function display_rate_json(span, json) {
   if(json.hasOwnProperty("success")) {
     span.append(json.success);
   } else if(json.hasOwnProperty("error")) {
+    if(json.hasOwnProperty("login")) {
+      $('#bumpModal').modal();
+    }
     span.append(json.error);
-    span.addClass("bg-info")
+    span.addClass("bg-warning");
   } else {
     span.append("Unexpected error.");
   }
@@ -31,6 +34,7 @@ $(document).ready(function() {
     var paperId = this.getAttribute('data-paperid');
 
     $(this).children(".btn-upvote").on("click", function() {
+      event.preventDefault();
       var ajaxData = {
         dataType: "json",
         method: "POST",
@@ -48,6 +52,7 @@ $(document).ready(function() {
     });
 
     $(this).children(".btn-downvote").on("click", function() {
+      event.preventDefault();
       var ajaxData = {
         dataType: "json",
         method: "POST",

@@ -39,10 +39,27 @@ code {
 }
 
 @media (max-width: 768px) {
-  .admin-button {
-    margin-left: 15px;
+  form.admin-button {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
+
+.affix-top,.affix{
+  position: static;
+}
+
+@media (min-width: 768px) {
+  #arxiv-toggle-list.affix-top {
+    position: static;
+   }
+  
+  #arxiv-toggle-list.affix {
+    position: fixed;
+    top:80px;
+  }
+}
+
 
 /* Feeds page items
 -------------------------------------------------- */
@@ -83,6 +100,7 @@ padding-bottom:10px;
 
 /* Toggles and Checklist Format
 -------------------------------------------------- */
+
 .toggle {
   cursor:pointer;
 }
@@ -95,27 +113,37 @@ padding-bottom:10px;
   width: 100%;
 }
 
-.section-toggle-button {
-  white-space:normal;
+
+.section-toggle-button.active { 
+  background-color: #28a1c4;
 }
 
-a.btn-info.active:hover { 
-  background-color: #28a1c4;
+.section-toggle-button.active:hover { 
+  background-color: #2490af;
 }
 
 td.rating {
   text-align:right;
 }
 
-#toggle-content {
+#arxiv-toggle-list {
   padding-bottom:20px;
 }
 
 .cal-input:hover {
   background-color:#E4E4E4;
 }
+
+.cal-input{
+  border-radius: 0px;
+}
+
 /* Jumbotron things
 -------------------------------------------------- */
+
+.jumbotron p {
+  font-weight:400;
+}
 
 span.user-sup {
   white-space: nowrap;
@@ -188,6 +216,9 @@ p#user-voters{
   margin-right: 7px;
 }
 
+/* Admin Page
+-------------------------------------------------- */
+
 input.meetingStartTime,
 input.meetingEndTime {
   line-height: 20px;
@@ -199,4 +230,20 @@ input.meetingEndTime {
   width: 130px;
   float: left;
   margin-right: 10px;
+}
+
+.add-meeting:hover span{
+  color: #3C763D;
+}
+
+.add-meeting span{
+  color: #56A957;
+}
+
+.remove-meeting span{
+  color: #C0605E;
+}
+
+.remove-meeting:hover span{
+  color: #A94442;
 }

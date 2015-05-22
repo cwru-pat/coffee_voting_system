@@ -49,9 +49,9 @@ $nav_items = array(
           </li>
         
           <?php if($user->isAdmin()) { ?>
-              <li class="navbar-right navbar-form">
-              <form action="<?php print path(); ?>admin.php" method="POST">
-                <button type="submit" class="btn btn-info admin-button" id="admin-button" data-toggle="tooltip" data-placement="bottom" title="Admin Settings">
+              <li>
+              <form class = "navbar-form admin-button" action="<?php print path(); ?>admin.php" method="POST">
+                <button type="submit" class="btn btn-info" id="admin-button" data-toggle="tooltip" data-placement="bottom" title="Admin Settings">
                   <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                 </button>
                 </form>

@@ -25,7 +25,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
     ?>
     <div class="alert alert-success alert-dismissible" role="alert">
         Changes successfully made.
-        <a role="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
     <?php
   }
@@ -37,7 +37,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   <?php if(!get_variable("admins")) { ?>
     <div class="alert alert-danger alert-dismissible" role="alert">
         Warning: No administrators are defined yet, so everyone has access to this page.
-        <a role="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
   <?php } ?>
 
@@ -63,12 +63,11 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   <form method="POST">
     <div class="list-group" id="admin_date_selectors">
       <div class="list-group-item list-group-item-info">
-        <a role='button' class='pull-right' id='meeting_add'>
-          <span class='glyphicon glyphicon-plus text-success'></span>
+        <a role='button' href="#" class='pull-right add-meeting' id='meeting_add'>
+          <span class='glyphicon glyphicon-plus'></span>
         </a>
         <h4 style="margin: 0;">
           Set meeting dates
-          <span role="button" class="close meeting-btn" id="meeting_add"></span>
         </h4>
       </div>
     </div>

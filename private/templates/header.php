@@ -29,7 +29,6 @@
     <script type="text/javascript" src="<?php print path(); ?>js/bootstrap-datepicker.min.js"></script>
     
 
-
     <script type="text/javascript" src="<?php print path(); ?>js/rate.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bump.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/toggle.js"></script>

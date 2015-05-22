@@ -46,7 +46,8 @@ if($user->isLoggedIn()) {
     }
   }
 } else {
-  $message["error"] = "Please <a href='" . path() . "login.php'>sign in</a> before you can vote!";
+  $message["error"] = "You must <a href='" . path() . "login.php'>sign in</a> to vote!";
+  $message['login'] = false;
 }
 
 print json_encode($message);
