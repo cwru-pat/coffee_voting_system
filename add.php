@@ -70,7 +70,7 @@ if($params->get("submitted")) {
 
     } else { // add post
 
-      $subject = "custom";
+      $subject = "users";
       $author = $user->id();
       // new "post"
       $coffee_conn->boundCommand(

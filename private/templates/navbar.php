@@ -47,15 +47,15 @@ $nav_items = array(
               <li><a href="<?php print path(); ?>login.php?logout=true">Log Out</a></li>
             </ul>
           </li>
-        
+
           <?php if($user->isAdmin()) { ?>
-              <li>
-              <form class = "navbar-form admin-button" action="<?php print path(); ?>admin.php" method="POST">
-                <button type="submit" class="btn btn-info" id="admin-button" data-toggle="tooltip" data-placement="bottom" title="Admin Settings">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                </button>
-                </form>
-              </li>
+            <li>
+            <form class = "navbar-form admin-button" action="<?php print path(); ?>admin.php" method="POST">
+              <button type="submit" class="btn btn-info" id="admin-button" data-toggle="tooltip" data-placement="bottom" title="Admin Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </button>
+              </form>
+            </li>
           <?php } ?>
         </ul>
       <?php } else { ?>
