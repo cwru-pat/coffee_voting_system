@@ -198,3 +198,24 @@ function get_adjacent_meeting_times($start_or_end = "end", $papers_only = FALSE,
 
   }
 }
+
+function print_errors($errors)
+{
+  foreach($errors as $error_message) {
+    print_alert($error_message, "danger");
+  }
+}
+
+function print_alert($html_message, $level)
+{
+  print '<div class="alert alert-' . $level . '" role="alert">' . $html_message . '</div>';
+}
+
+function kill_script($html_message)
+{
+  print '<div class="container">';
+  print '<h1>' . $html_message . '</h1>';
+  print '</div>';
+  require_once("private/templates/footer.php");
+  die();
+}

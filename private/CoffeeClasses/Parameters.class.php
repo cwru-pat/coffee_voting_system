@@ -28,8 +28,8 @@ class Parameters
 
     public function get($value)
     {
-        if(isset($_REQUEST[$value])) {
-            return $_REQUEST[$value] === "" ? "" : $_REQUEST[$value];
+        if(isset($this->request[$value])) {
+            return $this->request[$value] === "" ? NULL : $this->request[$value];
         } else {
             return NULL;
         }

@@ -21,7 +21,6 @@ $(document).ready(function() {
       + '</a>'
     );
 
-
     $('#toggle-item-'+key).on("click",function() {
       $(".panel-body-"+key).slideToggle(0,"swing");
       toggle_setCookie($(value).text().trim(),$(this).hasClass('active'),100);
@@ -34,8 +33,6 @@ $(document).ready(function() {
       toggle_setCookie($(value).text().trim(),!$listitem.hasClass('active'),100);
     });
   });
-  
-
 
   $(".abstract-showhide").each(function() {
     $(this).on("click",function() {
