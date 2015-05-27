@@ -15,7 +15,7 @@ require_once("private/templates/navbar.php");
 
 	if($user->isLoggedIn()) {
 		$userId = $user->id();
-		$query = "SELECT votes.value, papers.title,  votes.date FROM votes JOIN papers ON votes.paperID=papers.id WHERE userId = ? ORDER BY votes.date DESC";
+		$query = "SELECT votes.value, papers.title, votes.date, votes.paperID FROM votes JOIN papers ON votes.paperID=papers.id WHERE userId = ? ORDER BY votes.date DESC";
 		$result = $coffee_conn->boundQuery($query, array('s', &$userId));?>
 
 		<table class="table table-striped table-hover table-bordered table-condensed">
@@ -27,7 +27,7 @@ require_once("private/templates/navbar.php");
 			<?php foreach($result as $row) {?>
 			<tr>
 
-				<td><?php print format_arxiv_title2($row['title']);?></td>
+				<td><a href="<?php print path(); ?>post.php?id=<?php print $row['paperID'];?>"><?php print format_arxiv_title_bare($row['title']);?></a></td>
 				<td class="rating"><?php print $row['value'];?></td>
 				<td><?php $tdate=explode(" ",$row['date']); print $tdate[0];?></td>
 				

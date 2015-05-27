@@ -1,8 +1,9 @@
 <?php
 require_once("../private/site.php");
 $coffee_conn->setDebug(FALSE);
-$nextmeeting=get_adjacent_meeting_times("end", TRUE,time());
-$nextmeeting=date("Y-m-d h:m:s", $nextmeeting['next']);
+$nextmeeting=get_adjacent_meeting_times("start", TRUE,time());
+$nextmeeting=date("Y-m-d H:i", $nextmeeting['next']);
+
 // only want to return one short message.
 $message = array();
 
