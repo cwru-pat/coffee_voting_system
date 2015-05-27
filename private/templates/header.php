@@ -35,6 +35,8 @@
     <script type="text/javascript" src="<?php print path(); ?>js/toggle.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/forms.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/calendar.js"></script>
+    <script type="text/javascript" src="<?php print path(); ?>js/search.js"></script>
+    
     <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
