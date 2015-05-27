@@ -140,6 +140,9 @@ td.rating {
 
 /* Jumbotron things
 -------------------------------------------------- */
+.old-vote {
+  color:#888;
+}
 
 .jumbotron p {
   font-weight: normal;

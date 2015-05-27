@@ -2,11 +2,14 @@
 <?php
 require_once('private/templates/votes_head.php');
 
-$query = "SELECT votes.paperId, votes.userId, votes.value FROM votes";
+$query = "SELECT * FROM votes";
 $result = $coffee_conn->dbQuery($query);
 $paper_votes = array();
 foreach($result as $row){
-	$paper_votes[$row->paperId][$row->userId]=$row->value;
+	$paper_votes[$row->paperId][$row->userId] = array(
+		"value" => $row->value,
+		"date" => strtotime($row->date)
+		);
 }
 
 
@@ -76,13 +79,14 @@ foreach($result as $row){
 						</div>
 
 						<span class="user-voters"><?php
-							foreach($paper_votes[$paper["id"]] as $user_l => $votes_l) {?>
-								<span class="user-sup"> <?php print $user_l;?>
+							foreach($paper_votes[$paper["id"]] as $user_id => $votes_data) {?>
+								<span class='user-sup <?php print ($votes_data["date"]<$paper_meeting_times["prev"]) ? "old-vote" : ""; print ($user_id=="bump")?"text-warning":""; ?>'>
+								<?php print $user_id;?>
 									<sup><?php
-									if($votes_l>0) {
-										?>+<?php print $votes_l;
+									if($votes_data["value"]>0) {
+										?>+<?php print $votes_data["value"];
 									} else {
-										print $votes_l;
+										print $votes_data["value"];
 									}?>
 									</sup>
 								</span>
