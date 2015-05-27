@@ -24,6 +24,25 @@ function format_arxiv_title($title)
     }
 }
 
+function format_arxiv_title_bare($title)   
+{    
+    $article_data = Array();   
+    preg_match('/(.*)\s\((.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);    
+   
+    if(count($article_data) == 6) {    
+        $title = $article_data[1];   
+        $article = $article_data[2];   
+        $section = $article_data[3];   
+        $special = trim($article_data[4]);   
+   
+        $title_text = $title;    
+           
+        return $title_text;    
+    } else {   
+        return $title;   
+    }    
+}
+
 function format_arxiv_title_voted($title)
 {
     $article_data = Array();

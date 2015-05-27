@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     $(this).parent().children(".panel-body").addClass("panel-body-" + key);
 
-    if(toggle_getCookie($(value).text().trim())=="true") {
+    if(toggle_getCookie($(value).children('h3').text().trim())=="true") {
       toggle_state="";
       $('.panel-body-'+key).slideToggle(0,"swing");
     } else {
@@ -17,20 +17,20 @@ $(document).ready(function() {
       +'" id="toggle-item-'
       + key 
       + '" data-toggle="button">'
-      + $(this).html().trim()
+      + $(this).children("h3").html().trim()
       + '</a>'
     );
 
     $('#toggle-item-'+key).on("click",function() {
       $(".panel-body-"+key).slideToggle(0,"swing");
-      toggle_setCookie($(value).text().trim(),$(this).hasClass('active'),100);
+      toggle_setCookie($(value).children('h3').text().trim(),$(this).hasClass('active'),100);
     });
 
     $(this).on("click",function() {
       $listitem=$('#toggle-item-'+key);
       $listitem.toggleClass('active');
       $(".panel-body-" + key).slideToggle(0,"linear");
-      toggle_setCookie($(value).text().trim(),!$listitem.hasClass('active'),100);
+      toggle_setCookie($(value).children('h3').text().trim(),!$listitem.hasClass('active'),100);
     });
   });
 

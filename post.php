@@ -15,12 +15,12 @@ if(count($post) == 0) {
 } else {
   ?>
   <div class="container">
-    <div class="row">
+    <!-- <div class="row"> -->
       <?php
         $paper = $post[0];
         require_once('private/templates/paper.php');
       ?>
-    </div>
+    <!-- </div> -->
   </div>
   <?php
 }

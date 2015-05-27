@@ -1,16 +1,6 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <?php
-$votes = array();
-if($user->isLoggedIn()) {
-	$userId = $user->id();
-	$query = "SELECT * FROM votes WHERE userId = ?";
-	$result = $coffee_conn->boundQuery($query, array('s', &$userId));
-
-	$votes = array();
-	foreach($result as $row) {
-		$votes[$row["paperId"]] = $row["value"];
-	}
-}
+require_once('private/templates/votes_head.php');
 
 $query = "SELECT votes.paperId, votes.userId, votes.value FROM votes";
 $result = $coffee_conn->dbQuery($query);

@@ -1,9 +1,17 @@
 <?php
+require_once('private/templates/votes_head.php');
 /*
  * This file expects a $paper array to be set in the current scope, eg a result returned from boundQuery.
  */
 ?>
-<h4><?php print format_arxiv_title($paper["title"]); ?></h4>
+<h4>
+  <?php if($user->isAdmin()||($user->isLoggedIn() && $user->id()==$paper["authors"])) {?>
+    <a role="button" href="<?php print path()?>add.php?post-id=<?php print $paper['id']?>" class="pull-right btn btn-info btn-xs">
+      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+    </a> 
+  <?php }?>
+  <?php print format_arxiv_title($paper["title"]); ?>
+</h4>
 <h5><?php print format_arxiv_authors($paper["authors"]); ?></h5>
 <div class="article-button-holder" data-paperid="<?php print $paper["id"]; ?>">
 <a role="button" href="#" class="btn btn-xs btn-success btn-upvote" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Increase Rating">
