@@ -19,7 +19,8 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">-->
     <link rel="stylesheet" href="<?php print path(); ?>css/selectize.css">
     <link rel="stylesheet" href="<?php print path(); ?>css/bootstrap-datepicker3.min.css">
-    
+    <link rel="stylesheet" href="<?php print path(); ?>css/summernote.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="<?php print path(); ?>css/main.css">
 
@@ -27,7 +28,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/selectize.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bootstrap-datepicker.min.js"></script>
-    
+    <script type="text/javascript" src="<?php print path(); ?>js/summernote.min.js"></script>
 
     <script type="text/javascript" src="<?php print path(); ?>js/rate.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bump.js"></script>

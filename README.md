@@ -1,10 +1,14 @@
 
 # Coffee Voting System
 
-## Libraries used
+## Libraries & Extensions used
 
  - [Bootstrap](http://getbootstrap.com/)
  - [jQuery](https://jquery.com/)
+ - [selectize](https://github.com/brianreavis/selectize.js)
+ - [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.org/en/latest/)
+ - [Summernote](http://summernote.org/#/)
+ - [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
 
 ## Server Dependencies
 

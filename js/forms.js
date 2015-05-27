@@ -66,6 +66,8 @@ function parseFormDates()
 
 $(document).ready(function() {
 
+  $('.summernote').summernote({height: 300});
+
   $("#meeting_add").on("click", function(event) {
     event.preventDefault();
     var id = 0;

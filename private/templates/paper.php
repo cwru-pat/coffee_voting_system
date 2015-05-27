@@ -26,5 +26,11 @@
 <?php } ?>
 </div>
 <p>
-  <?php print o($paper["abstract"]); ?>
+  <?php
+    if($paper["subject"] == "users") {
+      print $paper["abstract"];
+    } else {
+      print o($paper["abstract"]);
+    }
+  ?>
 </p>
