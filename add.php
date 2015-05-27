@@ -130,7 +130,7 @@ if($params->get("post-id")) {
     <div class="form-group">
       <label for="post-body" class="col-sm-2 control-label">Post Text:</label>
       <div class="col-sm-10">
-        <textarea class="form-control" rows="10" name="post-body" id="post-body"><?php print o($post_body); ?></textarea>
+        <textarea class="form-control summernote" rows="10" name="post-body" id="post-body"><?php print o($post_body); ?></textarea>
       </div>
     </div>
     <div class="col-sm-offset-2 col-sm-10">
