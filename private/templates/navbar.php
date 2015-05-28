@@ -43,7 +43,7 @@ $nav_items = array(
 
       <form class="navbar-form navbar-right" action="<?php print path(); ?>admin.php" method="POST">
         <!-- Button trigger search modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal" data-toggle="tooltip" data-placement="bottom" title="Search">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal" data-toggle-tip="tooltip" data-placement="bottom" title="Search">
           <span class="glyphicon glyphicon-search"></span>
         </button>
 
