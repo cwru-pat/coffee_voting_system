@@ -47,11 +47,11 @@ function perform_search(value) {
 }
 
 function show_search_spinner() {
-  $("#arxiv_search_spinner").addClass("fa-spin");
+  $("#arxiv_search_spinner").addClass("fa-pulse");
 }
 
 function hide_search_spinner() {
-  $("#arxiv_search_spinner").removeClass("fa-spin");
+  $("#arxiv_search_spinner").removeClass("fa-pulse");
 } 
 
 $(document).ready(function() {
