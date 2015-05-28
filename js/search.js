@@ -1,13 +1,19 @@
 
 function format_search_results(xml) {
   var html = $.map( $("entry", xml), function(val, i) {
+
+    var import_button_text = "";
+    if(isLoggedIn) {
+      import_button_text = "<a href='post.php?import-id=" + $("id", val).text() + "' type='button' class='btn btn-default'>"
+            +     "<span class='glyphicon glyphicon-import'></span>"
+            +     " Import "
+            +   "</a>";
+    }
+
     return "<li>"
             + $("title", val).text()
             + " <div class='btn-group btn-group-xs' role='group'>"
-            +   "<a href='post.php?import-id=" + $("id", val).text() + "' type='button' class='btn btn-default'>"
-            +     "<span class='glyphicon glyphicon-import'></span>"
-            +     " Import "
-            +   "</a>"
+            +   import_button_text
             +   "<a href='" + $("id", val).text() + "' type='button' class='btn btn-default'>"
             +     "<span class='glyphicon glyphicon-share'></span>"
             +     " View on arXiv "
