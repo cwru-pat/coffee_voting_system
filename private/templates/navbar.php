@@ -41,19 +41,17 @@ $nav_items = array(
         } ?>
       </ul>
 
-      <?php if($user->isAdmin()) { ?>
-        <form class="navbar-form navbar-right" action="<?php print path(); ?>admin.php" method="POST">
+      <form class="navbar-form navbar-right" action="<?php print path(); ?>admin.php" method="POST">
+        <!-- Button trigger search modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal" data-toggle="tooltip" data-placement="bottom" title="Search">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+
+        <?php if($user->isAdmin()) { ?>
           <button type="submit" class="btn btn-info" id="admin-button" data-toggle="tooltip" data-placement="bottom" title="Admin Settings">
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
           </button>
-        </form>
-      <?php } ?>
-
-      <form class="navbar-form navbar-right">
-          <!-- Button trigger search modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal" data-toggle="tooltip" data-placement="bottom" title="Search">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
+        <?php } ?>
       </form>
 
       <?php if($user->isLoggedIn()) { ?>
