@@ -16,12 +16,7 @@ foreach($arxivs as $arxiv) {
 ?>
 <div class="panel panel-info arxiv">
   <div class="panel-heading toggle arxiv">
-  <?php if($arxiv=="users") {?>
-      <a role="button" href="<?php print path()?>add.php" class='btn btn-success pull-right btn-xs' data-toggle="tooltip" title="Add non-arXiv paper">
-        Add Content
-        <span class="glyphicon glyphicon-plus"></span>
-      </a>
-    <?php } ?>
+
     <h3 class="panel-title"><span class='hidden-sm hidden-xs hidden-md'>Papers from</span> <?php print $arxiv; ?></h3>
   </div>
   <div class="panel-body arxiv">
@@ -31,7 +26,14 @@ foreach($arxivs as $arxiv) {
           "SELECT * FROM papers WHERE subject = ? AND date BETWEEN ? AND ?",
           array('sss', &$arxiv, &$begin_date, &$end_date)
         );
-
+  if($arxiv=="users"&&$user->isLoggedin()) {?>
+      <li class='list-group-item'>
+      <a role="button" href="<?php print path()?>add.php" class='btn btn-success btn-xs pull-right' data-toggle="tooltip" title="Add non-arXiv paper">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+      &nbsp;
+      </li>
+    <?php }
       if(count($papers) == 0) {
         print "<li class='list-group-item'>No papers in this section today!</li>";
       } else {

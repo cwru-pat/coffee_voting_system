@@ -50,7 +50,7 @@ $(document).ready(function() {
       $('#arxiv_search').val()
     );
   });
-  $('#searchModal').on('shown.bs.modal', function (e) {
+  $('#searchModal').on('shown.bs.modal', function(e) {
     $('#arxiv_search').focus();
   })
 });

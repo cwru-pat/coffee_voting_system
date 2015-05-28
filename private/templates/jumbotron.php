@@ -2,7 +2,7 @@
 <?php
 require_once('private/templates/votes_head.php');
 
-$query = "SELECT * FROM votes";
+$query = "SELECT * FROM votes ORDER BY paperId, date DESC;";
 $result = $coffee_conn->dbQuery($query);
 $paper_votes = array();
 foreach($result as $row){
@@ -22,13 +22,19 @@ foreach($result as $row){
 				$meeting_time_ends = get_meeting_timestamps("end");
 				$meeting_time_starts = get_meeting_timestamps("start");
 				for($i=0; $i<count($meeting_time_ends); $i++) {
-					if($i>0) print " | ";
+					if($i>0) print " | "; 
+					if(!$meeting_time_starts[$i]["papers_only"]) {
+						print "<span class='old-vote' data-toggle='tooltip' data-placement='bottom' title='No paper discussion'>";
+					} else {
+						print "<span>";
+					}
 					print date("l\s H:i", $meeting_time_starts[$i]["timestamp"]);
 					print date(" - H:i", $meeting_time_ends[$i]["timestamp"]);
 
-					if(!$meeting_time_starts[$i]["papers_only"]) {
-						print "<span data-toggle='tooltip' data-placement='below' title='No paper discussions'>*</span>";
-					}
+/*					if(!$meeting_time_starts[$i]["papers_only"]) {
+						print "*";
+					}*/
+					print "</span>";
 				}
 			?>
 		</p>
@@ -58,7 +64,7 @@ foreach($result as $row){
 									<?php print $paper["value"]; ?>
 								</span> 
 							<?php } ?>
-							<button type="submit" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting" data-toggle="modal" data-target="#bumpModal" data-paperid="<?php print $paper["id"]; ?>">
+							<button type="submit" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting" data-toggle="modal" data-target="#bumpModal" data-toggle-tip="tooltip" data-placement="bottom" data-paperid="<?php print $paper["id"]; ?>">
 								<span class="glyphicon glyphicon-share-alt" data-paperid="<?php print $paper["id"]; ?>"></span>
 							</button>
 							<?php
@@ -76,6 +82,11 @@ foreach($result as $row){
 								print $voted_title[1] . $voted_title[2];
 							}?>
 							<a role="button" href="#" class="btn btn-default btn-xs voted-btn abstract-showhide" data-paperid="<?php print $paper["id"]; ?>" id="article-<?php print $paper["id"]; ?>-button" title="Toggle Abstract" data-toggle="button">Abstract</a>
+							<?php if($user->isAdmin()||($user->isLoggedIn() && $user->id()==$paper["authors"])) { ?>
+								<a role="button" href="<?php print path()?>add.php?post-id=<?php print $paper['id']?>" class="btn btn-default btn-xs voted-btn" data-toggle="tooltip" data-placement="bottom" title="Edit">
+      						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+    						</a>
+							<?php } ?>
 						</div>
 
 						<span class="user-voters"><?php
@@ -85,8 +96,10 @@ foreach($result as $row){
 									<sup><?php
 									if($votes_data["value"]>0) {
 										?>+<?php print $votes_data["value"];
-									} else {
+									} elseif($votes_data["value"]<0) {
 										print $votes_data["value"];
+									} else {
+										print "&nbsp;";
 									}?>
 									</sup>
 								</span>
@@ -117,7 +130,7 @@ foreach($result as $row){
 									<span class='article-messages' id='article-voted-<?php print $paper["id"]; ?>-messages'>&nbsp;</span>
 								<?php } ?>
 							</div>
-							<?php print o($paper["abstract"]); ?>
+							<?php print $paper["abstract"]; ?>
 						</div>
 
 					</div><!-- end #list-group-item -->
@@ -146,8 +159,8 @@ foreach($result as $row){
         <h4 class="modal-title" id="BumpLabel">Bump this article to the next meeting?</h4>
       </div>
       <div class="modal-body">
-        <button type="submit" tabindex="1" class="btn btn-primary btn-block bump-btn bump-no"  data-bump="0" data-dismiss="modal">No! Keep it here.</button>
-        <button type="submit" tabindex="1" class="btn btn-warning btn-block bump-btn bump-yes" data-bump="1" data-dismiss="modal">Bump it!</button>
+        <button type="submit" tabindex="1" class="btn btn-primary btn-block bump-btn bump-no"  data-bump="0" data-dismiss="modal" title="(Remove Bump)">No! Don't bump it/remove bump!</button>
+        <button type="submit" tabindex="1" class="btn btn-warning btn-block bump-btn bump-yes" data-bump="1" data-dismiss="modal">Bump it to the next meeting!</button>
       </div>
       <?php } else {?>
       <h4 class="modal-title" id="myModalLabel">You must sign in to do this!</h4>

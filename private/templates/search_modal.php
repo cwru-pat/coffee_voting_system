@@ -8,12 +8,12 @@
         
         <div class="input-group input-group-lg">
           <input type="text" class="form-control" id="arxiv_search" placeholder="Search...">
-          <div class="input-group-addon">
+<!--           <div class="input-group-addon">
             <select id="arxiv_search_order" class="form-control input-sm">
               <option value="relevance">Sort by Relevance</option>
               <option value="lastUpdatedDate">Sort by Date</option>
             </select>
-          </div>
+          </div> -->
         </div>
 
       </div> <!-- modal header -->
