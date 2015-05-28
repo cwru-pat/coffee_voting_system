@@ -31,6 +31,8 @@
     <script type="text/javascript" src="<?php print path(); ?>js/summernote.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/typewatch.js"></script>
 
+    <script type="text/javascript" src="<?php print path(); ?>js/main.js"></script>
+
     <script type="text/javascript" src="<?php print path(); ?>js/rate.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bump.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/toggle.js"></script>
@@ -42,8 +44,6 @@
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </script>
-
-    <script type="text/javascript" src="<?php print path(); ?>js/main.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -19,7 +19,7 @@ function format_search_results(xml) {
     html = "<li>No results found!</li>";
   }
   hide_search_spinner();
-  $("#arxiv_search_results").html("<ul>" + html + "</ul>");
+  $("#arxiv_search_results").html("<ul class='list-unstyled'>" + html + "</ul>");
 }
 
 function perform_search(value) {
