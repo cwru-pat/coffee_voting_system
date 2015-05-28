@@ -47,6 +47,12 @@ $nav_items = array(
           <span class="glyphicon glyphicon-search"></span>
         </button>
 
+       <?php if($user->isLoggedin()) {?>
+      <a type="button" href="<?php print path()?>add.php" class='btn btn-success' data-toggle="tooltip" data-placement="bottom" title="Add non-arXiv paper">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    <?php } ?>
+
         <?php if($user->isAdmin()) { ?>
           <button type="submit" class="btn btn-info" id="admin-button" data-toggle="tooltip" data-placement="bottom" title="Admin Settings">
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>

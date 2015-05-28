@@ -159,7 +159,7 @@ foreach($result as $row){
         <h4 class="modal-title" id="BumpLabel">Bump this article to the next meeting?</h4>
       </div>
       <div class="modal-body">
-        <button type="submit" tabindex="1" class="btn btn-primary btn-block bump-btn bump-no"  data-bump="0" data-dismiss="modal" title="(Remove Bump)">No! Don't bump it/remove bump!</button>
+        <button type="submit" tabindex="1" class="btn btn-primary btn-block bump-btn bump-no"  data-bump="0" data-dismiss="modal" title="(Remove Bump)">No! Don't bump it / remove bump!</button>
         <button type="submit" tabindex="1" class="btn btn-warning btn-block bump-btn bump-yes" data-bump="1" data-dismiss="modal">Bump it to the next meeting!</button>
       </div>
       <?php } else {?>
