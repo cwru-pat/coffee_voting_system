@@ -267,3 +267,10 @@ input.meetingEndTime {
   line-height: 21px;
 }
 
+#arxiv_search_results li {
+  padding: 8px 2px;
+}
+
+#arxiv_search_results li + li {
+  border-top: 1px solid #EEE;
+}
