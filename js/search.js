@@ -18,6 +18,7 @@ function format_search_results(xml) {
   if(!html) {
     html = "<li>No results found!</li>";
   }
+  hide_search_spinner();
   $("#arxiv_search_results").html("<ul>" + html + "</ul>");
 }
 
@@ -39,17 +40,41 @@ function perform_search(value) {
   });
 }
 
+function show_search_spinner() {
+  $("#arxiv_search_spinner").addClass("fa-spin");
+}
+
+function hide_search_spinner() {
+  $("#arxiv_search_spinner").removeClass("fa-spin");
+} 
+
 $(document).ready(function() {
   $("#arxiv_search").typeWatch({
-      callback: perform_search,
-      wait: 250,
-      captureLength: 2
+    callback: perform_search,
+    wait: 250,
+    captureLength: 0
   });
-  $("#arxiv_search_order").on("input", function(e) {
+
+  $("#arxiv_search").on("input", show_search_spinner);
+
+  $("#arxiv_search_order_relevance").on("click", function(e) {
+    e.preventDefault();
+    $("#arxiv_search_order").val("relevance");
+    $("#arxiv_search_order_text").text("relevance");
     perform_search(
       $('#arxiv_search').val()
     );
   });
+
+  $("#arxiv_search_order_lastUpdatedDate").on("click", function(e) {
+    e.preventDefault();
+    $("#arxiv_search_order").val("lastUpdatedDate");
+    $("#arxiv_search_order_text").text("date");
+    perform_search(
+      $('#arxiv_search').val()
+    );
+  });
+
   $('#searchModal').on('shown.bs.modal', function(e) {
     $('#arxiv_search').focus();
   })

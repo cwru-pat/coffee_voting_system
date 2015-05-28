@@ -7,7 +7,7 @@ require_once("private/site.php");
 require_once("private/templates/header.php");
 require_once("private/templates/navbar.php");
 
-$postId = $params->get("paper-id");
+$postId = $params->get("post-id");
 
 if($params->get("import-id")) {
   // TODO: import posts
