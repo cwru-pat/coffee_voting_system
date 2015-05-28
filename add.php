@@ -66,7 +66,7 @@ if($params->get("submitted")) {
         array('ssi', &$post_title, &$post_body, &$post_id)
       );
 
-      print_alert("Post updated. <a href='post.php?id=" . $post_id . "'>View post</a>.", "success");
+      print_alert("Post updated. <a href='post.php?post-id=" . $post_id . "'>View post</a>.", "success");
 
     } else { // add post
 
@@ -89,7 +89,7 @@ if($params->get("submitted")) {
       } else {
         $post_link = "<ul>";
         foreach($post_details as $details) {
-          $post_link .= '<li><a href="post.php?id=' . $details['id'] . '">' . o($details["title"]) . '</a></li>';
+          $post_link .= '<li><a href="post.php?post-id=' . $details['id'] . '">' . o($details["title"]) . '</a></li>';
         }
         $post_link .= "</ul>";
 

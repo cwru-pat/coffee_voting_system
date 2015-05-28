@@ -29,6 +29,7 @@
     <script type="text/javascript" src="<?php print path(); ?>js/selectize.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/summernote.min.js"></script>
+    <script type="text/javascript" src="<?php print path(); ?>js/typewatch.js"></script>
 
     <script type="text/javascript" src="<?php print path(); ?>js/rate.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bump.js"></script>

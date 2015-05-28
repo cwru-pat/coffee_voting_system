@@ -9,6 +9,7 @@
  - [bootstrap-datepicker](https://bootstrap-datepicker.readthedocs.org/en/latest/)
  - [Summernote](http://summernote.org/#/)
  - [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
+ - [Typewatch](https://github.com/dennyferra/TypeWatch)
 
 ## Server Dependencies
 
