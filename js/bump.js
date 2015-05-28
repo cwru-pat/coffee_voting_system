@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  $('#bumpModal').on('show.bs.modal', function (event) {
+  $('#bumpModal').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var paperId = button.data('paperid')
 

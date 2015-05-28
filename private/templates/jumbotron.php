@@ -27,7 +27,7 @@ foreach($result as $row){
 					print date(" - H:i", $meeting_time_ends[$i]["timestamp"]);
 
 					if(!$meeting_time_starts[$i]["papers_only"]) {
-						print "<span title='No paper discussions'>*</span>";
+						print "<span data-toggle='tooltip' data-placement='below' title='No paper discussions'>*</span>";
 					}
 				}
 			?>
@@ -58,8 +58,8 @@ foreach($result as $row){
 									<?php print $paper["value"]; ?>
 								</span> 
 							<?php } ?>
-							<button type="submit" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting" data-paperid="<?php print $paper["id"]; ?>">
-								<span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#bumpModal" data-paperid="<?php print $paper["id"]; ?>"></span>
+							<button type="submit" class="vote-bump btn btn-xs btn-warning" title="Bump to Next Meeting" data-toggle="modal" data-target="#bumpModal" data-paperid="<?php print $paper["id"]; ?>">
+								<span class="glyphicon glyphicon-share-alt" data-paperid="<?php print $paper["id"]; ?>"></span>
 							</button>
 							<?php
 									$voted_title=format_arxiv_title_voted($paper["title"]);

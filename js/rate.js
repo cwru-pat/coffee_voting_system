@@ -33,7 +33,7 @@ $(document).ready(function() {
   $("div.article-button-holder").each(function(index) {
     var paperId = this.getAttribute('data-paperid');
 
-    $(this).children(".btn-upvote").on("click", function() {
+    $(this).children(".btn-upvote").on("click", function(event) {
       event.preventDefault();
       var ajaxData = {
         dataType: "json",
@@ -51,7 +51,7 @@ $(document).ready(function() {
       });
     });
 
-    $(this).children(".btn-downvote").on("click", function() {
+    $(this).children(".btn-downvote").on("click", function(event) {
       event.preventDefault();
       var ajaxData = {
         dataType: "json",

@@ -21,20 +21,21 @@ $('#datepick').datepicker().on('changeDate', function(){
 })
 
 function parse(val) {
-    var result = false//"Not found",
-        tmp = [];
-    	window.location.search.substr(1).split("&").forEach(function (item) {
-        	tmp = item.split("=");
-        	if (tmp[0] === val){
-        	result = decodeURIComponent(tmp[1]);
-        	}
-    	});
+    var result = false;//"Not found",
+    var tmp = [];
+	window.location.search.substr(1).split("&").forEach(function(item) {
+        tmp = item.split("=");
+    	if (tmp[0] === val){
+    	   result = decodeURIComponent(tmp[1]).replace(/\-/g,"/");
+           console.log(result);
+    	}
+	});
     return result;
 }
 
 function urlToDate() {
-	dstring=parse('d');
-	date=new Date(dstring);
+	var dstring=parse('d');
+	var date=new Date(dstring);
 	if(dstring===false){
 		date=new Date();
 	}
