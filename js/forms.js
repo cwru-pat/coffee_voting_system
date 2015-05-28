@@ -39,7 +39,7 @@ function addDatePicker(parentSelector, properties, id) {
   var selectize = $select[0].selectize;
   selectize.setValue(properties.day, true);
 
-  $("#remove-meeting-time-picker-id-"+id).on("click", function() {
+  $("#remove-meeting-time-picker-id-"+id).on("click", function(event) {
     event.preventDefault();
     $("#coffee-meeting-time-picker-id-"+id).remove();
     parseFormDates();
