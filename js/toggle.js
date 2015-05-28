@@ -1,17 +1,20 @@
 $(document).ready(function() {
   $(".panel-heading.arxiv").each(function(key, value) {
 
-    $(this).parent().children(".panel-body").addClass("panel-body-" + key);
+    $(this).parent().children(".panel-body").attr("id","panel-body-" + key);
+    $(this).parent().attr("id","panel-" + key);
 
     if(toggle_getCookie($(value).children('h3').text().trim())=="true") {
       toggle_state="";
-      $('.panel-body-'+key).slideToggle(0,"swing");
+      $('#panel-body-'+key).slideToggle(0,"swing");
     } else {
       toggle_state="active";
     }
 
     $('#arxiv-toggle-list').append(
-      '<a role="button" href="#" class="btn btn-default btn-info btn-lg '
+      '<a role="button" href="#panel-'
+      + key +'"'
+      + ' class="btn btn-default btn-info btn-lg '
       + ' section-toggle-button '
       + toggle_state
       +'" id="toggle-item-'
@@ -22,14 +25,18 @@ $(document).ready(function() {
     );
 
     $('#toggle-item-'+key).on("click",function() {
-      $(".panel-body-"+key).slideToggle(0,"swing");
+      $("#panel-body-"+key).slideToggle(0,"swing");
       toggle_setCookie($(value).children('h3').text().trim(),$(this).hasClass('active'),100);
+      if(!$(this).hasClass("active")) {
+        window.location.hash = '';
+        window.location.hash = $(this).attr("href");
+      }
     });
 
     $(this).on("click",function() {
       $listitem=$('#toggle-item-'+key);
       $listitem.toggleClass('active');
-      $(".panel-body-" + key).slideToggle(0,"linear");
+      $("#panel-body-" + key).slideToggle(0,"linear");
       toggle_setCookie($(value).children('h3').text().trim(),!$listitem.hasClass('active'),100);
     });
   });
@@ -40,6 +47,7 @@ $(document).ready(function() {
     });
   });
 
+    window.location.hash="_";
 });
 
 
