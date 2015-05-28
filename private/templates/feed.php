@@ -17,7 +17,10 @@ foreach($arxivs as $arxiv) {
 <div class="panel panel-info arxiv">
   <div class="panel-heading toggle arxiv">
   <?php if($arxiv=="users") {?>
-      <a role="button" href="<?php print path()?>add.php" class='btn btn-success pull-right btn-xs' data-toggle="tooltip" title="Add non-arXiv paper">Add Paper</a>
+      <a role="button" href="<?php print path()?>add.php" class='btn btn-success pull-right btn-xs' data-toggle="tooltip" title="Add non-arXiv paper">
+        Add Content
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
     <?php } ?>
     <h3 class="panel-title"><span class='hidden-sm hidden-xs hidden-md'>Papers from</span> <?php print $arxiv; ?></h3>
   </div>
@@ -30,7 +33,7 @@ foreach($arxivs as $arxiv) {
         );
 
       if(count($papers) == 0) {
-        print "<p>No papers in this section today!</p>";
+        print "<li class='list-group-item'>No papers in this section today!</li>";
       } else {
         foreach($papers as $paper) {
           ?>
