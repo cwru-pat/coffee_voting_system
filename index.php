@@ -11,18 +11,8 @@ require_once("private/templates/jumbotron.php");
 ?>
 <script type="text/javascript" src="<?php print path(); ?>js/sidebar.js"></script>
 <div class="container">
+  <div class="row">
   
-  <div class="row">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <input id="arxiv_search" class="form-control" placeholder="Search...">
-        <div id="arxiv_search_results"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    
     <div class="col-sm-3" id="leftCol">
       <div class="btn-group-vertical toggle-content" id="arxiv-toggle-list" role="group" data-clampedwidth="#leftCol">
         <a class="list-group-item active">

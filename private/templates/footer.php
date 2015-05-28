@@ -4,5 +4,8 @@
         <p class="text-muted">Powered by <a href='https://github.com/cwru-pat/coffee_stuff'>Coffee</a></p>
       </div>
     </footer>
+
+    <?php require_once("search_modal.php"); ?>
+
   </body>
 </html>

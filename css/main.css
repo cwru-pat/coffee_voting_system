@@ -251,3 +251,17 @@ input.meetingEndTime {
 .remove-meeting:hover span{
   color: #A94442;
 }
+
+/* Search stuff
+-------------------------------------------------- */
+
+.input-group-addon select.form-control {
+  margin: -5px 0 -5px 0;
+  border: none;
+  background-color: #EEE;
+  box-shadow: none;
+}
+
+.form-group-wide {
+  width: 100%;
+}
