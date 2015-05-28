@@ -27,7 +27,7 @@ require_once("private/templates/navbar.php");
 			<?php foreach($result as $row) {?>
 			<tr>
 
-				<td><a href="<?php print path(); ?>post.php?paper-id=<?php print $row['paperID'];?>"><?php print format_arxiv_title_bare($row['title']);?></a></td>
+				<td><a href="<?php print path(); ?>post.php?post-id=<?php print $row['paperID']; ?>"><?php print format_arxiv_title_bare($row['title']); ?></a></td>
 				<td class="rating"><?php print $row['value'];?></td>
 				<td><?php $tdate=explode(" ",$row['date']); print $tdate[0];?></td>
 				

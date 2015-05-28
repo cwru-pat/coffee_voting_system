@@ -262,6 +262,8 @@ input.meetingEndTime {
   box-shadow: none;
 }
 
-.form-group-wide {
-  width: 100%;
+#search_modal_close {
+  font-size: 18px;
+  line-height: 21px;
 }
+
