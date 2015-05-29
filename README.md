@@ -34,5 +34,6 @@
    - Edit the `$config['database'][...]` to reflect the mysql credentials created above.
    - Edit `$config['web']['path']` to point to the URL where you can view the system.
    - Edit `$config['phpCAS']['location']` to point to system path where the CAS.php file inside the phpCAS directory is (it should probably not be a subdirectory of this repo).
- - Finally, `$coffee_conn->createTables();` needs to be run by the script, currently [line 26 in private/site.php](https://github.com/cwru-pat/coffee_stuff/blob/master/private/site.php#L26). This should be improved.
 
+## Notes
+ - For database changes, tables that do not exist are created, but changes to existing tables need to be done by hand (for now).
