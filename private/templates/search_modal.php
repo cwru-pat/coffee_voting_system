@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -18,7 +18,7 @@
               <span class="caret"></span>
             </button>
             <input type="hidden" id="arxiv_search_order" value="relevance">
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <ul class="dropdown-menu" role="menu">
               <li><a href="#" id="arxiv_search_order_relevance">Relevance</a></li>
               <li><a href="#" id="arxiv_search_order_lastUpdatedDate">Date</a></li>
             </ul>

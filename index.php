@@ -15,9 +15,9 @@ require_once("private/templates/jumbotron.php");
   
     <div class="col-sm-3" id="leftCol">
       <div class="btn-group-vertical toggle-content" id="arxiv-toggle-list" role="group" data-clampedwidth="#leftCol">
-        <span class="list-group-item active">
+        <div class="list-group-item active">
           <h5 class="list-group-item-heading"> Display arXiv results from:</h5>
-        </span>
+        </div>
         <?php require_once("private/templates/calendar.php"); ?>
       </div>
     </div>
