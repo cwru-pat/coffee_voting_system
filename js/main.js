@@ -18,3 +18,7 @@ $(document).ready(function() {
   });
 
 });
+
+function remove_newlines(text) {
+  return text.replace(/(\r\n|\n|\r)/gm, " ");
+}
