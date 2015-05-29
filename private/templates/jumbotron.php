@@ -81,9 +81,9 @@ foreach($result as $row){
 							<?php if(is_array($voted_title)){
 								print $voted_title[1] . $voted_title[2];
 							}?>
-							<a role="button" href="#" class="btn btn-default btn-xs voted-btn abstract-showhide" data-paperid="<?php print $paper["id"]; ?>" id="article-<?php print $paper["id"]; ?>-button" title="Toggle Abstract" data-toggle="button">Abstract</a>
+							<a role="button" href="#" class="btn btn-default btn-xs voted-btn abstract-showhide" data-paperid="<?php print $paper["id"]; ?>" id="article-<?php print $paper["id"]; ?>-button" title="Toggle Abstract" data-toggle="button" data-toggle-tip="tooltip" data-container="body" data-placement="bottom">Abstract</a>
 							<?php if($user->isAdmin()||($user->isLoggedIn() && $user->id()==$paper["authors"])) { ?>
-								<a role="button" href="<?php print path()?>add.php?post-id=<?php print $paper['id']?>" class="btn btn-default btn-xs voted-btn" data-toggle="tooltip" data-placement="bottom" title="Edit">
+								<a role="button" href="<?php print path()?>add.php?post-id=<?php print $paper['id']?>" class="btn btn-default btn-xs voted-btn" data-toggle="tooltip" data-placement="bottom" title="Edit" data-container="body">
       						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
     						</a>
 							<?php } ?>
@@ -159,8 +159,8 @@ foreach($result as $row){
         <h4 class="modal-title" id="BumpLabel">Bump this article to the next meeting?</h4>
       </div>
       <div class="modal-body">
-        <button type="submit" tabindex="1" class="btn btn-primary btn-block bump-btn bump-no"  data-bump="0" data-dismiss="modal" title="(Remove Bump)">No! Don't bump it / remove bump!</button>
-        <button type="submit" tabindex="1" class="btn btn-warning btn-block bump-btn bump-yes" data-bump="1" data-dismiss="modal">Bump it to the next meeting!</button>
+        <button type="submit" tabindex="1" class="btn btn-primary btn-block bump-btn bump-no"  data-bump="0" data-dismiss="modal" title="Remove bump" data-toggle="tooltip" data-placement="top" data-container="body">No! Don't bump it!</button>
+        <button type="submit" tabindex="1" class="btn btn-warning btn-block bump-btn bump-yes" data-bump="1" data-dismiss="modal" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Paper will apear next meeting">Bump it to the next meeting!</button>
       </div>
       <?php } else {?>
       <h4 class="modal-title" id="myModalLabel">You must sign in to do this!</h4>
