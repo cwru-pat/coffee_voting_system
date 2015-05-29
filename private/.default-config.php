@@ -40,6 +40,7 @@ $config['database']['tables']['papers'] = array(
     "authors" => "BLOB",
     "abstract" => "BLOB",
     "subject" => "VARCHAR(12)",
+    "arxivId" => "VARCHAR(12)",
     "date" => "TIMESTAMP"
   );
 
