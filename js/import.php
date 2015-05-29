@@ -42,7 +42,7 @@ if($params->get("import-id")) {
 
     $coffee_conn->boundCommand(
       "INSERT INTO papers (title, authors, abstract, subject, arxivId) VALUES (?, ?, ?, ?, ?)",
-      array('ssss', &$title, &$authors, &$abstract, &$section, &$arxivId)
+      array('sssss', &$title, &$authors, &$abstract, &$section, &$arxivId)
     );
 
     $paper = $coffee_conn->boundQuery(
