@@ -142,13 +142,14 @@ function o($value, $flags = ENT_QUOTES)
 // return timestamps for current week's meetings.
 function get_meeting_timestamps($start_or_end = "end", $papers_only = FALSE, $date = FALSE)
 {
-  $meetings_json = get_variable("dates");
+  $meetings = get_variable("dates");
+
   if(!$date) {
     global $params;
     $date = $params->getDate();
   }
 
-  if(!($meetings = json_decode($meetings_json))) {
+  if(!$meetings) {
     return NULL;
   } else {
     $meeting_times = array();
@@ -173,13 +174,13 @@ function get_meeting_timestamps($start_or_end = "end", $papers_only = FALSE, $da
 // or NULL if none.
 function get_adjacent_meeting_times($start_or_end = "end", $papers_only = FALSE, $date = FALSE)
 {
-  $meetings_json = get_variable("dates");
+  $meetings = get_variable("dates");
   if(!$date) {
     global $params;
     $date = $params->getDate();
   }
 
-  if(!($meetings = json_decode($meetings_json))) {
+  if(!$meetings) {
     return NULL;
   } else {
     $meeting_times = array();
@@ -227,7 +228,10 @@ function print_errors($errors)
 
 function print_alert($html_message, $level)
 {
-  print '<div class="alert alert-' . $level . '" role="alert">' . $html_message . '</div>';
+  print '<div class="alert alert-' . $level . '" role="alert">'
+      . $html_message
+      . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+    . '</div>';
 }
 
 function kill_script($html_message)
@@ -237,4 +241,10 @@ function kill_script($html_message)
   print '</div>';
   require_once("private/templates/footer.php");
   die();
+}
+
+function date_sort($date_1, $date_2)
+{
+  $dow = array("sun" => 0, "mon" => 1, "tue" => 2, "wed" => 4, "thu" => 5, "fri" => 6, "sat" => 7);
+  return $dow[$date_1->day] > $dow[$date_2->day];
 }
