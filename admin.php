@@ -16,30 +16,29 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   require_once("private/templates/footer.php");
   die();
 }
+
 ?>
 <div class="container">
   <?php
   if($token->validateToken($params->get("CSRFToken"))) {
-    set_variable("dates", $params->get("dates"));
-    set_variable("admins", $params->get("admins"));
-    ?>
-    <div class="alert alert-success alert-dismissible" role="alert">
-        Changes successfully made.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <?php
+    $dates = json_decode($params->get("dates"));
+    $sorted = usort($dates, "date_sort");
+    if(!$dates || !$sorted) {
+      print_alert("Error making changes.", "danger");
+    } else {
+      set_variable("dates", $dates);
+      set_variable("admins", $params->get("admins"));
+      print_alert("Changes successfully made.", "success");
+    }
   }
 
   $dates = get_variable("dates");
   $admins = get_variable("admins");
-  ?>
 
-  <?php if(!get_variable("admins")) { ?>
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        Warning: No administrators are defined yet, so everyone has access to this page.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-  <?php } ?>
+  if(!get_variable("admins")) {
+    print_alert("Warning: No administrators are defined yet, so everyone has access to this page.", "danger");
+  }
+  ?>
 
   <h1>Coffee Discussion Settings</h1>
   <h2>Administrative Tasks</h2>
@@ -75,7 +74,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
       <label for="admin_ids">Case IDs of Administrators</label>
       <input type="text" class="form-control" id="admin_ids" name="admins" value="<?php print o($admins); ?>" placeholder="Enter a comma-separated list of admin IDs.">
     </div>
-    <input type="hidden" id="admin_date_selectors_dates" name="dates" value="<?php print o($dates); ?>">
+    <input type="hidden" id="admin_date_selectors_dates" name="dates" value="<?php print o(json_encode($dates)); ?>">
     <input type="hidden" name="CSRFToken" value="<?php print $token->getToken(); ?>">
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

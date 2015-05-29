@@ -18,7 +18,7 @@ if($params->get("import-id")) {
   if(! $section = $params->get("section"))
     $errors[] = "Section not set.";
 
-  $query_title = trim($title) . "%"; // may be too lenient as a check for dupes.
+  $query_title = "%" . trim($title) . "%"; // may be too lenient as a check for dupes.
   $duplicates = $coffee_conn->boundQuery(
       "SELECT * FROM papers WHERE title LIKE ?",
       array('s', &$query_title)
