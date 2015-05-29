@@ -15,7 +15,6 @@ print "<p>which will run at midnight, 9 pm, and 10 pm daily.</p>\n\n";
 
 function xml2assoc(&$xml)
 {
-
     $allowed = array(
         "item" => "item",
         "title" => "title",
@@ -74,17 +73,25 @@ foreach($sub_arxivs as $arxiv) {
                 $title = strip_tags(trim($article["title"]));
                 $abstract = strip_tags(trim($article["description"]));
                 $authors = trim($article["dc:creator"]);
+                
+                $article_data = Array();
+                preg_match('/(.*)\s\(arxiv\:(.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);
+                if(isset($article_data[2])) {
+                    $arxiv_id = $article_data[2];
+                } else {
+                    $arxiv_id = substr($title,0,11); // something unique-ish
+                }
 
                 $duplicate_papers = $coffee_conn->boundQuery(
-                        "SELECT title FROM papers WHERE title = ? LIMIT 1",
-                        array('s', &$title)
+                        "SELECT * FROM papers WHERE arxivId = ? LIMIT 1",
+                        array('s', &$arxiv_id)
                     );
                 if(count($duplicate_papers) > 0) {
                     $duplicates[] = "Paper already exists: `" . $title . "`";
                 } else {
                     $coffee_conn->boundCommand(
-                        "INSERT INTO papers (title, authors, abstract, subject, date) VALUES (?, ?, ?, ?, ?)",
-                        array('sssss', &$title, &$authors, &$abstract, &$arxiv, &$mysql_date)
+                        "INSERT INTO papers (title, authors, abstract, subject, arxivId, date) VALUES (?, ?, ?, ?, ?, ?)",
+                        array('ssssss', &$title, &$authors, &$abstract, &$arxiv, &$arxiv_id, &$mysql_date)
                     );
                     $success[] = "Imported paper: " . $title;
                 }
