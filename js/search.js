@@ -39,6 +39,7 @@ function format_search_results(xml) {
         authors: remove_newlines($("author", val).text()), // could be improved
         abstract: remove_newlines($("summary", val).text()),
         section: remove_newlines(arxiv_category),
+        arxivId: arxiv_id,
       };
       console.log("Importing paper...", data);
       $.ajax({

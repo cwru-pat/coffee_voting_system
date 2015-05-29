@@ -11,6 +11,8 @@ if($params->get("import-id")) {
     $errors[] = "You must log in.";
   if(! $title = $params->get("title"))
     $errors[] = "Title not set.";
+  if(! $arxivId = $params->get("arxivId"))
+    $errors[] = "arxivId not set.";
   if(! $authors = $params->get("authors"))
     $errors[] = "Authors not set.";
   if(! $abstract = $params->get("abstract"))
@@ -18,10 +20,9 @@ if($params->get("import-id")) {
   if(! $section = $params->get("section"))
     $errors[] = "Section not set.";
 
-  $query_title = trim($title) . "%"; // may be too lenient as a check for dupes.
   $duplicates = $coffee_conn->boundQuery(
-      "SELECT * FROM papers WHERE title LIKE ?",
-      array('s', &$query_title)
+      "SELECT * FROM papers WHERE arxivId LIKE ?",
+      array('s', &$arxivId)
   );
   if(count($duplicates)) {
     if(!isset($duplicates[0]["id"])) {
@@ -40,8 +41,8 @@ if($params->get("import-id")) {
     // ok to import.
 
     $coffee_conn->boundCommand(
-      "INSERT INTO papers (title, authors, abstract, subject) VALUES (?, ?, ?, ?)",
-      array('ssss', &$title, &$authors, &$abstract, &$section)
+      "INSERT INTO papers (title, authors, abstract, subject, arxivId) VALUES (?, ?, ?, ?, ?)",
+      array('sssss', &$title, &$authors, &$abstract, &$section, &$arxivId)
     );
 
     $paper = $coffee_conn->boundQuery(
