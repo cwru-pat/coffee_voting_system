@@ -8,8 +8,8 @@
 
           <input type="text" class="form-control" id="arxiv_search" placeholder="Search...">
 
-          <div class="input-group-addon">
-            <i class="fa fa-spinner" id="arxiv_search_spinner"></i>
+          <div class="input-group-addon" id="arxiv_search_spinner">
+            <i class='fa fa-check-circle-o'></i>
           </div>
 
           <div class="input-group-btn">
