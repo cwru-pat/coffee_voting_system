@@ -30,12 +30,15 @@ function format_search_results(xml) {
   $.map( $("entry", xml), function(val, i) {
     $("#search-result-import-" + i).on("click", function(e) {
       e.preventDefault();
+      var id_pattern = /http\:\/\/arxiv\.org\/abs\//i
+      var arxiv_id = $("id", val).text().replace(id_pattern, "");
+      var arxiv_category = $("category", val).attr("term");
       var data = {
         "import-id": $("id", val).text(),
-        title: $("title", val).text(),
+        title: $("title", val).text() + " (arxiv:" + arxiv_id +  " [" + arxiv_category + "])",
         authors: $("author", val).text(), // could be improved
         abstract: $("summary", val).text(),
-        section: $("category", val).attr("term"),
+        section: arxiv_category,
       };
       console.log("Importing paper...", data);
       $.ajax({
