@@ -1,15 +1,13 @@
 
 function format_search_results(xml) {
   var html = $.map( $("entry", xml), function(val, i) {
-
     var import_button_text = "";
     if(isLoggedIn) {
-      import_button_text = "<a href='post.php?import-id=" + $("id", val).text() + "' type='button' class='btn btn-default'>"
+      import_button_text = "<a href='#' id='search-result-import-" + i + "' type='button' class='btn btn-default'>"
             +     "<span class='glyphicon glyphicon-import'></span>"
             +     " Import "
             +   "</a>";
     }
-
     return "<li>"
             + $("title", val).text()
             + " <div class='btn-group btn-group-xs' role='group'>"
@@ -21,11 +19,52 @@ function format_search_results(xml) {
             + "</div>"
             + "</li>";
   }).join("");
+
   if(!html) {
     html = "<li>No results found!</li>";
   }
+
   hide_search_spinner();
   $("#arxiv_search_results").html("<ul class='list-unstyled'>" + html + "</ul>");
+
+  $.map( $("entry", xml), function(val, i) {
+    $("#search-result-import-" + i).on("click", function(e) {
+      e.preventDefault();
+      var data = {
+        "import-id": $("id", val).text(),
+        title: $("title", val).text(),
+        authors: $("author", val).text(), // could be improved
+        abstract: $("summary", val).text(),
+        section: $("category", val).attr("term"),
+      };
+      console.log("Importing paper...", data);
+      $.ajax({
+        url: 'js/import.php',
+        type: 'GET',
+        dataType: 'json',
+        data: data,
+        success: function(json) {
+          console.log(json);
+          if(json.hasOwnProperty("errors") || !json.hasOwnProperty("postId")) {
+            console.log(json.errors);
+            $("#search-result-import-"+i).html("<i class='fa fa-times-circle'></i> Import failed!");
+          } else {
+            $("#search-result-import-"+i).off();
+            $("#search-result-import-"+i).on("click", function(e) {
+              e.preventDefault();
+              document.location.href = 'post.php?post-id=' + json.postId;
+            });
+            $("#search-result-import-"+i).html("<i class='fa fa-check-circle'></i> View Paper.");
+            $("#search-result-import-"+i).addClass("btn-success");
+          }
+        },
+        error: function(err) {
+          $("#search-result-import-"+i).html("<i class='fa fa-times-circle'></i> Import failed!");
+          console.log(err);
+        }
+      });
+    });
+  });
 }
 
 function perform_search(value) {
@@ -47,11 +86,11 @@ function perform_search(value) {
 }
 
 function show_search_spinner() {
-  $("#arxiv_search_spinner").addClass("fa-pulse");
+  $("#arxiv_search_spinner").html("<i class='fa fa-spinner fa-pulse'></i>");
 }
 
 function hide_search_spinner() {
-  $("#arxiv_search_spinner").removeClass("fa-pulse");
+  $("#arxiv_search_spinner").html("<i class='fa fa-check-circle-o'></i>");
 } 
 
 $(document).ready(function() {
