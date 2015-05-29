@@ -20,7 +20,7 @@ if($params->get("import-id")) {
 
   $query_title = trim($title) . "%"; // may be too lenient as a check for dupes.
   $duplicates = $coffee_conn->boundQuery(
-      "SELECT * FROM papers WHERE title LIKE ? LIMIT 1",
+      "SELECT * FROM papers WHERE title LIKE ?",
       array('s', &$query_title)
   );
   if(count($duplicates)) {
@@ -31,7 +31,9 @@ if($params->get("import-id")) {
     } else {
       $reply = array(
         "success" => "Duplicate found.",
+        "duplicates" => count($duplicates),
         "postId" => $duplicates[0]["id"],
+        "duplicateTitle" => $duplicates[0]["title"],
       );
     }
   } elseif(!$errors) {

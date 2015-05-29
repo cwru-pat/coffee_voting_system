@@ -34,11 +34,11 @@ function format_search_results(xml) {
       var arxiv_id = $("id", val).text().replace(id_pattern, "");
       var arxiv_category = $("category", val).attr("term");
       var data = {
-        "import-id": $("id", val).text(),
-        title: $("title", val).text() + " (arxiv:" + arxiv_id +  " [" + arxiv_category + "])",
-        authors: $("author", val).text(), // could be improved
-        abstract: $("summary", val).text(),
-        section: arxiv_category,
+        "import-id": remove_newlines($("id", val).text()),
+        title: remove_newlines($("title", val).text() + " (arxiv:" + arxiv_id +  " [" + arxiv_category + "])"),
+        authors: remove_newlines($("author", val).text()), // could be improved
+        abstract: remove_newlines($("summary", val).text()),
+        section: remove_newlines(arxiv_category),
       };
       console.log("Importing paper...", data);
       $.ajax({
