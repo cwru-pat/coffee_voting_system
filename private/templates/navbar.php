@@ -48,7 +48,7 @@ $nav_items = array(
         </button>
 
        <?php if($user->isLoggedin()) {?>
-      <a type="button" href="<?php print path()?>add.php" class='btn btn-success' data-toggle="tooltip" data-placement="bottom" title="Add non-arXiv paper">
+      <a role="button" href="<?php print path()?>add.php" class='btn btn-success' data-toggle="tooltip" data-placement="bottom" title="Add non-arXiv paper">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
     <?php } ?>
