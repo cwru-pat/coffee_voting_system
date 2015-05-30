@@ -47,7 +47,21 @@ if($params->get("post-id")) {
 <?php
 
 $errors = array();
-if($params->get("submitted")) {
+if($params->get("delete-post") == "delete") {
+  // delete post!
+  $post_id = $params->get("post-id");
+  $coffee_conn->boundCommand(
+    "DELETE FROM papers WHERE id = ?",
+    array('i', &$post_id)
+  );
+  $coffee_conn->boundCommand(
+    "DELETE FROM votes WHERE paperId = ?",
+    array('i', &$post_id)
+  );
+  print_alert("Post removed.", "danger");
+  print "</div>";
+  kill_script("");
+} elseif($params->get("submitted")) {
   if(!$post_title) {
     $errors[] = "Please include a post title.";
   }
@@ -138,9 +152,29 @@ if($params->get("post-id")) {
         <input type="hidden" name="post-id" value="<?php print o($params->get("post-id")); ?>">
       <?php } ?>
       <input type="hidden" name="submitted" value="add">
+      <input type="hidden" name="delete-post" id="delete-post" value="false">
       <button type="submit" class="btn btn-primary">Submit</button>
+      <?php if($params->get("post-id")) { ?>
+        <button type="submit" class='btn btn-danger pull-right' id="delete-post-button">
+          <span class="fa fa-times"></span> Delete Post
+        </button>
+      <?php } ?>
     </div>
   </form>
+</div>
+
+<div id="confirm_delete" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        Are you sure? This will also delete associated votes.
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-primary" id="modal-delete-button">Delete</button>
+        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <?php

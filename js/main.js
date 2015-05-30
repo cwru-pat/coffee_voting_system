@@ -17,8 +17,18 @@ $(document).ready(function() {
     },
   });
 
+  $('#delete-post-button').on('click', function(e){
+    var $form = $(this).closest('form'); 
+    e.preventDefault();
+    $('#confirm_delete').modal({ backdrop: 'static', keyboard: false })
+      .one('click', '#modal-delete-button', function() { // (one. is not a typo of on.)
+        $("#delete-post").val("delete"); // set input to 'delete'
+        $form.trigger('submit'); // submit the form
+      });
+  });
+
 });
 
 function remove_newlines(text) {
-  return text.replace(/(\r\n|\n|\r)/gm, "");
+  return text.replace(/(\r\n|\n|\r)/gm, " ");
 }
