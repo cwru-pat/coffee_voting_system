@@ -32,7 +32,7 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
     $arxivs = $params->getWithDefault("arxivs", 
       "astro-ph.CO, astro-ph.HE, astro-ph.GA, astro-ph.IM, gr-qc, hep-ph, hep-th"
     );
-    $arxivs = array_map(trim, explode(",", $arxivs));
+    $arxivs = array_map('trim', explode(",", $arxivs));
     foreach($arxivs as $arxiv) {
       // make sure RSS XML exists and is parseable
       $xml = new XMLReader();
