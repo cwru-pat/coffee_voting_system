@@ -248,3 +248,23 @@ function date_sort($date_1, $date_2)
   $dow = array("sun" => 0, "mon" => 1, "tue" => 2, "wed" => 4, "thu" => 5, "fri" => 6, "sat" => 7);
   return $dow[$date_1->day] > $dow[$date_2->day];
 }
+
+function get_votes()
+{
+  global $user;
+  global $coffee_conn;
+
+  $votes = array();
+  if($user->isLoggedIn()) {
+    $userId = $user->id();
+    $query = "SELECT * FROM votes WHERE userId = ?";
+    $result = $coffee_conn->boundQuery($query, array('s', &$userId));
+
+    $votes = array();
+    foreach($result as $row) {
+      $votes[$row["paperId"]] = $row["value"];
+    }
+  }
+
+  return $votes;
+}

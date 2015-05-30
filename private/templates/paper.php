@@ -1,8 +1,8 @@
 <?php
-require_once('private/templates/votes_head.php');
 /*
  * This file expects a $paper array to be set in the current scope, eg a result returned from boundQuery.
  */
+$votes = get_votes();
 ?>
 <h4>
   <?php if($user->isAdmin()||($user->isLoggedIn() && $user->id()==$paper["authors"])) {?>

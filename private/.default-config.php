@@ -1,25 +1,10 @@
 <?php
-
 /*
- * Copy this file to .config.php and edit.
+ * Copy this file to .config.php and edit it appropriately.
  */
 
-// path to base dir of website.
+// (public) path to base dir of website.
 $config['web']['path'] = "/coffee_stuff/";
-
-// arxivs to pull from & display
-$config['arxivs'] = array(
-    "astro-ph.CO",
-    "astro-ph.HE",
-    "astro-ph.GA",
-    "astro-ph.IM",
-    "gr-qc",
-    "hep-ph",
-    "hep-th"
-);
-
-// date after which papers "expire"
-$config['expire_date'] = date("Y-m-d", strtotime("-3 months"));
 
 // settings for connecting to the database.
 $config['database']['host'] = 'localhost';

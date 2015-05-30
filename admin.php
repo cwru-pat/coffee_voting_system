@@ -21,19 +21,56 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
 <div class="container">
   <?php
   if($token->validateToken($params->get("CSRFToken"))) {
+
+    $errors = array();
+
+    $expire_date = $params->getWithDefault("expire_date", "-3 months");
+    if(!strtotime($expire_date)) {
+      $errors[] = "Invalid expiration date string. Please refer to the <a href='http://php.net/manual/en/datetime.formats.php'>PHP docs</a> for valid timestrings.";
+    }
+
+    $arxivs = $params->getWithDefault("arxivs", 
+      "astro-ph.CO, astro-ph.HE, astro-ph.GA, astro-ph.IM, gr-qc, hep-ph, hep-th"
+    );
+    $arxivs = array_map(trim, explode(",", $arxivs));
+    foreach($arxivs as $arxiv) {
+      // make sure RSS XML exists and is parseable
+      $xml = new XMLReader();
+      if($xml->open(ARXIV_RSS_BASE_URL . $arxiv)) {
+        $xml->setParserProperty(XMLReader::VALIDATE, true);
+        if(!$xml->isValid()) {
+          $errors[] = "Unable to read from arxiv: `" . o($arxiv) . "`!";
+        }
+      } else {
+        $errors[] = "Unable to read from arxiv: " . o($arxiv) . "!";
+      }
+    }
+
     $dates = json_decode($params->get("dates"));
-    $sorted = usort($dates, "date_sort");
+    $sorted = usort($dates, "date_sort"); // sorted is bool
     if(!$dates || !$sorted) {
-      print_alert("Error making changes.", "danger");
+      $errors[] = "Error making changes to dates.";
+    }
+
+    if($errors) {
+      print_errors($errors);
     } else {
       set_variable("dates", $dates);
-      set_variable("admins", $params->get("admins"));
+      set_variable("admins",
+        $params->getWithDefault("admins",
+          $user->id()
+        )
+      );
+      set_variable("arxivs", $arxivs);
+      set_variable("expire_date", $expire_date);
       print_alert("Changes successfully made.", "success");
     }
   }
 
   $dates = get_variable("dates");
   $admins = get_variable("admins");
+  $arxivs = get_variable("arxivs");
+  $expire_date = get_variable("expire_date");
 
   if(!get_variable("admins")) {
     print_alert("Warning: No administrators are defined yet, so everyone has access to this page.", "danger");
@@ -71,8 +108,16 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
       </div>
     </div>
     <div class="form-group">
-      <label for="admin_ids">Case IDs of Administrators</label>
+      <label for="admin_ids">Comma-Separated list of CAS IDs of Administrators</label>
       <input type="text" class="form-control" id="admin_ids" name="admins" value="<?php print o($admins); ?>" placeholder="Enter a comma-separated list of admin IDs.">
+    </div>
+    <div class="form-group">
+      <label for="arxivs">Comma-Separated list of arXivs to import</label>
+      <input type="text" class="form-control" id="arxivs" name="arxivs" value="<?php print o(implode(",", $arxivs)); ?>" placeholder="Eg., 'astro-ph.CO'">
+    </div>
+    <div class="form-group">
+      <label for="expire_date">Date after which to remove old papers with no votes from the system. Can be any string <a href='php.net/manual/en/datetime.formats.php'>readable</a> by PHP's strtotime() function.</label>
+      <input type="text" class="form-control" id="expire_date" name="expire_date" value="<?php print o($expire_date); ?>" placeholder="Eg., '-3 months'">
     </div>
     <input type="hidden" id="admin_date_selectors_dates" name="dates" value="<?php print o(json_encode($dates)); ?>">
     <input type="hidden" name="CSRFToken" value="<?php print $token->getToken(); ?>">
