@@ -47,7 +47,7 @@ $(document).ready(function() {
         display_rate_json($("#article-" + paperId + "-messages"), json);
         display_rate_json($("#article-voted-" + paperId + "-messages"), json);
       }).fail(function( jqXHR, textStatus, errorThrown ) {
-        console.log( "Error submitting vote.", textStatus, errorThrown );
+        console.log( "Error submitting vote.", textStatus, errorThrown, jqXHR );
       });
     });
 
@@ -65,7 +65,7 @@ $(document).ready(function() {
         display_rate_json($("#article-" + paperId + "-messages"), json);
         display_rate_json($("#article-voted-" + paperId + "-messages"), json);
       }).fail(function( jqXHR, textStatus, errorThrown ) {
-        console.log( "Error submitting vote.", textStatus, errorThrown );
+        console.log( "Error submitting vote.", textStatus, errorThrown, jqXHR );
       });
     });
   });

@@ -5,6 +5,8 @@ ini_set('display_errors', '1');
 
 // php session
 session_start();
+// constants
+require_once(__DIR__ . "/constants.php");
 // autoloader for Coffee classes
 require_once(__DIR__ . "/CoffeeClasses/autoload.php");
 // Misc. functions.
@@ -22,7 +24,8 @@ foreach($installation_errors as $error) {
 global $coffee_conn;
 $coffee_conn = new CoffeeClasses\DBConn($config->get("database"));
 $coffee_conn->createTables();
-$coffee_conn->setDebug(TRUE);
+// Enabling query debugging will cause output that will ruin json returns in ajax calls.
+$coffee_conn->setDebug(FALSE);
 
 // global system user object
 global $user;
@@ -36,3 +39,12 @@ $params = new CoffeeClasses\Parameters();
 
 // re-usable CSRF prevention token
 $token = new CoffeeClasses\CSRFToken();
+
+// set default arxivs
+if(!get_variable("arxivs")) {
+  set_variable("arxivs", unserialize(DEFAULT_ARXIVS_SERIALIZED));
+}
+// set default expiration date
+if(!strtotime(get_variable("expire_date"))) {
+  set_variable("expire_date", DEFAULT_EXPIRATION_DATESTRING);
+}

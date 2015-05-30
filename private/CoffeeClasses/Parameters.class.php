@@ -35,6 +35,15 @@ class Parameters
         }
     }
 
+    public function getWithDefault($value, $default = NULL)
+    {
+        if(isset($this->request[$value])) {
+            return $this->get($value);
+        } else {
+            return $default;
+        }
+    }
+
     public function getDate()
     {
         if(isset($_REQUEST["d"])) {

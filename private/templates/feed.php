@@ -1,16 +1,13 @@
 <?php
 
-$arxivs = $config->get("arxivs");
 $timestamp = $params->getDate();
 $date = date("Y-m-d", $timestamp);
 $begin_date = $date . " 00:00:00";
 $end_date = $date . " 23:59:59";
+$votes = get_votes();
 
-require_once('private/templates/votes_head.php'); //$votes is defined here to repeat code
-
-
-  array_unshift($arxivs, "users");
-
+$arxivs = get_variable("arxivs");
+array_unshift($arxivs, "users"); // add "users"
 
 foreach($arxivs as $arxiv) {
 ?>

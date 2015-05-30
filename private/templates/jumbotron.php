@@ -1,6 +1,6 @@
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <?php
-require_once('private/templates/votes_head.php');
+
+$votes = get_votes();
 
 $query = "SELECT * FROM votes ORDER BY paperId, date DESC;";
 $result = $coffee_conn->dbQuery($query);
@@ -9,9 +9,8 @@ foreach($result as $row){
 	$paper_votes[$row->paperId][$row->userId] = array(
 		"value" => $row->value,
 		"date" => strtotime($row->date)
-		);
+	);
 }
-
 
 ?>
 <div class="jumbotron">

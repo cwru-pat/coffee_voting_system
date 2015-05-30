@@ -2,8 +2,7 @@
 require_once("private/site.php");
 $coffee_conn->setDebug(FALSE);
 
-$sub_arxivs = $config->get("arxivs");
-$url = "http://export.arxiv.org/rss/";
+$sub_arxivs = get_variable("arxivs");
 
 print "<p>Running daily paper import/expire tasks. To automate this, set up a cron job, similar to</p>\n";
 print "<pre>\n0 0,21,22 * * * curl http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "\n</pre>\n";
@@ -27,7 +26,7 @@ function xml2assoc(&$xml)
 
     // convert XML to associative array
     $assoc = NULL;
-    while($xml->read()){
+    while($xml->read()) {
         if($xml->nodeType == XMLReader::END_ELEMENT) break;
 
         if($xml->nodeType == XMLReader::ELEMENT and !$xml->isEmptyElement) {
@@ -56,7 +55,7 @@ $duplicates = array();
 $messages = array();
 
 foreach($sub_arxivs as $arxiv) {
-    $full_url = $url . $arxiv;
+    $full_url = ARXIV_RSS_BASE_URL . $arxiv;
     $messages[] = "Importing " . $full_url . " ...";
 
     $xml = new XMLReader();
@@ -121,10 +120,9 @@ print "</pre>\n";
  * Remove old papers *
  * ***************** */
 
-$expire_date = $config->get("expire_date");
-if(!$expire_date) {
-  $expire_date = date("Y-m-d", strtotime("-3 months"));
-}
+$expire_date = date("Y-m-d", strtotime(
+    get_variable("expire_date")
+));
 
 $select_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes LEFT JOIN papers ON votes.paperId = papers.id)";
 $delete_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes LEFT JOIN papers ON votes.paperId = papers.id)";
