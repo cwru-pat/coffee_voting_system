@@ -17,6 +17,11 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
   die();
 }
 
+$dates = get_variable("dates");
+$admins = get_variable("admins");
+$arxivs = get_variable("arxivs");
+$expire_date = get_variable("expire_date");
+
 ?>
 <div class="container">
   <?php
@@ -26,23 +31,24 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
 
     $expire_date = $params->getWithDefault("expire_date", "-3 months");
     if(!strtotime($expire_date)) {
-      $errors[] = "Invalid expiration date string. Please refer to the <a href='http://php.net/manual/en/datetime.formats.php'>PHP docs</a> for valid timestrings.";
+      $errors[] = "Invalid expiration date string. Please refer to the <a href='http://php.net/manual/en/datetime.formats.php'>PHP docs</a> for valid time strings.";
     }
 
     $arxivs = $params->getWithDefault("arxivs", 
       "astro-ph.CO, astro-ph.HE, astro-ph.GA, astro-ph.IM, gr-qc, hep-ph, hep-th"
     );
-    $arxivs = array_map('trim', explode(",", $arxivs));
+    $arxivs = array_map("trim", explode(",", $arxivs));
     foreach($arxivs as $arxiv) {
-      // make sure RSS XML exists and is parseable
-      $xml = new XMLReader();
-      if($xml->open(ARXIV_RSS_BASE_URL . $arxiv)) {
-        $xml->setParserProperty(XMLReader::VALIDATE, true);
-        if(!$xml->isValid()) {
-          $errors[] = "Unable to read from arxiv: `" . o($arxiv) . "`!";
+      // make sure page is returning XML... XMLReader's isValid() seems to 
+      // consider the plain text returned on failure as valid,
+      // so just check for the xml tag at the beginning.
+      if($feed_reply = file_get_contents(ARXIV_RSS_BASE_URL . $arxiv)) {
+        if(substr($feed_reply,0,5) != '<?xml') {
+          $errors[] = "Unable to read from arxiv: `" . o($arxiv) . "`! Reply is:"
+            . "<pre>" . o($feed_reply) . "</pre>";
         }
       } else {
-        $errors[] = "Unable to read from arxiv: " . o($arxiv) . "!";
+        $errors[] = "Unable to read from arxiv: `" . o($arxiv) . "`!";
       }
     }
 
@@ -63,14 +69,14 @@ if(!$user->isAdmin() || !$user->isLoggedIn()) {
       );
       set_variable("arxivs", $arxivs);
       set_variable("expire_date", $expire_date);
+
+      $dates = get_variable("dates");
+      $admins = get_variable("admins");
+      $arxivs = get_variable("arxivs");
+      $expire_date = get_variable("expire_date");
       print_alert("Changes successfully made.", "success");
     }
   }
-
-  $dates = get_variable("dates");
-  $admins = get_variable("admins");
-  $arxivs = get_variable("arxivs");
-  $expire_date = get_variable("expire_date");
 
   if(!get_variable("admins")) {
     print_alert("Warning: No administrators are defined yet, so everyone has access to this page.", "danger");
