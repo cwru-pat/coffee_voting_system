@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  $('[data-clampedwidth]').each(function () {
+  $('[data-clampedwidth]').each(function() {
     var elem = $(this);
     var parentPanel = elem.data('clampedwidth');
     var resizeFn = function () {
@@ -25,4 +25,29 @@ $(document).ready(function() {
     target: '#leftCol',
     offset: navHeight
   });
+
+  $('.abstract-showhide').each(function(){
+      $(this).on('mouseup',function(){
+        var bodyheight=whynowork();
+        bodyheight+=$("#leftCol").offset().top;
+        $('#arxiv-toggle-list').affix({
+          offset: {
+            top: bodyheight-80
+          }
+        });
+      });
+    });
 });
+
+function whynowork(){
+  abs_off=0;
+  var pid
+  $('.abstract-showhide.active').each(function(){
+    pid=$(this).data('paperid');
+    abs_off+=$('#article-' + pid + '-abstract').height();
+
+  });
+  return abs_off;
+}
+
+ /**/
