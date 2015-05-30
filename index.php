@@ -22,7 +22,7 @@ require_once("private/templates/jumbotron.php");
       </div>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9" id="feedCol">
       <?php require_once("private/templates/feed.php"); ?>
     </div>
 
