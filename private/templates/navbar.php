@@ -7,11 +7,11 @@ $nav_items = array(
     "title" => "Home",
     ),
   "page_votes" => array(
-    "url" => "votes.php",
+    "url" => "votes",
     "title" => "Current Votes",
     ),
   "page_me" => array(
-    "url" => "me.php",
+    "url" => "me",
     "title" => "My Votes",
     ),
 );
@@ -41,14 +41,14 @@ $nav_items = array(
         } ?>
       </ul>
 
-      <form class="navbar-form navbar-right" action="<?php print path(); ?>admin.php" method="POST">
+      <form class="navbar-form navbar-right" action="<?php print path(); ?>admin" method="POST">
         <!-- Button trigger search modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal" data-toggle-tip="tooltip" data-placement="bottom" title="Search">
           <span class="glyphicon glyphicon-search"></span>
         </button>
 
        <?php if($user->isLoggedin()) {?>
-      <a role="button" href="<?php print path()?>add.php" class='btn btn-success' data-toggle="tooltip" data-placement="bottom" title="Add non-arXiv paper">
+      <a role="button" href="<?php print path()?>add" class='btn btn-success' data-toggle="tooltip" data-placement="bottom" title="Add non-arXiv paper">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
     <?php } ?>
@@ -65,12 +65,12 @@ $nav_items = array(
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Logged in as <?php print($user->id()); ?> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="<?php print path(); ?>login.php?logout=true">Log Out</a></li>
+              <li><a href="<?php print path(); ?>login?logout=true">Log Out</a></li>
             </ul>
           </li>
         </ul>
       <?php } else { ?>
-        <form class="navbar-form navbar-right" action="<?php print path(); ?>login.php" method="POST">
+        <form class="navbar-form navbar-right" action="<?php print path(); ?>login" method="POST">
           <button type="submit" class="btn btn-success">Sign in</button>
         </form>
       <?php } ?>

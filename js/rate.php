@@ -46,7 +46,7 @@ if($user->isLoggedIn()) {
     }
   }
 } else {
-  $message["error"] = "You must <a href='" . path() . "login.php'>sign in</a> to vote!";
+  $message["error"] = "You must <a href='" . path() . "login'>sign in</a> to vote!";
   $message['login'] = false;
 }
 

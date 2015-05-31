@@ -6,7 +6,7 @@ $votes = get_votes();
 ?>
 <h4>
   <?php if($user->isAdmin()||($user->isLoggedIn() && $user->id()==$paper["authors"])) {?>
-    <a role="button" href="<?php print path()?>add.php?post-id=<?php print $paper['id']?>" class="pull-right btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Edit">
+    <a role="button" href="<?php print path()?>add?post-id=<?php print $paper['id']?>" class="pull-right btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Edit">
       <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
     </a> 
   <?php }?>

@@ -1,3 +1,18 @@
 # Compress most output
 AddOutputFilterByType DEFLATE text/html text/plain text/xml
 
+Options -Indexes
+Options +FollowSymLinks
+Options -MultiViews
+
+# Allow missing php extensions
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
+
+# Error page
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f  
+RewriteCond %{REQUEST_FILENAME} !-d  
+RewriteRule .* error.php [L]

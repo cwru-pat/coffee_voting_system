@@ -84,23 +84,6 @@ $expire_date = get_variable("expire_date");
   ?>
 
   <h1>Coffee Discussion Settings</h1>
-  <h2>Administrative Tasks</h2>
-  <p>
-    <?php 
-      $num_papers = $coffee_conn->dbQuery("SELECT count(*) as num FROM papers");
-      $num_votes = $coffee_conn->dbQuery("SELECT count(*) as num FROM votes");
-      $num_users = $coffee_conn->dbQuery("SELECT count(DISTINCT userId) as num FROM votes");
-    ?>
-    Currently storing <strong><?php print $num_papers[0]->num; ?></strong> paper abstracts.
-    Tracking <strong><?php print $num_votes[0]->num; ?></strong> votes from
-    <strong><?php print $num_users[0]->num; ?></strong> users.
-  </p>
-  <form method="POST" action="cron.php">
-    <button type="submit" class="btn btn-default">
-      <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
-      Import &amp; Expire Papers
-    </button>
-  </form>
   <h2>Settings</h2>
   <form method="POST">
     <div class="list-group" id="admin_date_selectors">
@@ -129,6 +112,50 @@ $expire_date = get_variable("expire_date");
     <input type="hidden" name="CSRFToken" value="<?php print $token->getToken(); ?>">
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  <h2>Administrative Tasks</h2>
+  <p>
+    <?php 
+      $num_papers = $coffee_conn->dbQuery("SELECT count(*) as num FROM papers");
+      $num_votes = $coffee_conn->dbQuery("SELECT count(*) as num FROM votes");
+      $num_users = $coffee_conn->dbQuery("SELECT count(DISTINCT userId) as num FROM votes");
+    ?>
+    Currently storing <strong><?php print $num_papers[0]->num; ?></strong> paper abstracts.
+    Tracking <strong><?php print $num_votes[0]->num; ?></strong> votes from
+    <strong><?php print $num_users[0]->num; ?></strong> users.
+  </p>
+  <form method="POST" action="cron">
+    <button type="submit" class="btn btn-default">
+      <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+      Import &amp; Expire Papers
+    </button>
+  </form>
+  <h2>Error Logs</h2>
+  <p>
+    <?php
+      if(file_exists(PHP_LOG_FILE)) {
+        // file must be writable if it exists
+        if(!is_writable(PHP_LOG_FILE)) {
+          print_alert("Log file is not writable: `" . PHP_LOG_FILE . "`. For logs to appear here it must be writable.", "danger");
+        }
+      } else {
+        // parent dir must be writable if not
+        $parent_dir = dirname(PHP_LOG_FILE);
+        if(!is_writable($parent_dir))
+        print_alert("Log file directory is not writable: `" . $parent_dir . "`. For logs to appear here it must be writable.", "danger");
+      }
+
+      if(file_exists(PHP_LOG_FILE) && $log = trim(file_get_contents(PHP_LOG_FILE))) {
+        print "<div class='form-group'>";
+        print "<label for='errors'>Error Log Content</label>";
+        print "<textarea class='form-control' rows='10' readonly id='errors'>";
+        print o($log);
+        print "</textarea>";
+        print "</div>";
+      } else {
+        print "Currently there are no errors in error.log.";
+      }
+    ?>
+  </p>
 </div>
 <?php
 
