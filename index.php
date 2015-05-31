@@ -1,6 +1,7 @@
 <?php
 
 $page_id = "page_home";
+$mathjax = true;
 
 require_once("private/site.php");
 
