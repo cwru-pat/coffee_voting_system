@@ -34,7 +34,8 @@ $(document).ready(function() {
     });
 
     $(this).on("click",function() {
-      $("#panel-body-" + key).slideToggle(0,"linear");
+      $("#panel-body-"+key).slideToggle(0,"swing");
+      $('#toggle-item-'+key).toggleClass('active');
     });
 
     $(window).on('beforeunload',function(){
