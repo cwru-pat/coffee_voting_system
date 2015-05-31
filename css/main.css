@@ -91,7 +91,7 @@ li.article {
 }
 
 .panel-heading.arxiv:hover {
-  background-color:#C4E3F3; 
+  background-color:#C4E3F3;
 }
 
 .article-button-holder {
@@ -105,8 +105,8 @@ padding-bottom:10px;
   cursor:pointer;
 }
 
-.bootstrap-switch-container span { 
-  white-space: nowrap; 
+.bootstrap-switch-container span {
+  white-space: nowrap;
 }
 
 .bootstrap-switch-container {
@@ -114,11 +114,11 @@ padding-bottom:10px;
 }
 
 
-.section-toggle-button.active { 
+.section-toggle-button.active {
   background-color: #28a1c4;
 }
 
-.section-toggle-button.active:hover { 
+.section-toggle-button.active:hover {
   background-color: #2490af;
 }
 
@@ -153,8 +153,8 @@ span.user-sup {
   white-space: nowrap;
 }
 
-sup { 
-  position: relative; left: -0.3em; 
+sup {
+  position: relative; left: -0.3em;
 }
 
 .voted.paper.btn-group {

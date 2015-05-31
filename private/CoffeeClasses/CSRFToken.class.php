@@ -16,7 +16,7 @@ class CSRFToken
 
     public function __construct()
     {
-        if(!isset($_SESSION['CSRFToken'])) {
+        if (!isset($_SESSION['CSRFToken'])) {
             $_SESSION['CSRFToken'] = md5(microtime());
         }
 

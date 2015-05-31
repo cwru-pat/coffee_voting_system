@@ -12,7 +12,7 @@
 *  http://www.gnu.org/licenses/gpl.html
 */
 
-!function(root, factory) {
+!function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
     } else if (typeof exports === 'object') {
@@ -20,84 +20,91 @@
     } else {
         factory(root.jQuery);
     }
-}(this, function($) {
+}(this, function ($) {
     'use strict';
-  $.fn.typeWatch = function(o) {
-    // The default input types that are supported
-    var _supportedInputTypes =
-      ['TEXT', 'TEXTAREA', 'PASSWORD', 'TEL', 'SEARCH', 'URL', 'EMAIL', 'DATETIME', 'DATE', 'MONTH', 'WEEK', 'TIME', 'DATETIME-LOCAL', 'NUMBER', 'RANGE'];
+    $.fn.typeWatch = function (o) {
+        // The default input types that are supported
+        var _supportedInputTypes =
+        ['TEXT', 'TEXTAREA', 'PASSWORD', 'TEL', 'SEARCH', 'URL', 'EMAIL', 'DATETIME', 'DATE', 'MONTH', 'WEEK', 'TIME', 'DATETIME-LOCAL', 'NUMBER', 'RANGE'];
 
-    // Options
-    var options = $.extend({
-      wait: 750,
-      callback: function() { },
-      highlight: true,
-      captureLength: 2,
-      inputTypes: _supportedInputTypes
-    }, o);
+        // Options
+        var options = $.extend(
+            {
+                wait: 750,
+                callback: function () { },
+                highlight: true,
+                captureLength: 2,
+                inputTypes: _supportedInputTypes
+            },
+            o
+        );
 
-    function checkElement(timer, override) {
-      var value = $(timer.el).val();
+        function checkElement(timer, override)
+        {
+            var value = $(timer.el).val();
 
-      // Fire if text >= options.captureLength AND text != saved text OR if override AND text >= options.captureLength
-      if ((value.length >= options.captureLength && value.toUpperCase() != timer.text)
-        || (override && value.length >= options.captureLength))
-      {
-        timer.text = value.toUpperCase();
-        timer.cb.call(timer.el, value);
-      }
-    };
-
-    function watchElement(elem) {
-      var elementType = elem.type.toUpperCase();
-      if ($.inArray(elementType, options.inputTypes) >= 0) {
-
-        // Allocate timer element
-        var timer = {
-          timer: null,
-          text: $(elem).val().toUpperCase(),
-          cb: options.callback,
-          el: elem,
-          wait: options.wait
+            // Fire if text >= options.captureLength AND text != saved text OR if override AND text >= options.captureLength
+            if ((value.length >= options.captureLength && value.toUpperCase() != timer.text)
+                || (override && value.length >= options.captureLength)
+            ) {
+                timer.text = value.toUpperCase();
+                timer.cb.call(timer.el, value);
+            }
         };
 
-        // Set focus action (highlight)
-        if (options.highlight) {
-          $(elem).focus(
-            function() {
-              this.select();
-            });
-        }
+        function watchElement(elem)
+        {
+            var elementType = elem.type.toUpperCase();
+            if ($.inArray(elementType, options.inputTypes) >= 0) {
+                // Allocate timer element
+                var timer = {
+                    timer: null,
+                    text: $(elem).val().toUpperCase(),
+                    cb: options.callback,
+                    el: elem,
+                    wait: options.wait
+                };
 
-        // Key watcher / clear and reset the timer
-        var startWatch = function(evt) {
-          var timerWait = timer.wait;
-          var overrideBool = false;
-          var evtElementType = this.type.toUpperCase();
+                // Set focus action (highlight)
+                if (options.highlight) {
+                    $(elem).focus(
+                        function () {
+                            this.select();
+                        }
+                    );
+                }
 
-          // If enter key is pressed and not a TEXTAREA and matched inputTypes
-          if (typeof evt.keyCode != 'undefined' && evt.keyCode == 13 && evtElementType != 'TEXTAREA' && $.inArray(evtElementType, options.inputTypes) >= 0) {
-            timerWait = 1;
-            overrideBool = true;
-          }
+                // Key watcher / clear and reset the timer
+                var startWatch = function (evt) {
+                    var timerWait = timer.wait;
+                    var overrideBool = false;
+                    var evtElementType = this.type.toUpperCase();
 
-          var timerCallbackFx = function() {
-            checkElement(timer, overrideBool)
-          }
+                    // If enter key is pressed and not a TEXTAREA and matched inputTypes
+                    if (typeof evt.keyCode != 'undefined' && evt.keyCode == 13 && evtElementType != 'TEXTAREA' && $.inArray(evtElementType, options.inputTypes) >= 0) {
+                        timerWait = 1;
+                        overrideBool = true;
+                    }
 
-          // Clear timer          
-          clearTimeout(timer.timer);
-          timer.timer = setTimeout(timerCallbackFx, timerWait);
+                    var timerCallbackFx = function () {
+                        checkElement(timer, overrideBool)
+                    }
+
+                    // Clear timer
+                    clearTimeout(timer.timer);
+                    timer.timer = setTimeout(timerCallbackFx, timerWait);
+                };
+
+                $(elem).on('keydown paste cut input', startWatch);
+            }
         };
 
-        $(elem).on('keydown paste cut input', startWatch);
-      }
+        // Watch Each Element
+        return this.each(
+            function () {
+                watchElement(this);
+            }
+        );
+
     };
-
-    // Watch Each Element
-    return this.each(function() {
-      watchElement(this);
-    });
-
-  };
 });

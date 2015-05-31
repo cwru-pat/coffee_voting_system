@@ -12,7 +12,7 @@ namespace CoffeeClasses;
  */
 class Parameters
 {
-    private $debug = FALSE;
+    private $debug = false;
     private $request;
 
     public function __construct()
@@ -22,22 +22,22 @@ class Parameters
 
     public function setDebug($val)
     {
-        $this->debug = $val ? TRUE : FALSE;
+        $this->debug = $val ? true : false;
         return $this;
     }
 
     public function get($value)
     {
-        if(isset($this->request[$value])) {
-            return $this->request[$value] === "" ? NULL : $this->request[$value];
+        if (isset($this->request[$value])) {
+            return $this->request[$value] === "" ? null : $this->request[$value];
         } else {
-            return NULL;
+            return null;
         }
     }
 
-    public function getWithDefault($value, $default = NULL)
+    public function getWithDefault($value, $default = null)
     {
-        if(isset($this->request[$value])) {
+        if (isset($this->request[$value])) {
             return $this->get($value);
         } else {
             return $default;
@@ -46,12 +46,12 @@ class Parameters
 
     public function getDate()
     {
-        if(isset($_REQUEST["d"])) {
+        if (isset($_REQUEST["d"])) {
             $date = strtotime($_REQUEST["d"]);
         } else {
             $date = time();
         }
         
         return $date;
-    }    
+    }
 }

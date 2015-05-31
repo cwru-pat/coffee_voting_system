@@ -20,7 +20,6 @@ before_install:
 
 install:
   ## phpCAS
-  ## Move it here because Anduril
   - wget http://downloads.jasig.org/cas-clients/php/current.tgz
   - tar -xf current.tgz
 
@@ -39,5 +38,8 @@ before_script:
 
   # Package needed by phpCAS
   - sudo apt-get install php5-curl
+
+  # phpcs for style guideline checking
+  - pear install PHP_CodeSniffer
 
 script: "./ci/ci-tests.sh"

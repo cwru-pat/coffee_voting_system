@@ -17,14 +17,14 @@ namespace CoffeeClasses;
 class ConfigurationData
 {
     // For now, data is just an array containing configuration settings.
-    protected $data = NULL;
+    protected $data = null;
 
     public function __construct()
     {
         // up a directory... no trailing slash here.
         $includes_directory = dirname(__file__) . "/..";
         // expect an associated .config.php file
-        require_once($includes_directory . "/.config.php");
+        include_once $includes_directory . "/.config.php";
 
         if (!isset($config) || empty($config)) {
             trigger_error("Config settings not found!", E_USER_ERROR);
@@ -51,7 +51,7 @@ class ConfigurationData
     {
         // Perform some validation of system installation here.
         $includes_directory = $this->data["includes_directory"];
-        $errors = Array();
+        $errors = array();
 
         // check for .htaccess protection
         if (!file_exists($includes_directory . '.htaccess')) {
@@ -60,5 +60,4 @@ class ConfigurationData
 
         return $errors;
     }
-
 }
