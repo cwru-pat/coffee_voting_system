@@ -4,8 +4,11 @@ $coffee_conn->setDebug(FALSE);
 
 $sub_arxivs = get_variable("arxivs");
 
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "localhost";
+$uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "/cron.php";
+
 print "<p>Running daily paper import/expire tasks. To automate this, set up a cron job, similar to</p>\n";
-print "<pre>\n0 0,21,22 * * * curl http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "\n</pre>\n";
+print "<pre>\n0 0,21,22 * * * curl http://" . $host . $uri . "\n</pre>\n";
 print "<p>which will run at midnight, 9 pm, and 10 pm daily.</p>\n\n";
 
 /* ***************** *

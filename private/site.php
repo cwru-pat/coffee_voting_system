@@ -1,15 +1,27 @@
 <?php
+// php session
+session_start();
 
 // constants
 require_once(__DIR__ . "/constants.php");
+
 // Log all errors but do not display
 error_reporting(E_ALL);
 ini_set("display_errors", '0');
 ini_set("log_errors", '1');
 ini_set("error_log", PHP_LOG_FILE);
 
-// php session
-session_start();
+// phpCAS needs these variables set or it throws notices.
+if( !isset($_SERVER['HTTP_HOST']) ) {
+  $_SERVER['HTTP_HOST'] = 'localhost';
+}
+if( !isset($_SERVER['REQUEST_URI']) ) {
+  $_SERVER['REQUEST_URI'] = '';
+}
+if( !isset($_SERVER['SERVER_PORT']) ) {
+  $_SERVER['SERVER_PORT'] = '80';
+}
+
 // autoloader for Coffee classes
 require_once(__DIR__ . "/CoffeeClasses/autoload.php");
 // Misc. functions.
