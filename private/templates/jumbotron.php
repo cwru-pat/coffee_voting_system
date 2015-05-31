@@ -29,10 +29,6 @@ foreach($result as $row){
 					}
 					print date("l\s H:i", $meeting_time_starts[$i]["timestamp"]);
 					print date(" - H:i", $meeting_time_ends[$i]["timestamp"]);
-
-/*					if(!$meeting_time_starts[$i]["papers_only"]) {
-						print "*";
-					}*/
 					print "</span>";
 				}
 			?>
@@ -82,7 +78,7 @@ foreach($result as $row){
 							}?>
 							<a role="button" href="#" class="btn btn-default btn-xs voted-btn abstract-showhide" data-paperid="<?php print $paper["id"]; ?>" id="article-<?php print $paper["id"]; ?>-button" title="Toggle Abstract" data-toggle="button" data-toggle-tip="tooltip" data-container="body" data-placement="bottom">Abstract</a>
 							<?php if($user->isAdmin()||($user->isLoggedIn() && $user->id()==$paper["authors"])) { ?>
-								<a role="button" href="<?php print path()?>add.php?post-id=<?php print $paper['id']?>" class="btn btn-default btn-xs voted-btn" data-toggle="tooltip" data-placement="bottom" title="Edit" data-container="body">
+								<a role="button" href="<?php print path()?>add?post-id=<?php print $paper['id']?>" class="btn btn-default btn-xs voted-btn" data-toggle="tooltip" data-placement="bottom" title="Edit" data-container="body">
       						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
     						</a>
 							<?php } ?>
@@ -165,7 +161,7 @@ foreach($result as $row){
       <h4 class="modal-title" id="myModalLabel">You must sign in to do this!</h4>
       </div>
       <div class="modal-body">
-        <form action="<?php print path(); ?>login.php" method="POST">
+        <form action="<?php print path(); ?>login" method="POST">
           <button type="submit" class="btn btn-success btn-block btn-lg">Sign in</button>
         </form>
       </div>

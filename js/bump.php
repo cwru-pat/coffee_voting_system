@@ -42,7 +42,7 @@ if($user->isLoggedIn()) {
     }
   } 
 } else {
-  $message["error"] = "You must <a href='" . path() . "login.php'>sign in</a> before you can bump!";
+  $message["error"] = "You must <a href='" . path() . "login'>sign in</a> before you can bump!";
 }
 
 print json_encode($message);

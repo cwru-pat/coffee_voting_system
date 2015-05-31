@@ -1,12 +1,15 @@
 <?php
 
+// constants
+require_once(__DIR__ . "/constants.php");
+// Log all errors but do not display
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set("display_errors", '0');
+ini_set("log_errors", '1');
+ini_set("error_log", PHP_LOG_FILE);
 
 // php session
 session_start();
-// constants
-require_once(__DIR__ . "/constants.php");
 // autoloader for Coffee classes
 require_once(__DIR__ . "/CoffeeClasses/autoload.php");
 // Misc. functions.

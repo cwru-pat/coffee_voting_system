@@ -1,24 +1,21 @@
 <?php
-
-$page_id = "page_votes";
-$mathjax = true;
+header("HTTP/1.0 404 Not Found");
 
 require_once("private/site.php");
-
 require_once("private/templates/header.php");
 require_once("private/templates/navbar.php");
 
 ?>
 
-<?php // The jumbotron is the only content here.
-require_once("private/templates/jumbotron.php");
-?>
-
-<!-- <div class="jumbotron">
+<div class="jumbotron">
   <div class="container">
-    <h2>CWRU PAT Coffee Agenda</h2>
+    <h1 class="text-center">
+      <br>
+      Page not found.<br><br>
+      <i class='fa fa-coffee'></i>
+    </h1>
   </div>
 </div>
- -->
+
 <?php
 require_once("private/templates/footer.php");

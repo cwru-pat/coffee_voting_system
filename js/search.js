@@ -56,7 +56,7 @@ function format_search_results(xml) {
             $("#search-result-import-"+i).off();
             $("#search-result-import-"+i).on("click", function(e) {
               e.preventDefault();
-              document.location.href = 'post.php?post-id=' + json.postId;
+              document.location.href = 'post?post-id=' + json.postId;
             });
             $("#search-result-import-"+i).html("<i class='fa fa-check-circle'></i> View Paper.");
             $("#search-result-import-"+i).addClass("btn-success");
