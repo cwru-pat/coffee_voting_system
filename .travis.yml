@@ -22,7 +22,7 @@ install:
   ## phpCAS
   ## Move it here because Anduril
   - wget http://downloads.jasig.org/cas-clients/php/current.tgz
-  - tar -xf current.tgz; sudo mv CAS-1.3.3/CAS .; sudo mv CAS-1.3.3/CAS.php .)
+  - tar -xf current.tgz
 
 before_script:
   - sudo apt-get update
