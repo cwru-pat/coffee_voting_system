@@ -1,5 +1,5 @@
 
-# Coffee Voting System
+# Coffee Voting System [![Build Status](https://travis-ci.org/cwru-pat/coffee_stuff.svg?branch=master)](https://travis-ci.org/cwru-pat/coffee_stuff)
 
 ## Libraries & Extensions used
 
