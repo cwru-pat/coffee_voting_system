@@ -19,4 +19,6 @@ then
   exit 1
 fi
 
+phpcs --standard=PSR2 -n .
+
 exit 0

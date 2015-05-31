@@ -11,6 +11,8 @@
  - [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
  - [Typewatch](https://github.com/dennyferra/TypeWatch)
 
+ - [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+
 ## Server Dependencies
 
  - Install LAMP
@@ -24,6 +26,8 @@
    - `GRANT ALL ON coffee.* TO coffee`
  - Download and unzip [phpCAS](https://wiki.jasig.org/display/casc/phpcas)
    - phpCAS requires php5-curl (`sudo apt-get install php5-curl`)
+ - Set up PHPCodeSniffer, easiest via pear `sudo apt-get install pear` and `sudo pear install PHP_CodeSniffer`.
+   - This can be run using a command like `phpcs --standard=PSR2 -n .` (Which travis-ci will check.)
 
 ## Setting up the script
 

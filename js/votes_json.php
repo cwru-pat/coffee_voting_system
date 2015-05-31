@@ -1,9 +1,9 @@
 <?php
 
-require_once("../private/site.php");
-$coffee_conn->setDebug(FALSE);
+require_once "../private/site.php";
+$coffee_conn->setDebug(false);
 
-$paper_meeting_times = get_adjacent_meeting_times("end", TRUE /* Get *only* meeting times where papers will be discussed */);
+$paper_meeting_times = get_adjacent_meeting_times("end", true /* Get *only* meeting times where papers will be discussed */);
 $prev_time = date("Y-m-d H:i", $paper_meeting_times["prev"]);
 $next_time = date("Y-m-d H:i", $paper_meeting_times["next"]);
 $query = "SELECT papers.id, papers.title, papers.authors, papers.abstract, SUM(votes.value) AS value

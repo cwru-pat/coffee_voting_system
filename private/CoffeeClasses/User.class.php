@@ -17,12 +17,12 @@ namespace CoffeeClasses;
 class User
 {
     // For now, data is just an array containing configuration settings.
-    protected $id = NULL;
-    protected $conn = NULL;
+    protected $id = null;
+    protected $conn = null;
 
     public function __construct($conn)
     {
-        if(isset($_SESSION['id']) && $_SESSION['id']) {
+        if (isset($_SESSION['id']) && $_SESSION['id']) {
             $this->id = $_SESSION['id'];
         }
 
@@ -45,15 +45,15 @@ class User
 
     public function deAuthenticate()
     {
-        $_SESSION['id'] = NULL;
-        $this->id = NULL;
+        $_SESSION['id'] = null;
+        $this->id = null;
 
         return $this;
     }
 
     public function isLoggedIn()
     {
-        if($this->id) {
+        if ($this->id) {
             return true;
         }
 
@@ -62,7 +62,7 @@ class User
 
     public function isUser($id)
     {
-        if($id && $id == $this->id) {
+        if ($id && $id == $this->id) {
             return true;
         }
 
@@ -74,7 +74,7 @@ class User
         $admins = get_variable("admins");
 
         // Let anyone admin if there are none set
-        if(!$admins) {
+        if (!$admins) {
             return true;
         }
 
@@ -83,10 +83,10 @@ class User
         // trim any whitespace around ids
         $admins = array_map("trim", $admins);
         // set IDs as array keys
-        $admins = array_fill_keys($admins, TRUE);
+        $admins = array_fill_keys($admins, true);
 
         // otherwise, restrict admins
-        if(isset($admins[$this->id])) {
+        if (isset($admins[$this->id])) {
             return true;
         }
 
