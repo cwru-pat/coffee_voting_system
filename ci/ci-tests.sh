@@ -21,4 +21,7 @@ fi
 
 phpcs --standard=PSR2 -n .
 
+jscs js
+jshint js
+
 exit 0

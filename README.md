@@ -1,7 +1,7 @@
 
 # Coffee Voting System [![Build Status](https://travis-ci.org/cwru-pat/coffee_stuff.svg?branch=master)](https://travis-ci.org/cwru-pat/coffee_stuff)
 
-## Libraries & Extensions used
+## Frontend Libraries & Extensions
 
  - [Bootstrap](http://getbootstrap.com/)
  - [jQuery](https://jquery.com/)
@@ -10,8 +10,6 @@
  - [Summernote](http://summernote.org/#/)
  - [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
  - [Typewatch](https://github.com/dennyferra/TypeWatch)
-
- - [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 
 ## Server Dependencies
 
@@ -26,8 +24,10 @@
    - `GRANT ALL ON coffee.* TO coffee`
  - Download and unzip [phpCAS](https://wiki.jasig.org/display/casc/phpcas)
    - phpCAS requires php5-curl (`sudo apt-get install php5-curl`)
- - Set up PHPCodeSniffer, easiest via pear `sudo apt-get install pear` and `sudo pear install PHP_CodeSniffer`.
+ - Set up [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), easiest via pear `sudo apt-get install pear` and `sudo pear install PHP_CodeSniffer`.
    - This can be run using a command like `phpcs --standard=PSR2 -n .` (Which travis-ci will check.)
+ - Set up [jshint](http://jshint.com/) and [jscs](http://jscs.info/): `sudo apt-get install npm`, then `sudo npm install jshint -g` and `sudo npm install jscs -g`.
+   - These can then be run using a command like `jshint js` or `jscs js`
 
 ## Setting up the script
 

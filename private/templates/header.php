@@ -26,10 +26,10 @@
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php print path(); ?>js/selectize.js"></script>
+    <script type="text/javascript" src="<?php print path(); ?>js/selectize.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/summernote.min.js"></script>
-    <script type="text/javascript" src="<?php print path(); ?>js/typewatch.js"></script>
+    <script type="text/javascript" src="<?php print path(); ?>js/typewatch.min.js"></script>
 
     <script type="text/javascript" src="<?php print path(); ?>js/main.js"></script>
 

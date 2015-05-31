@@ -39,7 +39,9 @@ before_script:
   # Package needed by phpCAS
   - sudo apt-get install php5-curl
 
-  # phpcs for style guideline checking
+  # phpcs, jshint, and jscs for error/style guideline checking
   - pear install PHP_CodeSniffer
+  - npm install jscs
+  - npm install jshint
 
 script: "./ci/ci-tests.sh"
