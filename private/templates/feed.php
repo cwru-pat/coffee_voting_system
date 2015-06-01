@@ -15,7 +15,7 @@ foreach ($arxivs as $arxiv) :
     <div class="panel-heading toggle arxiv">
         <h3 class="panel-title">
             <span class='hidden-sm hidden-xs hidden-md'>Papers from</span>
-            <?php print $arxiv; ?>
+            <span class= "cookieTitle"> <?php print $arxiv; ?></span>
         </h3>
     </div>
     <div class="panel-body arxiv">

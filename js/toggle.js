@@ -5,7 +5,7 @@ $(document).ready(function() {
     $(this).parent().children('.panel-body').attr('id', 'panel-body-' + key);
     $(this).parent().attr('id', 'panel-' + key);
 
-    var panelHeadingText = $(value).children('h3').text().trim();
+    var panelHeadingText = $('.cookieTitle', value).text().trim();
     if (toggleGetCookie(panelHeadingText) == 'true' && $panelHash != key) {
       toggleState = '';
       $('#panel-body-' + key).slideToggle(0, 'swing');
@@ -41,7 +41,6 @@ $(document).ready(function() {
     });
 
     $(window).on('beforeunload', function() {
-      var panelHeadingText = $(value).children('h3').text().trim();
       var isActivePanel = $('#toggle-item-' + key).hasClass('active');
       toggleSetCookie(panelHeadingText, !isActivePanel, 100);
     });
