@@ -1,5 +1,6 @@
 <?php
-require_once "../private/site.php";
+require_once __dir__."/../private/site.php";
+
 $coffee_conn->setDebug(false);
 $nextmeeting=get_adjacent_meeting_times("start", true, time());
 $nextmeeting=date("Y-m-d H:i", $nextmeeting['next']);

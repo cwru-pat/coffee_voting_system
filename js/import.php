@@ -1,5 +1,5 @@
 <?php
-require_once "../private/site.php";
+require_once __dir__."/../private/site.php";
 $coffee_conn->setDebug(false);
 
 $reply = array();
