@@ -228,6 +228,69 @@ function get_adjacent_meeting_times($start_or_end = "end", $papers_only = false,
     }
 }
 
+// Get number of seconds to the nearest meeting start/end.
+// This will be negative during a meeting.
+function get_adjacent_meeting_time_distance($timestamp = false)
+{
+    if (!$timestamp) {
+        $timestamp = time();
+    }
+
+    $end_meeting_times = get_adjacent_meeting_times("end", true /* Get *only* meeting times where papers will be discussed */);
+    $start_meeting_times = get_adjacent_meeting_times("start", true);
+
+    // assemble meeting times and sort by timestamp
+    $meeting_times = array(
+        $end_meeting_times["prev"] => "prev_end",
+        $end_meeting_times["next"] => "next_end",
+        $start_meeting_times["prev"] => "prev_start",
+        $start_meeting_times["next"] => "next_start",
+        $timestamp => "now"
+    );
+    ksort($meeting_times);
+
+    // reset array keys (order numerically); "now" should be in the middle
+    $meeting_times = array_values($meeting_times);
+    if ($meeting_times[2] != "now") {
+        return false;
+    }
+
+    // if the last event was a meeting start (rather than end)
+    // we should be in a meeting.
+    // return (negative) the distance to the nearest start/end.
+    if ($meeting_times[1] == "prev_start") {
+        return -1*min(
+            abs($timestamp - $start_meeting_times["prev"]),
+            abs($timestamp - $end_meeting_times["next"])
+        );
+    }
+    // otherwise, it should not be during a meeting;
+    // return distance to nearest start/end.
+    return min(
+        abs($timestamp - $start_meeting_times["next"]),
+        abs($timestamp - $end_meeting_times["prev"])
+    );
+}
+
+function print_meeting_times()
+{
+    $meeting_time_ends = get_meeting_timestamps("end");
+    $meeting_time_starts = get_meeting_timestamps("start");
+    for ($i=0; $i<count($meeting_time_ends); $i++) {
+        if ($i>0) {
+            print " | ";
+        }
+        if (!$meeting_time_starts[$i]["papers_only"]) {
+            print "<span class='old-vote' data-toggle='tooltip' data-placement='bottom' title='No paper discussion'>";
+        } else {
+            print "<span>";
+        }
+        print date("l\s H:i", $meeting_time_starts[$i]["timestamp"]);
+        print date(" - H:i", $meeting_time_ends[$i]["timestamp"]);
+        print "</span>";
+    }
+}
+
 function print_errors($errors)
 {
     foreach ($errors as $error_message) {
@@ -238,9 +301,9 @@ function print_errors($errors)
 function print_alert($html_message, $level)
 {
     print '<div class="alert alert-' . $level . '" role="alert">'
-      . $html_message
-      . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-    . '</div>';
+        . $html_message
+        . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+        . '</div>';
 }
 
 function kill_script($html_message)
