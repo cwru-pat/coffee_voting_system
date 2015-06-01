@@ -1,6 +1,6 @@
 <?php
 
-require_once "../private/site.php";
+require_once __dir__."/../private/site.php";
 $coffee_conn->setDebug(false);
 
 // only want to return one short message.

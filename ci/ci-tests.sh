@@ -40,6 +40,11 @@ do
   then
     echo "Executing file $f"
     php "$f" > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+      echo "Running file $f has failed! File output: "
+      php "$f"
+      exit 1
+    fi
   fi
 done
 
