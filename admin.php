@@ -54,8 +54,8 @@ $expire_date = get_variable("expire_date");
 
         $dates = json_decode($params->get("dates"));
         $sorted = usort($dates, "date_sort"); // sorted is bool
-        if (!$dates || !$sorted) {
-            $errors[] = "Error making changes to dates.";
+        if ($dates === false || !$sorted) {
+            $errors[] = "Error making changes to dates: you must set a date.";
         }
 
         if ($errors) {
