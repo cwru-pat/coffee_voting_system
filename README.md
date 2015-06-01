@@ -25,9 +25,9 @@
  - Download and unzip [phpCAS](https://wiki.jasig.org/display/casc/phpcas)
    - phpCAS requires php5-curl (`sudo apt-get install php5-curl`)
  - Set up [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), easiest via pear `sudo apt-get install pear` and `sudo pear install PHP_CodeSniffer`.
-   - This can be run using a command like `phpcs --standard=PSR2 -n .` (Which travis-ci will check.)
- - Set up [jshint](http://jshint.com/) and [jscs](http://jscs.info/): `sudo apt-get install npm`, then `sudo npm install jshint -g` and `sudo npm install jscs -g`.
-   - These can then be run using a command like `jshint js` or `jscs js`
+   - This can be run using a command like `phpcs --standard=PSR2 -n **/*.php` (Which travis-ci will check.)
+ - Set up [jshint](http://jshint.com/) and [jscs](http://jscs.info/): `sudo apt-get install npm`, then install using `sudo npm install jshint -g` and `sudo npm install jscs -g`.
+   - These can then be run using a command like `jshint js` or `jscs js`.
 
 ## Setting up the script
 
@@ -38,6 +38,8 @@
    - Edit the `$config['database'][...]` to reflect the mysql credentials created above.
    - Edit `$config['web']['path']` to point to the URL where you can view the system.
    - Edit `$config['phpCAS']['location']` to point to system path where the CAS.php file inside the phpCAS directory is (it should probably not be a subdirectory of this repo).
+ - A pre-commit hook to run tests exists. Run `cp pre-commit .git/hooks/pre-commmit` to enable it.
 
 ## Notes
  - For database changes, tables that do not exist are created, but changes to existing tables need to be done by hand (for now).
+ - To run tests by hand, try `./ci/ci-tests.sh`.

@@ -1,0 +1,3 @@
+[31-May-2015 19:54:38 America/New_York] PHP Notice:  Undefined variable: test in /home/james/www/coffee_stuff/votes.php on line 8
+[31-May-2015 19:54:38 America/New_York] PHP Stack trace:
+[31-May-2015 19:54:38 America/New_York] PHP   1. {main}() /home/james/www/coffee_stuff/votes.php:0
