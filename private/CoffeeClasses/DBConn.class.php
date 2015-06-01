@@ -196,7 +196,7 @@ class DBConn
             foreach ($columns as $field => $type) {
                 $query .= ", " . $field . " " . $type;
             }
-            $query .= " , PRIMARY KEY (id) )";
+            $query .= " , PRIMARY KEY (id) ) ENGINE = MYISAM";
             $this->dbCommand($query);
         }
 
