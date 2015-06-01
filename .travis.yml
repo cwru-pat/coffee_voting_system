@@ -20,8 +20,7 @@ before_install:
 
 install:
   ## phpCAS
-  - wget http://downloads.jasig.org/cas-clients/php/current.tgz
-  - tar -xf current.tgz
+  - (cd ..; wget http://downloads.jasig.org/cas-clients/php/current.tgz; tar -xf current.tgz)
 
 before_script:
   - sudo apt-get update
@@ -40,7 +39,8 @@ before_script:
   - sudo apt-get install php5-curl
 
   # phpcs, jshint, and jscs for error/style guideline checking
-  - pear install PHP_CodeSniffer
+  - pyrus install pear/PHP_CodeSniffer
+  - phpenv rehash
   - npm install jscs
   - npm install jshint
 
