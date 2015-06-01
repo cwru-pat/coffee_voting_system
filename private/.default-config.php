@@ -26,7 +26,9 @@ $config['database']['tables']['papers'] = array(
     "abstract" => "BLOB",
     "subject" => "VARCHAR(12)",
     "arxivId" => "VARCHAR(12)",
-    "date" => "TIMESTAMP"
+    "date" => "TIMESTAMP",
+    // innodb filesize just grows and grows.
+    "ENGINE =" => "MYISAM"
   );
 
 $config['database']['tables']['votes'] = array(

@@ -7,8 +7,8 @@ $result = $coffee_conn->dbQuery($query);
 $paper_votes = array();
 foreach ($result as $row) {
     $paper_votes[$row->paperId][$row->userId] = array(
-    "value" => $row->value,
-    "date" => strtotime($row->date)
+        "value" => $row->value,
+        "date" => strtotime($row->date)
     );
 }
 
@@ -16,25 +16,7 @@ foreach ($result as $row) {
 <div class="jumbotron">
     <div class="container">
         <h2>CWRU PAT Coffee Agenda</h2>
-        <p>
-            <?php
-            $meeting_time_ends = get_meeting_timestamps("end");
-            $meeting_time_starts = get_meeting_timestamps("start");
-            for ($i=0; $i<count($meeting_time_ends); $i++) {
-                if ($i>0) {
-                    print " | ";
-                }
-                if (!$meeting_time_starts[$i]["papers_only"]) {
-                    print "<span class='old-vote' data-toggle='tooltip' data-placement='bottom' title='No paper discussion'>";
-                } else {
-                    print "<span>";
-                }
-                print date("l\s H:i", $meeting_time_starts[$i]["timestamp"]);
-                print date(" - H:i", $meeting_time_ends[$i]["timestamp"]);
-                print "</span>";
-            }
-            ?>
-        </p>
+        <p><?php print_meeting_times(); ?></p>
 
         <div class="list-group voted-abstracts">
             <?php

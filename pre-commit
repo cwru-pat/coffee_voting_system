@@ -1,9 +1,11 @@
 #!/bin/bash
+
 # This file should be copied to .git/hooks/pre-commit
 
 echo "Running ci-tests.sh..."
 
 ./ci/ci-tests.sh
 if [ $? -ne 0 ]; then
-    exit 1
+  echo "Errors found! Please correct them before comitting."
+  exit 1
 fi
