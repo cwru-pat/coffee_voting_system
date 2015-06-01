@@ -41,7 +41,7 @@ class DBConn
     public function showDatabaseError($message)
     {
         // Normal users just get a "Sorry", developers/debuggers get more details
-        if ($_SERVER['SERVER_NAME'] == 'localhost'  ||  $this->debug) {
+        if ($this->debug) {
             die("<p>$message</p>\n");
         } else {
             die("<p>Uh-oh!  There was a problem with the database. Please try again later, and contact the website administrator if this message persists.</p>");
