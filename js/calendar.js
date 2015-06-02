@@ -1,17 +1,16 @@
 $(document).ready(function() {
 
   today = new Date();
-  sday = new Date(today.setMonth(today.getMonth() - 3));
+  eday = new Date(today.setDate(today.getDate() + 1));
 
   $('#datepick').datepicker({
     todayHighlight: true,
-    startDate: sday,
+    endDate: eday,
     todayBtn: 'linked',
     keyboardNavigation: false,
   });
 
   $('#datepick').datepicker('update', urlToDate());
-  $('#datepick').datepicker('setEndDate', new Date());//because of odd bug
 
   $('#datepick').datepicker().on('changeDate', function() {
     date = $('#datepick').datepicker('getDate');
