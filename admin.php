@@ -107,7 +107,7 @@ $expire_date = get_variable("expire_date");
             <input type="text" class="form-control" id="arxivs" name="arxivs" value="<?php print o(implode(",", $arxivs)); ?>" placeholder="Eg., 'astro-ph.CO'">
         </div>
         <div class="form-group">
-            <label for="expire_date">Date after which to remove old papers with no votes from the system. Can be any string <a href='php.net/manual/en/datetime.formats.php'>readable</a> by PHP's strtotime() function.</label>
+            <label for="expire_date">Date after which to remove old papers with no votes from the system. Can be any string <a href='https://php.net/manual/en/datetime.formats.php'>readable</a> by PHP's strtotime() function.</label>
             <input type="text" class="form-control" id="expire_date" name="expire_date" value="<?php print o($expire_date); ?>" placeholder="Eg., '-3 months'">
         </div>
         <input type="hidden" id="admin_date_selectors_dates" name="dates" value="<?php print o(json_encode($dates)); ?>">
