@@ -1,8 +1,7 @@
 $(document).ready(function() {
-  
+
   var ajaxData = {
         dataType: 'json',
-        method: 'POST',
         url: 'js/getdates.php',
       };
 
@@ -10,10 +9,10 @@ $(document).ready(function() {
     console.log('Recieved from server: ', json);
 
     $('#datepick').datepicker({
-        todayHighlight: true,
-        beforeShowDay: function(isShownDate) {
-          return papersExist(isShownDate, json);
-        },
+      todayHighlight: true,
+      beforeShowDay: function(isShownDate) {
+        return papersExist(isShownDate, json);
+      },
       todayBtn: 'linked',
       keyboardNavigation: false,
     });
@@ -35,7 +34,9 @@ $(document).ready(function() {
 });
 
 function papersExist(date, availableDates) {
-  dmy = date.getFullYear()+ "-" +('0'+(date.getMonth()+1)).slice(-2) + "-" + ('0'+date.getDate()).slice(-2);
+  dmy = date.getFullYear() + '-' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+    ('0' + date.getDate()).slice(-2);
   return ($.inArray(dmy, availableDates) != -1) ? true : false;
 }
 
