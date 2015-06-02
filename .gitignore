@@ -1,3 +1,4 @@
+sftp-config.json
 *.notworking
 private/.config.php
 private/log/error.log

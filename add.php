@@ -1,6 +1,6 @@
 <?php
 
-$page_id = "page_admin";
+$page_id = "page_add";
 
 require_once "private/site.php";
 
