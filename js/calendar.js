@@ -1,14 +1,18 @@
 $(document).ready(function() {
+  
+  availableDates=[];//["2015-06-02", "2015-06-01"];//don't know how to get the dates out of getPaperDates. json is in this form.
+  console.log(availableDates);
+  getPaperDates();
+  console.log(availableDates);
 
-  today = new Date();
-  eday = new Date(today.setDate(today.getDate() + 1));
-
-  $('#datepick').datepicker({
+/*  $('#datepick').datepicker({
     todayHighlight: true,
-    endDate: eday,
+    beforeShowDay: function(dt){ 
+        return papersExist(dt);
+      },
     todayBtn: 'linked',
     keyboardNavigation: false,
-  });
+  });*/
 
   $('#datepick').datepicker('update', urlToDate());
 
@@ -21,6 +25,37 @@ $(document).ready(function() {
   });
 
 });
+
+function getPaperDates(){
+  var ad;
+  var ajaxData = {
+        dataType: 'json',
+        method: 'POST',
+        url: 'js/getdates.php',
+      };
+  $.ajax(ajaxData).done(function(json) {
+    console.log('Recieved from server: ', json);
+    availableDates=json;
+    console.log(availableDates);
+      $('#datepick').datepicker({
+    todayHighlight: true,
+    beforeShowDay: function(dt){ 
+        return papersExist(dt);
+      },
+    todayBtn: 'linked',
+    keyboardNavigation: false,
+  });
+    console.log(availableDates);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('Error getting Dates', textStatus, errorThrown, jqXHR);
+  });
+};
+
+
+function papersExist(date) {
+  dmy = date.getFullYear()+ "-" +('0'+(date.getMonth()+1)).slice(-2) + "-" + ('0'+date.getDate()).slice(-2) ;
+  return ($.inArray(dmy, availableDates) != -1) ? true: false;
+}
 
 function parse(val) {
   var result = false;
