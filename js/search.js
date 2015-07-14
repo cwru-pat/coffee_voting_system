@@ -52,7 +52,7 @@ function formatSearchResults(xml) {
       console.log('Importing paper...', data);
       $.ajax({
         url: 'js/import.php',
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
         data: data,
         success: function(json) {
