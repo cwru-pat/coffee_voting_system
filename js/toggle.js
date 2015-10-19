@@ -52,6 +52,39 @@ $(document).ready(function() {
         .slideToggle(150, 'swing');
     });
   });
+
+  if (toggleGetCookie('updated') == 'true') {
+    toggleState = '';
+    $('em#UPDATED').each(function() {
+      $(this).parent().parent().slideToggle(0, 'swing');
+    });
+  } else {
+    toggleState = 'active';
+  }
+
+  $('#arxiv-toggle-list').append(
+      '<a role="button"' +
+      ' class="btn btn-default btn-default btn-xs ' +
+      toggleState +
+      '" id="updated-showhide"' +
+      ' data-toggle="button">' +
+      '<span class="hidden-sm hidden-xs hidden-md">Show/hide</span>' +
+      '<span class= "cookieTitle"> updated </span>' +
+      '<span class="hidden-sm hidden-xs hidden-md">papers</span>' +
+      '</a>'
+    );
+
+  $('#updated-showhide').on('click', function() {
+    $('em#UPDATED').each(function() {
+      $(this).parent().parent().slideToggle(0, 'swing');
+    });
+  });
+
+  $(window).on('beforeunload', function() {
+    var isHidden = $('#updated-showhide').hasClass('active');
+    toggleSetCookie('updated', !isHidden, 100);
+  });
+
 });
 
 function toggleSetCookie(cName, value, exdays) {

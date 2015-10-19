@@ -49,6 +49,10 @@ code {
   position: static;
 }
 
+.affix-bottom,.affix{
+  position: relative;
+}
+
 @media (min-width: 768px) {
   #arxiv-toggle-list.affix-top {
     position: static;
@@ -136,6 +140,15 @@ td.rating {
 
 .cal-input{
   border-radius: 0px;
+}
+
+.list-group-item-heading {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#updated-showhide {
+  color: #337AB7;
 }
 
 /* Jumbotron things
