@@ -43,6 +43,16 @@ class User
         return $this;
     }
 
+    public function guestAuthenticate()
+    {
+        $user = "guest";
+
+        $_SESSION['id'] = $user;
+        $this->id = $user;
+
+        return $this;
+    }
+
     public function deAuthenticate()
     {
         $_SESSION['id'] = null;

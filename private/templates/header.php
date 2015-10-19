@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="<?php print path(); ?>mug.png" type="image/png" />
 
     <!-- bootstrap compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">-->
     <link rel="stylesheet" href="<?php print path(); ?>css/selectize.css">
     <link rel="stylesheet" href="<?php print path(); ?>css/bootstrap-datepicker3.min.css">
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="<?php print path(); ?>css/main.css">
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/selectize.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/summernote.min.js"></script>
