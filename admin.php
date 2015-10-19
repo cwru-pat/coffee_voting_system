@@ -21,6 +21,7 @@ $dates = get_variable("dates");
 $admins = get_variable("admins");
 $arxivs = get_variable("arxivs");
 $expire_date = get_variable("expire_date");
+$guest_pass = get_variable("guest_pass");
 
 ?>
 <div class="container">
@@ -32,6 +33,11 @@ $expire_date = get_variable("expire_date");
         if (!strtotime($expire_date)) {
             $errors[] = "Invalid expiration date string. Please refer to the <a href='http://php.net/manual/en/datetime.formats.php'>PHP docs</a> for valid time strings.";
         }
+
+        $guest_pass = $params->getWithDefault(
+            "guest_pass",
+            "GuestCoffeePassword"
+        );
 
         $arxivs = $params->getWithDefault(
             "arxivs",
@@ -71,11 +77,17 @@ $expire_date = get_variable("expire_date");
             );
             set_variable("arxivs", $arxivs);
             set_variable("expire_date", $expire_date);
+            if($guest_pass!="") {
+                set_variable("guest_pass", $guest_pass);
+            } else {
+                set_variable("guest_pass", "GuestCoffeePassword");
+            }
 
             $dates = get_variable("dates");
             $admins = get_variable("admins");
             $arxivs = get_variable("arxivs");
             $expire_date = get_variable("expire_date");
+            $guest_pass = get_variable("guest_pass");
             print_alert("Changes successfully made.", "success");
         }
     }
@@ -110,6 +122,11 @@ $expire_date = get_variable("expire_date");
             <label for="expire_date">Date after which to remove old papers with no votes from the system. Can be any string <a href='https://php.net/manual/en/datetime.formats.php'>readable</a> by PHP's strtotime() function.</label>
             <input type="text" class="form-control" id="expire_date" name="expire_date" value="<?php print o($expire_date); ?>" placeholder="Eg., '-3 months'">
         </div>
+        <div class="form-group">
+            <label for="arxivs">Guest user password</label>
+            <input type="text" class="form-control" id="guestpass" name="guest_pass" value="<?php print o($guest_pass); ?>" placeholder="Eg., 'password'">
+        </div>
+
         <input type="hidden" id="admin_date_selectors_dates" name="dates" value="<?php print o(json_encode($dates)); ?>">
         <input type="hidden" name="CSRFToken" value="<?php print $token->getToken(); ?>">
         <button type="submit" class="btn btn-primary">Submit</button>
