@@ -13,7 +13,7 @@ function format_arxiv_title($title)
 
         $title_text = "";
         if (trim($special)) {
-            $title_text .= "<em>";
+            $title_text .= "<em id='".$special."'>";
         }
         $title_text .= $title;
         $title_text .= '- [<a href="http://arxiv.org/pdf/'.$article.'.pdf" class="pdf-link">PDF</a>] - [<a href="http://arxiv.org/abs/'.$article.'">Article</a>]';
