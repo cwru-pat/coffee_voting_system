@@ -131,13 +131,13 @@ $expire_date = date(
     )
 );
 
-$select_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes LEFT JOIN papers ON votes.paperId = papers.id)";
-$delete_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes LEFT JOIN papers ON votes.paperId = papers.id)";
+$select_statement = "SELECT * FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes)";
+$delete_statement = "DELETE FROM papers WHERE papers.date < ? AND papers.id NOT IN (SELECT votes.paperId FROM votes)";
 $papers = $coffee_conn->boundQuery($select_statement, array('s', &$expire_date));
-$coffee_conn->boundCommand($select_statement, array('s', &$expire_date));
+$coffee_conn->boundCommand($delete_statement, array('s', &$expire_date));
 
 print "<pre>\n";
-print count($papers) . " papers from before " . $expire_date . " that have NOT been voted on have been removed.\n";
+print count($papers) . " papers from before " . $expire_date . " that had NOT been voted on have been removed.\n";
 print "</pre>\n";
 
 print "\n<a href='".path()."admin.php'>Visit the admin page</a>.\n\n";

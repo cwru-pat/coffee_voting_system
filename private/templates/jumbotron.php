@@ -40,11 +40,17 @@ foreach ($result as $row) {
                                 <?php print "+" . $paper["value"]; ?>
                             </span>
                         <?php
-                        } else {
+                        } elseif ($paper["value"] < 0) {
                         ?>
                             <span class='label label-danger vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'>
                                 <?php print $paper["value"]; ?>
                             </span> 
+                        <?php
+                        } else {
+                        ?>
+                            <span class='label label-warning vote-label' id='article-<?php print $paper["id"]; ?>-messages-voted'>
+                                <?php print $paper["value"]; ?>
+                            </span>
                         <?php
                         }
                         ?>
