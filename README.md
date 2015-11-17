@@ -1,5 +1,4 @@
-
-# Coffee Voting System [![Build Status](https://travis-ci.org/cwru-pat/coffee_voting_system.svg?branch=master)](https://travis-ci.org/cwru-pat/coffee_stuff)
+# Coffee Voting System [![Build Status](https://travis-ci.org/cwru-pat/coffee_voting_system.svg?branch=master)](https://travis-ci.org/cwru-pat/coffee_voting_system)
 
 ## Frontend Libraries & Extensions
 
