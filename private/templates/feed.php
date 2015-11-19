@@ -26,7 +26,7 @@ foreach ($arxivs as $arxiv) :
         <ul class="feed list-group">
         <?php
             $papers = $coffee_conn->boundQuery(
-                "SELECT * FROM papers WHERE subject = ? AND date BETWEEN ? AND ?",
+                "SELECT * FROM papers WHERE subject = ? AND date BETWEEN ? AND ? ORDER BY id",
                 array('sss', &$arxiv, &$begin_date, &$end_date)
             );
             if (count($papers) == 0) {
