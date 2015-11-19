@@ -20,7 +20,7 @@ before_install:
 
 install:
   ## phpCAS
-  - (cd ..; wget http://downloads.jasig.org/cas-clients/php/current.tgz; tar -xf current.tgz)
+  - (cd ..; wget http://downloads.jasig.org/cas-clients/php/current.tgz; tar -xf current.tgz; mv CAS-* CAS)
 
 before_script:
   - sudo apt-get update
