@@ -14,5 +14,4 @@ $dates = array();
 foreach ($result as $date) {
     $dates[] = $date->date;
 }
-
 print json_encode($dates);

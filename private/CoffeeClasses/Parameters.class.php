@@ -51,7 +51,28 @@ class Parameters
         } else {
             $date = time();
         }
-        
+        return $date;
+    }
+
+    public function getStartDate()
+    {
+        if (isset($_REQUEST["ds"])) {
+            $date = strtotime($_REQUEST["ds"]);
+        } else {
+            //$paper_meeting_times = get_adjacent_meeting_times("end", true /* Get *only* meeting times where papers will be discussed */);
+            //$date = date("Y-m-d H:i", $paper_meeting_times["prev"]);
+            $date = time();
+        }
+        return $date;
+    }
+
+    public function getEndDate()
+    {
+        if (isset($_REQUEST["de"])) {
+            $date = strtotime($_REQUEST["de"]);
+        } else {
+            $date = time();
+        }
         return $date;
     }
 }

@@ -155,7 +155,7 @@ function get_meeting_timestamps($start_or_end = "end", $papers_only = false, $da
 
     if (!$date) {
         global $params;
-        $date = $params->getDate();
+        $date = $params->getEndDate();
     }
 
     if (!$meetings) {
@@ -186,7 +186,7 @@ function get_adjacent_meeting_times($start_or_end = "end", $papers_only = false,
     $meetings = get_variable("dates");
     if (!$date) {
         global $params;
-        $date = $params->getDate();
+        $date = $params->getEndDate();
     }
 
     if (!$meetings) {
