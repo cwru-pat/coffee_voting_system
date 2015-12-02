@@ -1,40 +1,68 @@
 $(document).ready(function() {
 
-  $('[rel=tooltip]').tooltip({container: 'body'});
-
   var ajaxData = {
       dataType: 'json',
       url: 'js/getdates.php',
     };
 
   $.ajax(ajaxData).done(function(json) {
-    dpicker = $('#datepick').datepicker({
+
+    $('#datepick').datepicker({
+      format: 'mm/dd/yy',
       clearDates: true,
       todayHighlight: true,
       autoclose: true,
+      todayBtn: 'linked',
+      keyboardNavigation: false,
+      inputs: $('#datepick .format-long'),
       beforeShowDay: function(isShownDate) {
         return papersExist(isShownDate, json);
       },
+    });
+
+    $('#datepick-short').datepicker({
+      format: 'mm/dd',
+      clearDates: true,
+      todayHighlight: true,
+      autoclose: true,
       todayBtn: 'linked',
       keyboardNavigation: false,
-    }).data('datepicker');
+      inputs: $('#datepick-short .format-short'),
+      beforeShowDay: function(isShownDate) {
+        return papersExist(isShownDate, json);
+      },
+    });
+
+    $(window).on('scroll', function() {
+      $('#datepick-start').datepicker('hide');
+      $('#datepick-end').datepicker('hide');
+      $('#datepick-end').blur();
+      $('#datepick-start').blur();
+      $('#datepick-start-short').datepicker('hide');
+      $('#datepick-end-short').datepicker('hide');
+      $('#datepick-end-short').blur();
+      $('#datepick-start-short').blur();
+    });
 
     var once = false;
     if (!once) {
-      dpicker.pickers[0].setDate(urlToDates()[0]);
-      dpicker.pickers[1].setDate(urlToDates()[1]);
+      $('#datepick-start').datepicker('setDate', urlToDates()[0]);
+      $('#datepick-end').datepicker('setDate', urlToDates()[1]);
+      $('#datepick-start-short').datepicker('setDate', urlToDates()[0]);
+      $('#datepick-end-short').datepicker('setDate', urlToDates()[1]);
       once = true;
     }
 
-    $('#datepick').datepicker().on('changeDate', function() {
+    $('.cal-input').datepicker().on('changeDate', function() {
       if (once) {
-        setDateRange();
+        setDateRange($(this).parent());
       }
     });
 
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log('Error getting Dates', textStatus, errorThrown, jqXHR);
   });
+
 });
 
 function papersExist(date, availableDates) {
@@ -71,9 +99,9 @@ function urlToDates() {
   return date;
 }
 
-function setDateRange() {
-  startDate = dpicker.pickers[0].getDate();
-  endDate = dpicker.pickers[1].getDate();
+function setDateRange(dateGroup) {
+  startDate = dateGroup.children('.date-start').datepicker('getDate');
+  endDate = dateGroup.children('.date-end').datepicker('getDate');
   window.location =  window.location.protocol + '//' +
     window.location.host + window.location.pathname +
     '?ds=' + startDate.getFullYear() + '-' + (startDate.getMonth() + 1) +
