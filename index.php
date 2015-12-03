@@ -19,11 +19,14 @@ require_once "private/templates/jumbotron.php";
                 <div class="list-group-item active">
                     <h5 class="list-group-item-heading"> arXiv <span class="hidden-sm hidden-xs hidden-md">display</span> toggles:</h5>
                 </div>
-                <?php require_once "private/templates/calendar.php"; ?>
+                <div class="list-group-item">
+                    <?php require_once "private/templates/calendar.php"; ?>
+                </div>
             </div>
         </div>
 
         <div class="col-sm-9" id="feedCol">
+
             <?php require_once "private/templates/feed.php"; ?>
         </div>
 

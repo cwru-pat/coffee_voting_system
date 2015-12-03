@@ -85,6 +85,19 @@ $(document).ready(function() {
     toggleSetCookie('updated', !isHidden, 100);
   });
 
+  $('.icn-btn').hover(function() {
+    $(this).children().toggleClass('fa-spin');
+  });
+
+  $('.icn-btn').on('click', function() {
+    $('.input-daterange').toggleClass('hidden');
+    var isHidden = $('.input-daterange').hasClass('hidden');
+    toggleSetCookie('votes_cal', isHidden, 100);
+  });
+
+  if (toggleGetCookie('votes_cal') == 'false') {
+    $('.input-daterange').toggleClass('hidden');
+  }
 });
 
 function toggleSetCookie(cName, value, exdays) {

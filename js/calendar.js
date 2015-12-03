@@ -33,36 +33,40 @@ $(document).ready(function() {
       },
     });
 
+    $('#datepick-votes').datepicker({
+      clearDates: true,
+      todayHighlight: true,
+      keyboardNavigation: false,
+      inputs: $('#datepick-votes .cal-input'),
+      beforeShowDay: function(isShownDate) {
+        return papersExist(isShownDate, json);
+      },
+    });
+
     $(window).on('scroll', function() {
-      $('#datepick-start').datepicker('hide');
-      $('#datepick-end').datepicker('hide');
+      $('.cal-input').datepicker('hide');
       $('#datepick-end').blur();
       $('#datepick-start').blur();
-      $('#datepick-start-short').datepicker('hide');
-      $('#datepick-end-short').datepicker('hide');
       $('#datepick-end-short').blur();
       $('#datepick-start-short').blur();
     });
 
     var once = false;
     if (!once) {
-      $('#datepick-start').datepicker('setDate', urlToDates()[0]);
-      $('#datepick-end').datepicker('setDate', urlToDates()[1]);
-      $('#datepick-start-short').datepicker('setDate', urlToDates()[0]);
-      $('#datepick-end-short').datepicker('setDate', urlToDates()[1]);
+      $('.date-start').datepicker('setDate', urlToDates()[0]);
+      $('.date-end').datepicker('setDate', urlToDates()[1]);
       once = true;
     }
 
     $('.cal-input').datepicker().on('changeDate', function() {
       if (once) {
-        setDateRange($(this).parent());
+        setDateRange($(this).parents('.input-daterange'));
       }
     });
 
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log('Error getting Dates', textStatus, errorThrown, jqXHR);
   });
-
 });
 
 function papersExist(date, availableDates) {
@@ -100,8 +104,8 @@ function urlToDates() {
 }
 
 function setDateRange(dateGroup) {
-  startDate = dateGroup.children('.date-start').datepicker('getDate');
-  endDate = dateGroup.children('.date-end').datepicker('getDate');
+  startDate = dateGroup.find('.date-start').datepicker('getDate');
+  endDate = dateGroup.find('.date-end').datepicker('getDate');
   window.location =  window.location.protocol + '//' +
     window.location.host + window.location.pathname +
     '?ds=' + startDate.getFullYear() + '-' + (startDate.getMonth() + 1) +

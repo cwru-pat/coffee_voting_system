@@ -134,11 +134,11 @@ td.rating {
   padding-bottom:20px;
 }
 
-.cal-input:hover {
+.cal-select:hover {
   background-color:#E4E4E4;
 }
 
-.cal-input{
+.cal-select{
   border-radius: 0px;
   padding: 6px;
 }
@@ -233,6 +233,14 @@ p#user-voters{
   margin-left: 3px;
   margin-right: 7px;
 }
+
+/* Jumbotron things
+-------------------------------------------------- */
+
+.cal-panel {
+  display: inline-block;
+}
+
 
 /* Admin Page
 -------------------------------------------------- */

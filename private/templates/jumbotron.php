@@ -20,8 +20,9 @@ foreach ($result as $row) {
 
         <div class="list-group voted-abstracts">
             <?php
-            $paper_meeting_times = get_adjacent_meeting_times("end", true /* Get *only* meeting times where papers will be discussed */);
+            $paper_meeting_times = get_adjacent_meeting_times("end", true,$params->getStartDate());
             $prev_time = date("Y-m-d H:i", $paper_meeting_times["prev"]);
+            $paper_meeting_times = get_adjacent_meeting_times("end", true);
             $next_time = date("Y-m-d H:i", $paper_meeting_times["next"]);
             $query = "SELECT papers.id, papers.title, papers.authors, papers.abstract, SUM(votes.value) AS value
                                         FROM papers
@@ -160,6 +161,7 @@ foreach ($result as $row) {
         </div><!-- end #list-group -->
         <p>
             <em>
+                <?php if($page_id=='page_votes') echo '<span class="icn-btn" data-toggle="tooltip" data-trigger="hover" title="Change Vote Date Range"><i class="toggle fa fa-cog"></i> </span>' ?>
                 Showing votes from <?php print $prev_time; ?> to <?php print $next_time; ?> |
                 Next meeting is
                 <?php
