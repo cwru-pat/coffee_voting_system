@@ -74,7 +74,7 @@ foreach ($sub_arxivs as $arxiv) {
         foreach ($items as $article) {
             if (isset($article["title"]) && isset($article["description"]) && isset($article["dc:creator"])) {
                 $title = strip_tags(trim($article["title"]));
-                $abstract = strip_tags(trim($article["description"]));
+                $abstract = strip_tags(trim(str_replace('<p><a href="http://arxiv.org">Donate to arXiv</a></p>','',$article["description"])));
                 $authors = trim($article["dc:creator"]);
                 
                 $article_data = array();
