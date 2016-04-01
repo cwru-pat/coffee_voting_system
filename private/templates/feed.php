@@ -20,7 +20,6 @@ array_push($q_params, $begin_date, $end_date);
 $q_num=count($q_params);
 $r_params=array();
 
-
 foreach ($arxivs as $arxiv) :
 ?>
 <div class="panel panel-info arxiv">
