@@ -10,6 +10,11 @@ $votes = get_votes();
 
 $arxivs = get_variable("arxivs");
 array_unshift($arxivs, "users"); // add "users"
+//////////////  SOME 04-01 TWEAKS  //////////////
+if(date('m-d',time())=='04-01') {
+    array_unshift($arxivs, "sna-rx.IV"); // add "snarxiv"
+}
+////////////// END OF 04-01 TWEAKS //////////////
 $q_params=$arxivs;
 array_push($q_params, $begin_date, $end_date);
 $q_num=count($q_params);
