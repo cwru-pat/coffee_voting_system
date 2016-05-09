@@ -53,17 +53,6 @@ code {
   position: relative;
 }
 
-@media (min-width: 768px) {
-  #arxiv-toggle-list.affix-top {
-    position: static;
-   }
-  
-  #arxiv-toggle-list.affix {
-    position: fixed;
-    top:80px;
-  }
-}
-
 
 /* Feeds page items
 -------------------------------------------------- */
@@ -99,7 +88,29 @@ li.article {
 }
 
 .article-button-holder {
-padding-bottom:10px;
+  padding-bottom:10px;
+}
+
+@media (min-width: 768px) {
+  #arxiv-toggle-list.affix-top {
+    position: static;
+   }
+  
+  #arxiv-toggle-list.affix {
+    position: fixed;
+    top:80px;
+  }
+}
+
+/* Calendar Things
+-------------------------------------------------- */
+
+#datepick-quicknav {
+  margin-top: 10px;
+}
+
+#datepick-quicknav .btn {
+  padding: 0px;
 }
 
 /* Toggles and Checklist Format
@@ -116,7 +127,6 @@ padding-bottom:10px;
 .bootstrap-switch-container {
   width: 100%;
 }
-
 
 .section-toggle-button.active {
   background-color: #28a1c4;

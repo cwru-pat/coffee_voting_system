@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<?php print path(); ?>css/selectize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.min.css">
     <link rel="stylesheet" href="<?php print path(); ?>css/summernote.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="<?php print path(); ?>css/main.css">
 

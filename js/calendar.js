@@ -8,26 +8,26 @@ $(document).ready(function() {
   $.ajax(ajaxData).done(function(json) {
 
     $('#datepick').datepicker({
-      format: 'mm/dd/yy',
+      format: 'M d',
       clearDates: true,
       todayHighlight: true,
       autoclose: true,
       todayBtn: 'linked',
       keyboardNavigation: false,
-      inputs: $('#datepick .format-long'),
+      inputs: $('#datepick-start, #datepick-end'),
       beforeShowDay: function(isShownDate) {
         return papersExist(isShownDate, json);
       },
     });
 
     $('#datepick-short').datepicker({
-      format: 'mm/dd',
+      format: 'm / d',
       clearDates: true,
       todayHighlight: true,
       autoclose: true,
       todayBtn: 'linked',
       keyboardNavigation: false,
-      inputs: $('#datepick-short .format-short'),
+      inputs: $('#datepick-start-short, #datepick-end-short'),
       beforeShowDay: function(isShownDate) {
         return papersExist(isShownDate, json);
       },
