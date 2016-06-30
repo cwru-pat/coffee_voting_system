@@ -119,7 +119,9 @@ li.article {
 }
 
 .calendar-text {
-  margin-top: .15em;
+  margin-top: .18em;
+  margin-left: -.02em;
+  font-size: 90%;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
