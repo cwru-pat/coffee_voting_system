@@ -58,6 +58,9 @@ $success = array();
 $missing = array();
 $duplicates = array();
 $messages = array();
+$donate_str = array('<p><a href="http://arxiv.org">Donate to arXiv</a></p>',"<p>DONATE to arXiv: One hundred percent of your contribution will fund improvements and new initiatives to benefit arXiv's global scientific community. Please join the Simons Foundation and our generous member organizations and research labs in supporting arXiv. https://goo.gl/QIgRpr</p>");
+$donate_replace = array_fill(0, count($donate_str), '');
+
 
 foreach ($sub_arxivs as $arxiv) {
     $full_url = ARXIV_RSS_BASE_URL . $arxiv;
@@ -74,7 +77,7 @@ foreach ($sub_arxivs as $arxiv) {
         foreach ($items as $article) {
             if (isset($article["title"]) && isset($article["description"]) && isset($article["dc:creator"])) {
                 $title = strip_tags(trim($article["title"]));
-                $abstract = strip_tags(trim(str_replace('<p><a href="http://arxiv.org">Donate to arXiv</a></p>','',$article["description"])));
+                $abstract = strip_tags(trim(str_replace($donate_str, $donate_replace, $article["description"])));
                 $authors = trim($article["dc:creator"]);
                 
                 $article_data = array();
