@@ -3,3 +3,4 @@ sftp-config.json
 private/.config.php
 private/log/error.log
 private/log/error.log.*
+*.DS_Store
