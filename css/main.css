@@ -113,6 +113,21 @@ li.article {
   padding: 0px;
 }
 
+.fa-stack-1-6x {
+  font-size: 1.6em;
+  margin-top: .1em;
+}
+
+.calendar-text {
+  margin-top: .15em;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.calendar-img {
+  margin-top: .25em;
+  font-size: .7em;
+}
+
 /* Toggles and Checklist Format
 -------------------------------------------------- */
 

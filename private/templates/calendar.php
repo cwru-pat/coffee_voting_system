@@ -27,26 +27,26 @@
     <div class="btn-group btn-group-sm btn-group-justified" id="datepick-quicknav">
         <a href="?ds=<?php echo o($prev_date); ?>&amp;de=<?php echo o($prev_date); ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="View papers from previous day" data-container="body">
             <span class="fa-stack fa">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-step-backward fa-stack-1x"></i>
+                <i class="fa fa-calendar-o fa-stack-1-6x"></i>
+                <i class="fa fa-step-backward fa-stack-1x calendar-img"></i>
             </span>
         </a>
         <a href="?ds=<?php echo o($prev_meeting); ?>&amp;de=<?php echo o($next_meeting); ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="View all papers since the last meeting" data-container="body">
             <span class="fa-stack fa">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-users fa-stack-1x"></i>
+                <i class="fa fa-calendar-o fa-stack-1-6x"></i>
+                <i class="fa fa-stack-1x fa-users calendar-img"></i>
             </span>
         </a>
         <a href="?ds=<?php echo o($today); ?>&amp;de=<?php echo o($today); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="View papers from today" data-container="body">
             <span class="fa-stack fa">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-calendar fa-stack-1x"></i>
+                <i class="fa fa-calendar-o fa-stack-1-6x"></i>
+                <strong class="fa-stack-1x calendar-text"><?php echo o(date("j")) ?></strong>
             </span>
         </a>
         <a href="?ds=<?php echo o($next_date); ?>&amp;de=<?php echo o($next_date); ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="View papers from next day" data-container="body">
             <span class="fa-stack fa">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-step-forward fa-stack-1x"></i>
+                <i class="fa fa-calendar-o fa-stack-1-6x"></i>
+                <i class="fa fa-step-forward fa-stack-1x calendar-img"></i>
             </span>
         </a>
     </div>
