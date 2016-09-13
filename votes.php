@@ -11,7 +11,7 @@ require_once "private/templates/navbar.php";
 // jumbotron is only content
 require_once "private/templates/jumbotron.php";
 ?>
-
+<script type="text/javascript" src="<?php print path(); ?>js/toggle.js"></script>
 <div class="container">
 	<div class="text-center input-daterange hidden" id="datepick-votes" style="float: none;">
 		

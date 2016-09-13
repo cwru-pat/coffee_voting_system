@@ -10,6 +10,7 @@ require_once "private/templates/navbar.php";
 require_once "private/templates/jumbotron.php";
 
 ?>
+<script type="text/javascript" src="<?php print path(); ?>js/toggle.js"></script>
 <script type="text/javascript" src="<?php print path(); ?>js/sidebar.js"></script>
 <div class="container">
     <div class="row">

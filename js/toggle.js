@@ -46,13 +46,6 @@ $(document).ready(function() {
     });
   });
 
-  $('.abstract-showhide').each(function() {
-    $(this).on('click', function() {
-      $('#article-' + $(this).attr('data-paperId') + '-abstract')
-        .slideToggle(150, 'swing');
-    });
-  });
-
   if (toggleGetCookie('updated') == 'true') {
     toggleState = '';
     $('em#UPDATED').each(function() {
@@ -77,12 +70,16 @@ $(document).ready(function() {
   $('#updated-showhide').on('click', function() {
     $('em#UPDATED').each(function() {
       $(this).parent().parent().slideToggle(0, 'swing');
+      var isHidden = $('#updated-showhide').hasClass('active');
+      toggleSetCookie('updated', isHidden, 100);
     });
   });
 
-  $(window).on('beforeunload', function() {
-    var isHidden = $('#updated-showhide').hasClass('active');
-    toggleSetCookie('updated', !isHidden, 100);
+  $('.abstract-showhide').each(function() {
+    $(this).on('click', function() {
+      $('#article-' + $(this).attr('data-paperId') + '-abstract')
+        .slideToggle(150, 'swing');
+    });
   });
 
   $('.icn-btn').hover(function() {
@@ -99,24 +96,3 @@ $(document).ready(function() {
     $('.input-daterange').toggleClass('hidden');
   }
 });
-
-function toggleSetCookie(cName, value, exdays) {
-  var exdate = new Date();
-  exdate.setDate(exdate.getDate() + exdays);
-  var cValue = value + '; expires=' + exdate.toUTCString();
-  document.cookie = cName + '=' + cValue;
-}
-
-function toggleGetCookie(cName) {
-  var carr = document.cookie.split(';');
-  var name = cName + '=';
-  for (i = 0; i < carr.length; i++) {
-    c = carr[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length);
-    }
-  }
-}
