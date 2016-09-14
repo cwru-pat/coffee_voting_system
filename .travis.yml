@@ -39,7 +39,8 @@ before_script:
   - sudo apt-get install php5-curl
 
   # phpcs, jshint, and jscs for error/style guideline checking
-  - pyrus install pear/PHP_CodeSniffer
+  - sudo apt-get install php5-cli php-codesniffer
+  #- pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
   - npm install jscs
   - npm install jshint
