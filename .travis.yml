@@ -1,9 +1,6 @@
 language: php
 
 php:
-  # Anduril uses 5.3
-  - 5.3
-  - 5.4
   # Dev on 5.5
   - 5.5
 

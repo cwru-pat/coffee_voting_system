@@ -224,7 +224,6 @@ function get_adjacent_meeting_times($start_or_end = "end", $papers_only = false,
         "prev" => $date - $prev_time_diff,
         "next" => $date - $next_time_diff,
         );
-
     }
 }
 
