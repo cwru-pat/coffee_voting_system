@@ -1,9 +1,6 @@
 language: php
 
 php:
-  # Anduril uses 5.3
-  - 5.3
-  - 5.4
   # Dev on 5.5
   - 5.5
 
@@ -39,7 +36,7 @@ before_script:
   - sudo apt-get install php5-curl
 
   # phpcs, jshint, and jscs for error/style guideline checking
-  - pyrus install pear/PHP_CodeSniffer
+  - pear install PHP_CodeSniffer
   - phpenv rehash
   - npm install jscs
   - npm install jshint
