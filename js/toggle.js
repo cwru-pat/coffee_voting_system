@@ -55,7 +55,7 @@ $(document).ready(function() {
     toggleState = 'active';
   }
 
-  $('#arxiv-toggle-list').append(
+  $('#sidebar-list').append(
       '<a role="button"' +
       ' class="btn btn-default btn-default btn-xs ' +
       toggleState +
