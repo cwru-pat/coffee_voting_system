@@ -92,11 +92,11 @@ li.article {
 }
 
 @media (min-width: 768px) {
-  #arxiv-toggle-list.affix-top {
+  #sidebar-list.affix-top {
     position: static;
    }
   
-  #arxiv-toggle-list.affix {
+  #sidebar-list.affix {
     position: fixed;
     top:80px;
   }
@@ -157,7 +157,7 @@ td.rating {
   text-align:right;
 }
 
-#arxiv-toggle-list {
+#sidebar-list {
   padding-bottom:20px;
 }
 
@@ -177,6 +177,17 @@ td.rating {
 
 #updated-showhide {
   color: #337AB7;
+}
+
+.sidebar-scrollable {
+    max-height: calc(100vh - 250px);
+    min-height: 22px;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebar-scrollable {
+    max-height: 100%;
 }
 
 /* Jumbotron things

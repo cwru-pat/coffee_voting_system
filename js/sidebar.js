@@ -18,7 +18,7 @@ $(document).ready(function() {
     $(window).resize(resizeFn);
   });
 
-  $('#arxiv-toggle-list').affix({
+  $('#sidebar-list').affix({
     offset: {
       top: function() { return $('#leftCol').offset().top - 80; },
       bottom: function() { return $('.footer').outerHeight(true) + 20 ; },

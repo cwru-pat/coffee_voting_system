@@ -35,7 +35,6 @@
     <script type="text/javascript" src="<?php print path(); ?>js/rate.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/bump.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/cookie.js"></script>
-    <script type="text/javascript" src="<?php print path(); ?>js/cookie.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/forms.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/calendar.js"></script>
     <script type="text/javascript" src="<?php print path(); ?>js/search.js"></script>
