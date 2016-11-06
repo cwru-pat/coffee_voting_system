@@ -82,17 +82,17 @@ $(document).ready(function() {
     });
   });
 
-  $('.icn-btn').hover(function() {
+  $('#vote-date-btn').hover(function() {
     $(this).children().toggleClass('fa-spin');
   });
 
-  $('.icn-btn').on('click', function() {
-    $('.input-daterange').toggleClass('hidden');
-    var isHidden = $('.input-daterange').hasClass('hidden');
+  $('#vote-date-btn').on('click', function() {
+    $('#datepick-votes').toggleClass('hidden');
+    var isHidden = $('#datepick-votes').hasClass('hidden');
     toggleSetCookie('votes_cal', isHidden, 100);
   });
 
   if (toggleGetCookie('votes_cal') == 'false') {
-    $('.input-daterange').toggleClass('hidden');
+    $('#datepick-votes').toggleClass('hidden');
   }
 });

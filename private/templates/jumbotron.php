@@ -161,7 +161,7 @@ foreach ($result as $row) {
         </div><!-- end #list-group -->
         <p>
             <em>
-                <?php if($page_id=='page_votes') echo '<span class="icn-btn" data-toggle="tooltip" data-trigger="hover" title="Change Vote Date Range"><i class="toggle fa fa-cog"></i> </span>' ?>
+                <?php if($page_id=='page_votes') echo '<span class="icn-btn" id="vote-date-btn" data-toggle="tooltip" data-trigger="hover" title="Change Vote Date Range"><i class="toggle fa fa-cog"></i> </span>' ?>
                 Showing votes from <?php print $prev_time; ?> to <?php print $next_time; ?> |
                 Next meeting is
                 <?php
