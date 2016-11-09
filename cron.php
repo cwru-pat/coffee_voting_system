@@ -24,7 +24,7 @@ if (!$user->isAdmin() || !$user->isLoggedIn()) {
 	<div>
 <?php
 		echo "<p>Starting paper import/expire tasks. To automate this, set up a cron job, similar to</p>\n";
-		echo "<pre>\n 0 0,21,22 * * * " . __DIR__ .  "/private/coffee_cron.sh  > " . __DIR__ . "/private/log/cron.log\n</pre>\n";
+		echo "<pre>\n 0 0,21,22 * * * " . __DIR__ .  "/private/coffee_cron.sh > " . __DIR__ . "/private/log/cron.log\n</pre>\n";
 		echo "<p>which will run at midnight, 9 pm, and 10 pm daily and save the output to a log file.</p>\n\n";
 		require_once "private/cronjob.php";
 ?>
