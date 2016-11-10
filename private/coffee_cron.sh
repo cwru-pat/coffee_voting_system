@@ -9,5 +9,6 @@
 
 my_dir=$(dirname -- "$0")
 cd "$my_dir"
+touch log/error.log log/import.log log/cron.log log/logrotate.log
 php cronjob.php > log/import.log
-logrotate logrotate.conf
+logrotate -s log/logrotate.log logrotate.conf
