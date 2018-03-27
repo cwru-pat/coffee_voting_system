@@ -2,6 +2,7 @@
 function formatSearchResults(xml) {
   var html = $.map($('entry', xml), function(val, i) {
     var importButtonText = '';
+    var voteButtonText = '';
     if (isLoggedIn) {
       importButtonText =
           '<a href="#" id="search-result-import-' +
@@ -10,8 +11,19 @@ function formatSearchResults(xml) {
           '<span class="glyphicon glyphicon-import"></span>' +
           ' Import ' +
           '</a>';
+      voteButtonText =
+          '<a href="#" id="search-result-vote-up-' +
+            i +
+          '" type="button" class="btn btn-default">' +
+          '<span class="glyphicon glyphicon-thumbs-up"></span>' +
+          '</a>' +
+          '<a href="#" id="search-result-vote-down-' +
+            i +
+          '" type="button" class="btn btn-default">' +
+          '<span class="glyphicon glyphicon-thumbs-down"></span>' +
+          '</a>';
     }
-    return '<li>' +
+    return '<li id="search-result-item-' + i + '">' +
          $('title', val).text() +
          ' <div class="btn-group btn-group-xs" role="group">' +
               importButtonText +
@@ -20,10 +32,62 @@ function formatSearchResults(xml) {
               '" type="button" class="btn btn-default">' +
                  '<span class="glyphicon glyphicon-share"></span>' +
                  ' View on arXiv ' +
-             '</a>' +
+              '</a>' +
+              voteButtonText +
          '</div>' +
+         '<span id="search-result-vote-' + i + '" class="article-messages"></span>'
          '</li>';
   }).join('');
+
+  function importFromSearch(val,i,vote) {
+    var idPattern = /http\:\/\/arxiv\.org\/abs\//i;
+    var arxivId = $('id', val).text().replace(idPattern, '');
+    var arxivCategory = $('category', val).attr('term');
+    var data = {
+      'import-id': removeNewlines($('id', val).text()),
+      title: removeNewlines(
+        $('title', val).text() +
+        ' (arxiv:' + arxivId + ' [' + arxivCategory + '])'),
+      authors: removeNewlines($('author', val).text()), // could be improved
+      abstract: removeNewlines($('summary', val).text()),
+      section: removeNewlines(arxivCategory),
+      arxivId: arxivId,
+    };
+    console.log('Importing paper...', data);
+    var ajaxData = {
+      url: 'js/import.php',
+      type: 'POST',
+      dataType: 'json',
+      data: data,
+      success: function(json) {
+        console.log(json);
+        if (json.hasOwnProperty('errors') || !json.hasOwnProperty('postId')) {
+          console.log(json.errors);
+          $('#search-result-import-' + i)
+            .html('<i class="fa fa-times-circle"></i> Import failed!');
+        } else {
+          $('#search-result-vote-'+i).attr('data-paperid',json.postId);
+          $('#search-result-import-' + i).off();
+          $('#search-result-import-' + i).on('click', function(e) {
+            e.preventDefault();
+            document.location.href = 'post?post-id=' + json.postId;
+          });
+          $('#search-result-import-' + i)
+            .html('<i class="fa fa-check-circle"></i> View Paper.');
+          $('#search-result-import-' + i).addClass('btn-success');
+          if(typeof vote=='number'&&vote) {
+            voteOnPaper(json.postId,vote)
+          }
+        }
+      },
+      error: function(err) {
+        $('#search-result-import-' + i)
+          .html('<i class="fa fa-times-circle"></i> Import failed!');
+        console.log(err);
+      }
+    };
+    $.ajax(ajaxData);
+  }
 
   if (!html) {
     html = '<li>No results found!</li>';
@@ -36,48 +100,15 @@ function formatSearchResults(xml) {
   $.map($('entry', xml), function(val, i) {
     $('#search-result-import-' + i).on('click', function(e) {
       e.preventDefault();
-      var idPattern = /http\:\/\/arxiv\.org\/abs\//i;
-      var arxivId = $('id', val).text().replace(idPattern, '');
-      var arxivCategory = $('category', val).attr('term');
-      var data = {
-        'import-id': removeNewlines($('id', val).text()),
-        title: removeNewlines(
-          $('title', val).text() +
-          ' (arxiv:' + arxivId + ' [' + arxivCategory + '])'),
-        authors: removeNewlines($('author', val).text()), // could be improved
-        abstract: removeNewlines($('summary', val).text()),
-        section: removeNewlines(arxivCategory),
-        arxivId: arxivId,
-      };
-      console.log('Importing paper...', data);
-      $.ajax({
-        url: 'js/import.php',
-        type: 'POST',
-        dataType: 'json',
-        data: data,
-        success: function(json) {
-          console.log(json);
-          if (json.hasOwnProperty('errors') || !json.hasOwnProperty('postId')) {
-            console.log(json.errors);
-            $('#search-result-import-' + i)
-              .html('<i class="fa fa-times-circle"></i> Import failed!');
-          } else {
-            $('#search-result-import-' + i).off();
-            $('#search-result-import-' + i).on('click', function(e) {
-              e.preventDefault();
-              document.location.href = 'post?post-id=' + json.postId;
-            });
-            $('#search-result-import-' + i)
-              .html('<i class="fa fa-check-circle"></i> View Paper.');
-            $('#search-result-import-' + i).addClass('btn-success');
-          }
-        },
-        error: function(err) {
-          $('#search-result-import-' + i)
-            .html('<i class="fa fa-times-circle"></i> Import failed!');
-          console.log(err);
-        }
-      });
+      importFromSearch(val,i);
+    });
+    $('#search-result-vote-up-' + i).on('click', function(e) {
+      e.preventDefault();
+      importFromSearch(val,i,1);
+    });
+    $('#search-result-vote-down-' + i).on('click', function(e) {
+      e.preventDefault();
+      importFromSearch(val,i,-1);
     });
   });
 }

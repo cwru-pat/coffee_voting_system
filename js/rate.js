@@ -9,7 +9,7 @@ function displayRateJson(span, json) {
       $('#bumpModal').modal();
     }
     span.append(json.error);
-    span.addClass('bg-warning');
+    span.addClass('bg-danger');
   } else {
     span.append('Unexpected error.');
   }
@@ -28,6 +28,24 @@ function displayRateJson(span, json) {
   }
 }
 
+function voteOnPaper(paperId, value) {
+  var ajaxData = {
+    dataType: 'json',
+    method: 'POST',
+    url: 'js/rate.php',
+    data: {paperId: paperId, value: value}
+  };
+  console.log('Voting '+ value + '; ', ajaxData);
+  $.ajax(ajaxData).done(function(json) {
+    console.log('Recieved from server: ', json);
+    displayRateJson($('span[data-paperid="'+ paperId +'"]'), json);
+    displayRateJson($('#article-' + paperId + '-messages'), json);
+    displayRateJson($('#article-voted-' + paperId + '-messages'), json);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('Error submitting vote.', textStatus, errorThrown, jqXHR);
+  });
+}
+
 $(document).ready(function() {
 
   $('div.article-button-holder').each(function(index) {
@@ -35,38 +53,12 @@ $(document).ready(function() {
 
     $(this).children('.btn-upvote').on('click', function(event) {
       event.preventDefault();
-      var ajaxData = {
-        dataType: 'json',
-        method: 'POST',
-        url: 'js/rate.php',
-        data: {paperId: paperId, value: 1}
-      };
-      console.log('Voting up; ', ajaxData);
-      $.ajax(ajaxData).done(function(json) {
-        console.log('Recieved from server: ', json);
-        displayRateJson($('#article-' + paperId + '-messages'), json);
-        displayRateJson($('#article-voted-' + paperId + '-messages'), json);
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log('Error submitting vote.', textStatus, errorThrown, jqXHR);
-      });
+      voteOnPaper(paperId,1)
     });
 
     $(this).children('.btn-downvote').on('click', function(event) {
       event.preventDefault();
-      var ajaxData = {
-        dataType: 'json',
-        method: 'POST',
-        url: 'js/rate.php',
-        data: {paperId: paperId, value: -1}
-      };
-      console.log('Voting down; ', ajaxData);
-      $.ajax(ajaxData).done(function(json) {
-        console.log('Recieved from server: ', json);
-        displayRateJson($('#article-' + paperId + '-messages'), json);
-        displayRateJson($('#article-voted-' + paperId + '-messages'), json);
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log('Error submitting vote.', textStatus, errorThrown, jqXHR);
-      });
+      voteOnPaper(paperId,-1)
     });
   });
 
