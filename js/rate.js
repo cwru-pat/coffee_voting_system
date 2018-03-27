@@ -35,10 +35,10 @@ function voteOnPaper(paperId, value) {
     url: 'js/rate.php',
     data: {paperId: paperId, value: value}
   };
-  console.log('Voting '+ value + '; ', ajaxData);
+  console.log('Voting ' + value + '; ', ajaxData);
   $.ajax(ajaxData).done(function(json) {
     console.log('Recieved from server: ', json);
-    displayRateJson($('span[data-paperid="'+ paperId +'"]'), json);
+    displayRateJson($('span[data-paperid="' + paperId + '"]'), json);
     displayRateJson($('#article-' + paperId + '-messages'), json);
     displayRateJson($('#article-voted-' + paperId + '-messages'), json);
   }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -53,12 +53,12 @@ $(document).ready(function() {
 
     $(this).children('.btn-upvote').on('click', function(event) {
       event.preventDefault();
-      voteOnPaper(paperId,1)
+      voteOnPaper(paperId, 1)
     });
 
     $(this).children('.btn-downvote').on('click', function(event) {
       event.preventDefault();
-      voteOnPaper(paperId,-1)
+      voteOnPaper(paperId, -1)
     });
   });
 

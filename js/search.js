@@ -24,22 +24,24 @@ function formatSearchResults(xml) {
           '</a>';
     }
     return '<li id="search-result-item-' + i + '">' +
-         $('title', val).text() +
-         ' <div class="btn-group btn-group-xs" role="group">' +
-              importButtonText +
-              '<a href="' +
-              $('id', val).text() +
-              '" type="button" class="btn btn-default">' +
-                 '<span class="glyphicon glyphicon-share"></span>' +
-                 ' View on arXiv ' +
-              '</a>' +
-              voteButtonText +
-         '</div>' +
-         '<span id="search-result-vote-' + i + '" class="article-messages"></span>'
-         '</li>';
+      $('title', val).text() +
+      '<div class="btn-group btn-group-xs" role="group">' +
+        importButtonText +
+        '<a href="' +
+          $('id', val).text() +
+          '" type="button" class="btn btn-default">' +
+          '<span class="glyphicon glyphicon-share"></span>' +
+          ' View on arXiv ' +
+        '</a>' +
+        voteButtonText +
+      '</div>' +
+      '<span id="search-result-vote-' + i +
+        '" class="article-messages">' +
+      '</span>' +
+      '</li>';
   }).join('');
 
-  function importFromSearch(val,i,vote) {
+  function importFromSearch(val, i, vote) {
     var idPattern = /http\:\/\/arxiv\.org\/abs\//i;
     var arxivId = $('id', val).text().replace(idPattern, '');
     var arxivCategory = $('category', val).attr('term');
@@ -66,7 +68,7 @@ function formatSearchResults(xml) {
           $('#search-result-import-' + i)
             .html('<i class="fa fa-times-circle"></i> Import failed!');
         } else {
-          $('#search-result-vote-'+i).attr('data-paperid',json.postId);
+          $('#search-result-vote-' + i).attr('data-paperid', json.postId);
           $('#search-result-import-' + i).off();
           $('#search-result-import-' + i).on('click', function(e) {
             e.preventDefault();
@@ -75,8 +77,8 @@ function formatSearchResults(xml) {
           $('#search-result-import-' + i)
             .html('<i class="fa fa-check-circle"></i> View Paper.');
           $('#search-result-import-' + i).addClass('btn-success');
-          if(typeof vote=='number'&&vote) {
-            voteOnPaper(json.postId,vote)
+          if ((typeof vote == 'number') && vote) {
+            voteOnPaper(json.postId, vote)
           }
         }
       },
@@ -100,15 +102,15 @@ function formatSearchResults(xml) {
   $.map($('entry', xml), function(val, i) {
     $('#search-result-import-' + i).on('click', function(e) {
       e.preventDefault();
-      importFromSearch(val,i);
+      importFromSearch(val, i);
     });
     $('#search-result-vote-up-' + i).on('click', function(e) {
       e.preventDefault();
-      importFromSearch(val,i,1);
+      importFromSearch(val, i, 1);
     });
     $('#search-result-vote-down-' + i).on('click', function(e) {
       e.preventDefault();
-      importFromSearch(val,i,-1);
+      importFromSearch(val, i, -1);
     });
   });
 }
