@@ -7,9 +7,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-jscs js
+eslint js
 if [ $? -ne 0 ]; then
-    echo "jscs checks failed!"
+    echo "eslint checks failed!"
     exit 1
 fi
 
@@ -20,7 +20,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Try actually running files to check for any errors.
-# This will really only work for actions that don't require 
+# This will really only work for actions that don't require
 # a user to be logged in.
 PHPFILES=`ls *.php js/*.php`
 

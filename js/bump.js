@@ -1,8 +1,7 @@
 $(document).ready(function() {
-
   $('#bumpModal').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    var paperId = button.data('paperid');
+    const button = $(event.relatedTarget); // Button that triggered the modal
+    const paperId = button.data('paperid');
 
     $(this).find('.bump-btn').each(function() {
       $(this).data('paperid', paperId);
@@ -10,15 +9,14 @@ $(document).ready(function() {
   });
 
   $('.bump-btn').on('click', function() {
+    const bump = $(this).data('bump');
+    const paperId = $(this).data('paperid');
 
-    var bump = $(this).data('bump');
-    var paperId = $(this).data('paperid');
-
-    var ajaxData = {
+    const ajaxData = {
       dataType: 'json',
       method: 'POST',
       url: 'js/bump.php',
-      data: {paperId: paperId, bump: bump}
+      data: {paperId: paperId, bump: bump},
     };
 
     $.ajax(ajaxData).done(function(json) {
@@ -27,5 +25,4 @@ $(document).ready(function() {
       console.log('Error bumping.', textStatus, errorThrown, jqXHR);
     });
   });
-
 });

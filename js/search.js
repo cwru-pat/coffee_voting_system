@@ -1,8 +1,8 @@
 
 function formatSearchResults(xml) {
-  var html = $.map($('entry', xml), function(val, i) {
-    var importButtonText = '';
-    var voteButtonText = '';
+  let html = $.map($('entry', xml), function(val, i) {
+    let importButtonText = '';
+    let voteButtonText = '';
     if (isLoggedIn) {
       importButtonText =
           '<a href="#" id="search-result-import-' +
@@ -42,21 +42,21 @@ function formatSearchResults(xml) {
   }).join('');
 
   function importFromSearch(val, i, vote) {
-    var idPattern = /http\:\/\/arxiv\.org\/abs\//i;
-    var arxivId = $('id', val).text().replace(idPattern, '');
-    var arxivCategory = $('category', val).attr('term');
-    var data = {
+    const idPattern = /http\:\/\/arxiv\.org\/abs\//i;
+    const arxivId = $('id', val).text().replace(idPattern, '');
+    const arxivCategory = $('category', val).attr('term');
+    const data = {
       'import-id': removeNewlines($('id', val).text()),
-      title: removeNewlines(
+      'title': removeNewlines(
         $('title', val).text() +
         ' (arxiv:' + arxivId + ' [' + arxivCategory + '])'),
-      authors: removeNewlines($('author', val).text()), // could be improved
-      abstract: removeNewlines($('summary', val).text()),
-      section: removeNewlines(arxivCategory),
-      arxivId: arxivId,
+      'authors': removeNewlines($('author', val).text()), // could be improved
+      'abstract': removeNewlines($('summary', val).text()),
+      'section': removeNewlines(arxivCategory),
+      'arxivId': arxivId,
     };
     console.log('Importing paper...', data);
-    var ajaxData = {
+    const ajaxData = {
       url: 'js/import.php',
       type: 'POST',
       dataType: 'json',
@@ -78,7 +78,7 @@ function formatSearchResults(xml) {
             .html('<i class="fa fa-check-circle"></i> View Paper.');
           $('#search-result-import-' + i).addClass('btn-success');
           if ((typeof vote == 'number') && vote) {
-            voteOnPaper(json.postId, vote)
+            voteOnPaper(json.postId, vote);
           }
         }
       },
@@ -86,7 +86,7 @@ function formatSearchResults(xml) {
         $('#search-result-import-' + i)
           .html('<i class="fa fa-times-circle"></i> Import failed!');
         console.log(err);
-      }
+      },
     };
     $.ajax(ajaxData);
   }
@@ -116,16 +116,16 @@ function formatSearchResults(xml) {
 }
 
 function performSearch(value) {
-  var order = $('#arxiv_search_order').val();
+  const order = $('#arxiv_search_order').val();
   $.ajax({
     url: 'https://export.arxiv.org/api/query',
     type: 'GET',
     dataType: 'xml',
     data: {
       'search_query': value,
-      sortBy: order,
-      start: 0,
-      'max_results': 10
+      'sortBy': order,
+      'start': 0,
+      'max_results': 10,
     },
     success: function(xml) {
       formatSearchResults(xml);
@@ -147,7 +147,7 @@ $(document).ready(function() {
   $('#arxiv_search').typeWatch({
     callback: performSearch,
     wait: 250,
-    captureLength: 0
+    captureLength: 0,
   });
 
   $('#arxiv_search').on('input', showSearchSpinner);
@@ -170,7 +170,7 @@ $(document).ready(function() {
     );
   });
 
-  $('#searchModal').on('shown.bs.modal', function(e) {
+  $('#searchModal').on('shown.bs.modal', function() {
     $('#arxiv_search').focus();
   });
 });

@@ -1,10 +1,9 @@
 $(document).ready(function() {
-
   $('[data-clampedwidth]').each(function() {
-    var elem = $(this);
-    var parentPanel = elem.data('clampedwidth');
-    var resizeFn = function() {
-      var sideBarNavWidth = $(parentPanel).width() -
+    let elem = $(this);
+    let parentPanel = elem.data('clampedwidth');
+    let resizeFn = function() {
+      const sideBarNavWidth = $(parentPanel).width() -
                             parseInt(elem.css('paddingLeft')) -
                             parseInt(elem.css('paddingRight')) -
                             parseInt(elem.css('marginLeft')) -
@@ -20,17 +19,20 @@ $(document).ready(function() {
 
   $('#sidebar-list').affix({
     offset: {
-      top: function() { return $('#leftCol').offset().top - 80; },
-      bottom: function() { return $('.footer').outerHeight(true) + 20 ; },
-    }
+      top: function() {
+        return $('#leftCol').offset().top - 80;
+      },
+      bottom: function() {
+        return $('.footer').outerHeight(true) + 20;
+      },
+    },
   });
 
-  var $body   = $(document.body);
-  var navHeight = $('.navbar').outerHeight(true);
+  let $body = $(document.body);
+  let navHeight = $('.navbar').outerHeight(true);
 
   $body.scrollspy({
     target: '#leftCol',
-    offset: navHeight
+    offset: navHeight,
   });
-
 });

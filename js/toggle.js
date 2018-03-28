@@ -1,11 +1,10 @@
 $(document).ready(function() {
   $panelHash = window.location.hash.split('-')[1];
   $('.panel-heading.arxiv').each(function(key, value) {
-
     $(this).parent().children('.panel-body').attr('id', 'panel-body-' + key);
     $(this).parent().attr('id', 'panel-' + key);
 
-    var panelHeadingText = $('.cookieTitle', value).text().trim();
+    let panelHeadingText = $('.cookieTitle', value).text().trim();
     if (toggleGetCookie(panelHeadingText) == 'true' && $panelHash != key) {
       toggleState = '';
       $('#panel-body-' + key).slideToggle(0, 'swing');
@@ -41,7 +40,7 @@ $(document).ready(function() {
     });
 
     $(window).on('beforeunload', function() {
-      var isActivePanel = $('#toggle-item-' + key).hasClass('active');
+      const isActivePanel = $('#toggle-item-' + key).hasClass('active');
       toggleSetCookie(panelHeadingText, !isActivePanel, 100);
     });
   });
@@ -70,7 +69,7 @@ $(document).ready(function() {
   $('#updated-showhide').on('click', function() {
     $('em#UPDATED').each(function() {
       $(this).parent().parent().slideToggle(0, 'swing');
-      var isHidden = $('#updated-showhide').hasClass('active');
+      const isHidden = $('#updated-showhide').hasClass('active');
       toggleSetCookie('updated', isHidden, 100);
     });
   });
@@ -88,7 +87,7 @@ $(document).ready(function() {
 
   $('#vote-date-btn').on('click', function() {
     $('#datepick-votes').toggleClass('hidden');
-    var isHidden = $('#datepick-votes').hasClass('hidden');
+    const isHidden = $('#datepick-votes').hasClass('hidden');
     toggleSetCookie('votes_cal', isHidden, 100);
   });
 

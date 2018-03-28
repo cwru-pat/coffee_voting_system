@@ -1,5 +1,5 @@
 
-var isLoggedIn = 0;
+let isLoggedIn = 0;
 
 $(document).ready(function() {
   $(function() {
@@ -18,15 +18,15 @@ $(document).ready(function() {
   });
 
   $('#delete-post-button').on('click', function(e) {
-    var $form = $(this).closest('form');
+    let $form = $(this).closest('form');
     e.preventDefault();
     $('#confirm_delete').modal({backdrop: 'static', keyboard: false})
-      .one('click', '#modal-delete-button', function() { // (one. is not a typo of on.)
+      .one('click', '#modal-delete-button', function() {
+        // (one. is not a typo of on.)
         $('#delete-post').val('delete'); // set input to 'delete'
         $form.trigger('submit'); // submit the form
       });
   });
-
 });
 
 function removeNewlines(text) {

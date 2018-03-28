@@ -1,12 +1,10 @@
 $(document).ready(function() {
-
-  var ajaxData = {
+  const ajaxData = {
       dataType: 'json',
       url: 'js/getdates.php',
     };
 
   $.ajax(ajaxData).done(function(json) {
-
     $('#datepick').datepicker({
       format: 'M d',
       clearDates: true,
@@ -51,7 +49,7 @@ $(document).ready(function() {
       $('#datepick-start-short').blur();
     });
 
-    var once = false;
+    let once = false;
     if (!once) {
       $('.date-start').datepicker('setDate', urlToDates()[0]);
       $('.date-end').datepicker('setDate', urlToDates()[1]);
@@ -63,22 +61,21 @@ $(document).ready(function() {
         setDateRange($(this).parents('.input-daterange'));
       }
     });
-
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log('Error getting Dates', textStatus, errorThrown, jqXHR);
   });
 });
 
 function papersExist(date, availableDates) {
-  dmy = date.getFullYear() + '-' +
+  const dmy = date.getFullYear() + '-' +
     ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
     ('0' + date.getDate()).slice(-2);
   return ($.inArray(dmy, availableDates) != -1) ? true : false;
 }
 
 function parse(val) {
-  var result = false;
-  var tmp = [];
+  let result = false;
+  let tmp = [];
   window.location.search.substr(1).split('&').forEach(function(item) {
     tmp = item.split('=');
     if (tmp[0] === val) {
@@ -89,8 +86,8 @@ function parse(val) {
 }
 
 function urlToDates() {
-  var date = [];
-  var dstring = parse('ds');
+  let date = [];
+  let dstring = parse('ds');
   date[0] = new Date(dstring);
   if (dstring === false) {
     date[0] = new Date();
@@ -104,9 +101,9 @@ function urlToDates() {
 }
 
 function setDateRange(dateGroup) {
-  startDate = dateGroup.find('.date-start').datepicker('getDate');
-  endDate = dateGroup.find('.date-end').datepicker('getDate');
-  window.location =  window.location.protocol + '//' +
+  const startDate = dateGroup.find('.date-start').datepicker('getDate');
+  const endDate = dateGroup.find('.date-end').datepicker('getDate');
+  window.location = window.location.protocol + '//' +
     window.location.host + window.location.pathname +
     '?ds=' + startDate.getFullYear() + '-' + (startDate.getMonth() + 1) +
     '-' + (startDate.getDate()) +
@@ -115,7 +112,7 @@ function setDateRange(dateGroup) {
 }
 
 function setDateRange2(startDate, endDate) {
-  window.location =  window.location.protocol + '//' +
+  window.location = window.location.protocol + '//' +
     window.location.host + window.location.pathname +
     '?ds=' + startDate.getFullYear() + '-' + (startDate.getMonth() + 1) +
     '-' + (startDate.getDate()) +

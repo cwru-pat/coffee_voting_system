@@ -1,0 +1,17 @@
+{
+	"extends": "google",
+	"parserOptions": {
+		"ecmaVersion": 6
+	},
+	"rules": {
+		"no-unused-vars": ["error", {"vars": "local"}],
+		"require-jsdoc": ["error", {
+			"require": {
+				"FunctionDeclaration": false,
+				"MethodDefinition": false,
+				"ClassDeclaration": false,
+				"ArrowFunctionExpression": false
+			}
+			}]
+		}
+	}
