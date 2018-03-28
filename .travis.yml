@@ -38,8 +38,8 @@ before_script:
   # phpcs, jshint, and jscs for error/style guideline checking
   - pear install PHP_CodeSniffer
   - phpenv rehash
-  - npm install eslint
-  - npm install eslint-config-google
-  - npm install jshint
+  - npm install -g eslint
+  - npm install -g eslint-config-google
+  - npm install -g jshint
 
 script: "./ci/ci-tests.sh"
