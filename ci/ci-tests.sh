@@ -13,11 +13,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-jshint js
-if [ $? -ne 0 ]; then
-    echo "jshint checks failed!"
-    exit 1
-fi
 
 # Try actually running files to check for any errors.
 # This will really only work for actions that don't require

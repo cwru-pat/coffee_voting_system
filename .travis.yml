@@ -40,6 +40,5 @@ before_script:
   - phpenv rehash
   - npm install -g eslint
   - npm install -g eslint-config-google
-  - npm install -g jshint
 
 script: "./ci/ci-tests.sh"
