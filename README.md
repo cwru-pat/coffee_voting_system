@@ -25,8 +25,8 @@
    - phpCAS requires php5-curl (`sudo apt-get install php5-curl`)
  - Set up [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), easiest via pear `sudo apt-get install php-pear` and `sudo pear install PHP_CodeSniffer`.
    - This can be run using a command like `phpcs --standard=PSR2 -n **/*.php` (Which travis-ci will check.)
- - Set up [jshint](http://jshint.com/) and [jscs](http://jscs.info/): `sudo apt-get install npm`, then install using `sudo npm install jshint -g` and `sudo npm install jscs -g`.
-   - These can be run using a command like `jshint js` or `jscs js`.
+ - Set up [eslint](https://eslint.org/): `sudo apt-get install npm`, then install using `sudo npm install -g eslint` to get eslint. To get the definitions `sudo npm install -g eslint-config-google`
+   - This can be run using a command like `eslint js`.
 
 ## Setting up the script
 
