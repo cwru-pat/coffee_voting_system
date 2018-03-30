@@ -24,8 +24,8 @@ $config['database']['tables']['papers'] = array(
     "title" => "BLOB",
     "authors" => "BLOB",
     "abstract" => "BLOB",
-    "subject" => "VARCHAR(12)",
-    "arxivId" => "VARCHAR(12)",
+    "subject" => "VARCHAR(20)",
+    "arxivId" => "VARCHAR(20)",
     "date" => "TIMESTAMP"
   );
 
