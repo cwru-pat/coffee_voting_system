@@ -23,6 +23,7 @@
    - `GRANT ALL ON coffee.* TO coffee`
  - Download and unzip [phpCAS](https://wiki.jasig.org/display/casc/phpcas)
    - phpCAS requires php5-curl (`sudo apt-get install php5-curl`)
+ - Download and unzip [htmlpurifier](http://htmlpurifier.org/download)
  - Set up [PHPCodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer), easiest via pear `sudo apt-get install php-pear` and `sudo pear install PHP_CodeSniffer`.
    - This can be run using a command like `phpcs --standard=PSR2 -n **/*.php` (Which travis-ci will check.)
  - Set up [eslint](https://eslint.org/): `sudo apt-get install npm`, then install using `sudo npm install -g eslint` to get eslint. To get the definitions `sudo npm install -g eslint-config-google`
@@ -36,7 +37,8 @@
  - Copy the settings file, `cp private/.default-config.php private/.config.php`. The file `private/.config.php` is ignored in .gitignore, so you can edit it without worrying about passwords being committed.
    - Edit the `$config['database'][...]` to reflect the mysql credentials created above.
    - Edit `$config['web']['path']` to point to the URL where you can view the system.
-   - Edit `$config['phpCAS']['location']` to point to system path where the CAS.php file inside the phpCAS directory is (it should probably not be a subdirectory of this repo).
+   - Edit `$config['phpCAS']['location']` to point to system path where the `CAS.php` file inside the phpCAS directory is (it should probably not be a subdirectory of this repo).
+   - Edit `$config['htmlpurifier']['location']` to point to system path where the `HTMLPurifier.auto.php` file is inside the htmlpurifier library directory is (it should probably not be a subdirectory of this repo).
  - A pre-commit hook to run tests exists. Run `cp pre-commit .git/hooks/pre-commmit` to enable it.
 
 ## Notes
