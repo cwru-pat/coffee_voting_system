@@ -42,10 +42,19 @@ $coffee_conn->createTables();
 // Enabling query debugging will cause output that will ruin json returns in ajax calls.
 $coffee_conn->setDebug(false);
 
-// global system user object
-global $user;
+
+//load phpCAS
 $phpCAS = $config->get("phpCAS");
 require_once $phpCAS['location'];
+//load htmlpurifier
+$htmlpurifier = $config->get('htmlpurifier');
+require_once $htmlpurifier['location'];
+// global htmlpurifier object
+global $purifier;
+$purifier = new HTMLPurifier();
+
+// global system user object
+global $user;
 $user = new CoffeeClasses\User($coffee_conn);
 
 // global object for handling some URL parameters

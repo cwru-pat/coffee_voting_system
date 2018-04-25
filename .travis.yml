@@ -18,6 +18,8 @@ before_install:
 install:
   ## phpCAS
   - (cd ..; wget http://developer.jasig.org/cas-clients/php/current.tgz; tar -xf current.tgz; mv CAS-* CAS)
+  ## htmlpurifier
+  - (cd ..; wget http://htmlpurifier.org/releases/htmlpurifier-4.10.0-lite.tar.gz; tar -xf htmlpurifier-4.10.0-lite.tar.gz; mv htmlpurifier-* htmlpurifier)
 
 before_script:
   - sudo apt-get update

@@ -32,15 +32,15 @@ function format_arxiv_title_bare($title)
 {
     $article_data = array();
     preg_match('/(.*)\s\((.*)\s\[(.*)\](.*)\)(.*)/i', $title, $article_data);
-   
+
     if (count($article_data) == 6) {
         $title = $article_data[1];
         $article = $article_data[2];
         $section = $article_data[3];
         $special = trim($article_data[4]);
-   
+
         $title_text = $title;
-           
+
         return $title_text;
     } else {
         return $title;
@@ -70,7 +70,7 @@ function format_arxiv_title_voted($title)
 
         $pdf_link = '<a href="http://arxiv.org/pdf/'.$article.'.pdf" class="pdf-link btn btn-default btn-xs voted-btn pdf" role="button" title="Open PDF" data-toggle-tip="tooltip" data-container="body" data-placement="bottom"><span class="glyphicon glyphicon-share"></span> PDF</a>';
         $arx_link = '<a href="http://arxiv.org/abs/'.$article.'" class="btn btn-default btn-xs voted-btn arxiv" role="button" title="Go to arXiv" data-toggle-tip="tooltip" data-container="body" data-placement="bottom"><span class="glyphicon glyphicon-share"></span> arXiv</a>';
-        
+
         return array($title_text,$pdf_link,$arx_link);
     } else {
         return $title;
@@ -148,6 +148,11 @@ function o($value, $flags = ENT_QUOTES)
     return htmlentities($value, $flags, 'UTF-8', false);
 }
 
+function sanatize_text($string)
+{
+    global $purifier;
+    return $purifier->purify($string);
+}
 // return timestamps for current week's meetings.
 function get_meeting_timestamps($start_or_end = "end", $papers_only = false, $date = false)
 {

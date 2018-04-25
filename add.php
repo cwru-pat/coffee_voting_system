@@ -69,6 +69,9 @@ if ($params->get("delete-post") == "delete") {
     }
 
     if (!$errors) {
+      //strip out some tags to make it slightly safer
+      $post_title = sanatize_text($post_title);
+      $post_body = sanatize_text($post_body);
         if ($params->get("post-id")) {
             // permissions checked earlier.
 

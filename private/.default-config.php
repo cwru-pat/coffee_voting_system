@@ -13,6 +13,7 @@ $config['database']['pass'] = '';
 $config['database']['name'] = 'coffee';
 
 $config['phpCAS']['location'] = __DIR__ . '/../../CAS/CAS.php';
+$config['htmlpurifier']['location'] = __DIR__ . '/../../htmlpurifier/library/HTMLPurifier.auto.php';
 
 // Schema used by the DBConn class to create tables.
 // Don't use a field name "id"; this is created by DBConn.
